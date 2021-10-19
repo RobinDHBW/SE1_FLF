@@ -12,3 +12,9 @@ gradle-app.setting
 
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
+*.lock
+.vpprefdata/
+.bak_000f
+*.bak_000f
+*.bak_001d
+*.bak_002d
