@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  */
@@ -16,8 +19,10 @@ public class FLF {
 
         public Builder() {
 
-            for (int i = 0; i < 4; i++) {
-                seatList.add(new Seat());
+            for (int i = 0; i < 2; i++) {
+                boolean leftSide = i == 0 ;
+                seatList.add(new Seat(1, leftSide, false));
+                seatList.add(new SeatFirefighting(leftSide, false));
             }
 
 
@@ -29,7 +34,5 @@ public class FLF {
         public FLF build() {
             return new FLF(this);
         }
-
-        ;
     }
 }

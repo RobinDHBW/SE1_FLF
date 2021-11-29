@@ -1,7 +1,7 @@
 public class Seat {
-    protected Integer seatRow = 0;
-    protected Boolean leftSide = false;
-    protected Boolean occupied = false;
+    protected int seatRow = 0;
+    protected boolean leftSide = false;
+    protected boolean occupied = false;
     public Respirator respirator = new Respirator();
 
     public Seat(Integer seatRow, Boolean leftSide, Boolean occupied) {
@@ -21,5 +21,9 @@ public class Seat {
 
     public Boolean getOccupied() {
         return occupied;
+    }
+
+    public void setOccupied(boolean occupied) {
+        this.occupied = occupied;
     }
 }
