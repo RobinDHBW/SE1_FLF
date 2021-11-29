@@ -6,9 +6,11 @@ import java.util.List;
  */
 public class FLF {
     private final List<Seat> seatList;
+    private final Cabin cabin;
 
     private FLF(Builder builder) {
-        seatList = builder.build().seatList;
+        this.seatList = builder.build().seatList;
+        this.cabin = builder.build().cabin;
     }
 
     /**
@@ -16,6 +18,7 @@ public class FLF {
      */
     public static class Builder {
         private final List<Seat> seatList = new ArrayList<>();
+        private final  Cabin cabin = new Cabin();
 
         public Builder() {
 

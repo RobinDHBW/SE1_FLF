@@ -1,4 +1,4 @@
-public abstract class Pedal{
+public class Pedal{
     protected int stepSize;
 
     public Pedal(int stepSize){
