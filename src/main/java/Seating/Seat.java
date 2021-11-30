@@ -1,3 +1,5 @@
+package Seating;
+
 public class Seat {
     protected int seatRow = 0;
     protected boolean leftSide = false;

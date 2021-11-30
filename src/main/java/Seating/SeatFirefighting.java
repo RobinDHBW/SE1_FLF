@@ -1,3 +1,7 @@
+package Seating;
+
+import Person.Person;
+
 public class SeatFirefighting extends Seat {
     protected Person personAllowed;
 
