@@ -41,20 +41,20 @@ public class Tank implements ITank {
     }
 
     @Override
-    public TankSubject remove(Integer quantity) {
+    public TankSubject[] remove(Integer quantity) {
         int x = fillState.get('x');
         int y = fillState.get('y');
         int z = fillState.get('z');
 
 
-        TankSubject output = null;
+        TankSubject[] output = new TankSubject[quantity];
 
         if (!isFull) {
             for (int j = y; j < tank[0].length; j++) {
                 for (int i = x; i < tank.length; i++) {
                     for (int k = z; k < tank[0][0].length; k++) {
                         if (quantity-- == 0) break;
-                        output = tank[i][j][k];
+                        output[quantity] = tank[i][j][k];
                         tank[i][j][k] = null;
                     }
                 }
