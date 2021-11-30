@@ -1,6 +1,6 @@
 package Axle;
 
-public class AxleSteerable implements IAxleSteerable {
+public class AxleSteerable extends Axle implements IAxleSteerable {
     protected double steeringAngle;
 
     @Override
