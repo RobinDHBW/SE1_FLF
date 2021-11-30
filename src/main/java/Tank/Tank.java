@@ -42,7 +42,25 @@ public class Tank implements ITank {
 
     @Override
     public TankSubject remove(Integer quantity) {
-        return null;
+        int x = fillState.get('x');
+        int y = fillState.get('y');
+        int z = fillState.get('z');
+
+
+        TankSubject output = null;
+
+        if (!isFull) {
+            for (int j = y; j < tank[0].length; j++) {
+                for (int i = x; i < tank.length; i++) {
+                    for (int k = z; k < tank[0][0].length; k++) {
+                        if (quantity-- == 0) break;
+                        output = tank[i][j][k];
+                        tank[i][j][k] = null;
+                    }
+                }
+            }
+        }
+        return output;
     }
 
     public Boolean getFull() {
@@ -55,5 +73,9 @@ public class Tank implements ITank {
 
     public TankSubject getSubject() {
         return subject;
+    }
+
+    public Integer getRelativeFillState() {
+        return (tank.length * tank[0].length * tank[0][0].length) / (fillState.get('x') * fillState.get('y') * fillState.get('z'));
     }
 }
