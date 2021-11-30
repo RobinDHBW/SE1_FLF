@@ -1,5 +1,8 @@
 package Cabin;
 
+import Button.ButtonRotaryWaterCannonFront;
+import Button.ButtonRotaryWaterCannonRoof;
+import ControlPanel.ControlPanel;
 import Instruments.BatteryIndicator;
 import Instruments.Pedal;
 import Instruments.Speedometer;
@@ -8,18 +11,25 @@ import Instruments.SteeringWheel;
 public class Cabin {
     private final BatteryIndicator batteryIndicator;
     private final Speedometer speedometer;
-    private final Pedal gasPedal ;
+    private final Pedal gasPedal;
     private final Pedal brakePedal;
     private final SteeringWheel steeringWheel;
+    private final ButtonRotaryWaterCannonRoof btnRotaryWaterCannonRoof;
+    private final ButtonRotaryWaterCannonFront btnRotaryWaterCannonFront;
+    private final ControlPanel ctrlPanel;
 
 
     private Cabin(Builder builder) {
         Cabin built = builder.build();
         this.batteryIndicator = built.batteryIndicator;
         this.speedometer = built.speedometer;
-        this.gasPedal= built.gasPedal;
-        this.brakePedal= built.brakePedal;
-        this.steeringWheel= built.steeringWheel;
+        this.gasPedal = built.gasPedal;
+        this.brakePedal = built.brakePedal;
+        this.steeringWheel = built.steeringWheel;
+        this.btnRotaryWaterCannonRoof = built.btnRotaryWaterCannonRoof;
+        this.btnRotaryWaterCannonFront = built.btnRotaryWaterCannonFront;
+        this.ctrlPanel = built.ctrlPanel;
+
     }
 
     public static class Builder {
@@ -28,6 +38,9 @@ public class Cabin {
         private final Pedal gasPedal = new Pedal(0);
         private final Pedal brakePedal = new Pedal(0);
         private final SteeringWheel steeringWheel = new SteeringWheel();
+        private final ButtonRotaryWaterCannonRoof btnRotaryWaterCannonRoof = new ButtonRotaryWaterCannonRoof();
+        private final ButtonRotaryWaterCannonFront btnRotaryWaterCannonFront = new ButtonRotaryWaterCannonFront();
+        private final ControlPanel ctrlPanel = new ControlPanel.Builder().build();
 
         public Builder() {
 
@@ -37,6 +50,4 @@ public class Cabin {
             return new Cabin(this);
         }
     }
-
-
 }
