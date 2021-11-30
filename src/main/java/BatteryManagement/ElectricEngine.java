@@ -1,4 +1,4 @@
-package Batteriemanagement;
+package BatteryManagement;
 
 public class ElectricEngine {
 }

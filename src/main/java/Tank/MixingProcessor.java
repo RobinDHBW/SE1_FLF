@@ -11,7 +11,7 @@ public class MixingProcessor {
     private Tank waterTank = new Tank(TankSubject.WATER, 50, 25, 10);
 
     public MixingProcessor() {
-
+        this.setMixingRate(MixingRate.NULL);
     }
 
     public void setMixingRate(MixingRate mixingRate) {
@@ -27,7 +27,7 @@ public class MixingProcessor {
             case TEN -> (quantity / 100) * 10;
         };
 
-        return Stream.concat(Arrays.stream(foamTank.remove(foamPortion)),Arrays.stream(waterTank.remove(quantity-foamPortion)))
+        return Stream.concat(Arrays.stream(foamTank.remove(foamPortion)), Arrays.stream(waterTank.remove(quantity - foamPortion)))
                 .toArray(size -> (TankSubject[]) Array.newInstance(TankSubject.FOAM.getDeclaringClass().componentType(), size));
 
     }
