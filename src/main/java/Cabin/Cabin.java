@@ -50,6 +50,7 @@ public class Cabin {
         private final ControlPanel ctrlPanel = new ControlPanel.Builder().build();
         private final List<Seat> seatList = new ArrayList<>();
 
+
         public Builder() {
             for (int i = 0; i < 2; i++) {
                 boolean leftSide = i == 0;
