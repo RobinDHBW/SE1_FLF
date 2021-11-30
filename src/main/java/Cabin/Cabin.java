@@ -7,6 +7,7 @@ import Instruments.BatteryIndicator;
 import Instruments.Pedal;
 import Instruments.Speedometer;
 import Instruments.SteeringWheel;
+import Joystick.Joystick;
 import Seating.Seat;
 import Seating.SeatFirefighting;
 
@@ -23,6 +24,8 @@ public class Cabin {
     private final ButtonRotaryWaterCannonRoof btnRotaryWaterCannonRoof;
     private final ButtonRotaryWaterCannonFront btnRotaryWaterCannonFront;
     private final ControlPanel ctrlPanel;
+    private final Joystick joystickDriver;
+    private final Joystick joystickOperator;
 
 
     private Cabin(Builder builder) {
@@ -36,6 +39,8 @@ public class Cabin {
         this.btnRotaryWaterCannonRoof = built.btnRotaryWaterCannonRoof;
         this.btnRotaryWaterCannonFront = built.btnRotaryWaterCannonFront;
         this.ctrlPanel = built.ctrlPanel;
+        this.joystickDriver = built.joystickDriver;
+        this.joystickOperator = built.joystickOperator;
 
     }
 
@@ -49,6 +54,8 @@ public class Cabin {
         private final ButtonRotaryWaterCannonFront btnRotaryWaterCannonFront = new ButtonRotaryWaterCannonFront();
         private final ControlPanel ctrlPanel = new ControlPanel.Builder().build();
         private final List<Seat> seatList = new ArrayList<>();
+        private final Joystick joystickDriver = new Joystick();
+        private final Joystick joystickOperator = new Joystick();
 
 
         public Builder() {
