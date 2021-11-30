@@ -7,8 +7,14 @@ import Instruments.BatteryIndicator;
 import Instruments.Pedal;
 import Instruments.Speedometer;
 import Instruments.SteeringWheel;
+import Seating.Seat;
+import Seating.SeatFirefighting;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Cabin {
+    private final List<Seat> seatList;
     private final BatteryIndicator batteryIndicator;
     private final Speedometer speedometer;
     private final Pedal gasPedal;
@@ -21,6 +27,7 @@ public class Cabin {
 
     private Cabin(Builder builder) {
         Cabin built = builder.build();
+        this.seatList = built.seatList;
         this.batteryIndicator = built.batteryIndicator;
         this.speedometer = built.speedometer;
         this.gasPedal = built.gasPedal;
@@ -41,9 +48,15 @@ public class Cabin {
         private final ButtonRotaryWaterCannonRoof btnRotaryWaterCannonRoof = new ButtonRotaryWaterCannonRoof();
         private final ButtonRotaryWaterCannonFront btnRotaryWaterCannonFront = new ButtonRotaryWaterCannonFront();
         private final ControlPanel ctrlPanel = new ControlPanel.Builder().build();
+        private final List<Seat> seatList = new ArrayList<>();
+
 
         public Builder() {
-
+            for (int i = 0; i < 2; i++) {
+                boolean leftSide = i == 0;
+                seatList.add(new Seat(1, leftSide, false));
+                seatList.add(new SeatFirefighting(leftSide, false));
+            }
         }
 
         public Cabin build() {

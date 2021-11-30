@@ -1,7 +1,7 @@
 package Button;
 
 public abstract class ButtonBoolean implements IButtonBoolean{
-    protected Boolean toggleState = false;
+    protected Boolean isOn = false;
 
     public ButtonBoolean(){
 
@@ -9,16 +9,15 @@ public abstract class ButtonBoolean implements IButtonBoolean{
 
     @Override
     public void turnOn() {
-        this.toggleState=true;
+        this.isOn=true;
     }
 
     @Override
     public void turnOff() {
-        this.toggleState=false;
+        this.isOn=false;
     }
 
-    @Override
-    public Boolean isOn(){
-        return toggleState;
+    public Boolean getOn() {
+        return isOn;
     }
 }
