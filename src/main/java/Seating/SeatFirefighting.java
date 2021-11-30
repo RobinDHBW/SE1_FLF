@@ -1,3 +1,5 @@
+package Seating;
+
 public class SeatFirefighting extends Seat {
     protected Person personAllowed;
 

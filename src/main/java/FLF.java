@@ -1,3 +1,7 @@
+import Cabin.Cabin;
+import Seating.Seat;
+import Seating.SeatFirefighting;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +22,7 @@ public class FLF {
      */
     public static class Builder {
         private final List<Seat> seatList = new ArrayList<>();
-        private final  Cabin cabin = new Cabin();
+        private final  Cabin cabin = new Cabin.Builder().build();
 
         public Builder() {
 
