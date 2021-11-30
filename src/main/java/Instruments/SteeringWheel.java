@@ -1,3 +1,5 @@
+package Instruments;
+
 public class SteeringWheel {
     private Double degree = 0.0;
     public SteeringWheel(){

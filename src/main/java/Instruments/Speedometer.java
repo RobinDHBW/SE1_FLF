@@ -1,3 +1,5 @@
+package Instruments;
+
 public class Speedometer {
     private Integer speed = 0;
     public Speedometer(){

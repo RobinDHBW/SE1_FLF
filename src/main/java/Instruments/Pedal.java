@@ -1,3 +1,5 @@
+package Instruments;
+
 public class Pedal{
     protected int stepSize;
 
