@@ -2,7 +2,6 @@ package Tank;
 
 import Store.StoreMedium;
 
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class Tank extends StoreMedium {
@@ -17,9 +16,9 @@ public class Tank extends StoreMedium {
     }
 
     @Override
-    public void fill(Object input, Integer quantity) {
-        //super.fill(input, quantity);
-    }
+    public void fill(Object input, Integer quantity){
+        super.fill(input,quantity);
+    };
 
     @Override
     public TankSubject[] remove(Integer quantity) {

@@ -24,7 +24,7 @@ public abstract class StoreMedium implements IStoreMedium {
      * @param input
      * @param quantity
      */
-    public void fill(TankSubject input, Integer quantity) {
+    public void fill(Object input, Integer quantity) {
         int x = fillState.get('x');
         int y = fillState.get('y');
         int z = fillState.get('z');

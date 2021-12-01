@@ -11,13 +11,14 @@ public class Battery extends StoreMedium {
     Boolean isFull = false;
     Boolean isEmpty = true;
 
-    public Battery(Integer length, Integer height, Integer width){
+    public Battery(Integer length, Integer height, Integer width) {
+
         super(length, height, width);
     }
 
     @Override
     public void fill(Object input, Integer quantity) {
-
+        super.fill(input, quantity);
     }
 
     @Override
