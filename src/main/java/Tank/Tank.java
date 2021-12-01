@@ -19,8 +19,8 @@ public class Tank extends StoreMedium {
     };
 
     @Override
-    public TankSubject[] remove(Integer quantity) {
-        return (TankSubject[]) super.remove(quantity);
+    public Enum[] remove(Integer quantity) {
+        return super.remove(quantity);
     }
 
     public HashMap<Character, Integer> getFillState() {

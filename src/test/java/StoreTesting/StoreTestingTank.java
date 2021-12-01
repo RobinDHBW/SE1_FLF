@@ -5,12 +5,27 @@ import Tank.Tank;
 import Tank.TankSubject;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+
 public class StoreTestingTank {
-    Tank tank = new Tank(TankSubject.FOAM, 10,10,10);
     @Test
-    public void testFill(){
-        tank.fill(TankSubject.FOAM, 25);
-        Integer fillState = tank.getRelativeFillState();
-        System.out.println(fillState);
+    public void testFill() {
+        Integer length = 10, height = 10, width = 10, quantity = 25;
+        Tank tank = new Tank(TankSubject.FOAM, length, height, width);
+
+        tank.fill(TankSubject.FOAM, quantity);
+        assertEquals(tank.getRelativeFillState(), 1 / ((length * height * width) / quantity.doubleValue()));
+    }
+
+    @Test
+    public void testRemove() {
+        Integer length = 10, height = 10, width = 10, quantity = 25, remove = 15;
+        Tank tank = new Tank(TankSubject.FOAM, length, height, width);
+
+
+        tank.fill(TankSubject.FOAM, quantity);
+        tank.remove(remove);
+        assertEquals(tank.getRelativeFillState(), 1 / ((length * height * width) / (quantity.doubleValue()-remove)));
     }
 }

@@ -2,7 +2,10 @@ package Store;
 
 import Tank.TankSubject;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public abstract class StoreMedium implements IStoreMedium {
     protected Enum[][][] store;
@@ -32,6 +35,7 @@ public abstract class StoreMedium implements IStoreMedium {
                     if (j == 1 && i == 1 && k == 1) isFull = true;
                     if (quantity-- == 0) return;
                     this.store[i][j][k] = input;
+                    isEmpty = false;
                     fillState.put('x', i);
                     fillState.put('y', j);
                     fillState.put('z', k);
@@ -40,16 +44,35 @@ public abstract class StoreMedium implements IStoreMedium {
         }
     }
 
+    protected Enum[] removeLoop(Integer quantity) {
+        int x = fillState.get('x');
+        int y = fillState.get('y');
+        int z = fillState.get('z');
+
+        Enum[] output = new Enum[quantity];
+
+        for (int j = y; j < store[0].length; j++) {
+            for (int i = x; i < store.length; i++) {
+                for (int k = z; k < store[0][0].length; k++) {
+                    if (j == store[0].length && i == store.length && k == store[0][0].length) isEmpty = true;
+                    if (quantity-- == 0) return output;
+                    output[quantity] = store[i][j][k];
+                    store[i][j][k] = null;
+                    isFull = false;
+                    fillState.put('x', i);
+                    fillState.put('y', j);
+                    fillState.put('z', k);
+                }
+            }
+        }
+        return output;
+    }
 
     /**
      * @param input
      * @param quantity
      */
     public void fill(Enum input, Integer quantity) {
-        int x = fillState.get('x');
-        int y = fillState.get('y');
-        int z = fillState.get('z');
-
         if (!isFull) {
             fillLoop(input, quantity);
         }
@@ -60,34 +83,28 @@ public abstract class StoreMedium implements IStoreMedium {
      * @return
      */
     public Enum[] remove(Integer quantity) {
-        int x = fillState.get('x');
-        int y = fillState.get('y');
-        int z = fillState.get('z');
 
         Enum[] output = new Enum[quantity];
-
         if (!isEmpty) {
-            for (int j = y; j < store[0].length; j++) {
-                for (int i = x; i < store.length; i++) {
-                    for (int k = z; k < store[0][0].length; k++) {
-                        if (j == store[0].length && i == store.length && k == store[0][0].length) isFull = true;
-                        if (quantity-- == 0) break;
-                        output[quantity] = store[i][j][k];
-                        store[i][j][k] = null;
-                    }
-                }
-            }
+            output = removeLoop(quantity);
         }
         return output;
     }
 
-    public Integer getRelativeFillState() {
+    public Double getRelativeFillState() {
         Integer xLength = store.length;
         Integer yLength = store[0].length;
         Integer zLength = store[0][0].length;
+        Long count = Arrays.stream(store)
+                .flatMap(Arrays::stream)
+                .flatMap(Arrays::stream)
+                .collect(Collectors.toList())
+                .stream()
+                .filter(Objects::nonNull)
+                .count();
 
 
-        return (xLength * yLength * zLength) / ((xLength - fillState.get('x')) * (yLength - fillState.get('y')) * (zLength - fillState.get('z')));
+        return 1 / ((xLength * yLength * zLength) / count.doubleValue());
     }
 
     public Enum getSubject() {
