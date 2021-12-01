@@ -26,6 +26,8 @@ public class Cabin {
     private final ControlPanel ctrlPanel;
     private final Joystick joystickDriver;
     private final Joystick joystickOperator;
+    private final Busdoor busdoorLeft;
+    private final Busdoor busdoorRight;
 
 
     private Cabin(Builder builder) {
@@ -41,6 +43,8 @@ public class Cabin {
         this.ctrlPanel = built.ctrlPanel;
         this.joystickDriver = built.joystickDriver;
         this.joystickOperator = built.joystickOperator;
+        this.busdoorLeft = built.busdoorLeft;
+        this.busdoorRight = built.busdoorRight;
 
     }
 
@@ -56,6 +60,8 @@ public class Cabin {
         private final List<Seat> seatList = new ArrayList<>();
         private final Joystick joystickDriver = new Joystick();
         private final Joystick joystickOperator = new Joystick();
+        private final Busdoor busdoorLeft = new Busdoor(VehicleSide.LEFT);
+        private final Busdoor busdoorRight = new Busdoor(VehicleSide.RIGHT);
 
 
         public Builder() {
