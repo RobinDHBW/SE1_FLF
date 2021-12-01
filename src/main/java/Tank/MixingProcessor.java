@@ -4,10 +4,12 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
+import static Tank.TankSubject.FOAM;
+
 public class MixingProcessor {
     private MixingRate mixingRate;
 
-    private Tank foamTank = new Tank(TankSubject.FOAM, 25, 10, 10);
+    private Tank foamTank = new Tank(FOAM, 25, 10, 10);
     private Tank waterTank = new Tank(TankSubject.WATER, 50, 25, 10);
 
     public MixingProcessor() {
@@ -28,8 +30,31 @@ public class MixingProcessor {
         };
 
         return Stream.concat(Arrays.stream(foamTank.remove(foamPortion)), Arrays.stream(waterTank.remove(quantity - foamPortion)))
-                .toArray(size -> (TankSubject[]) Array.newInstance(TankSubject.FOAM.getDeclaringClass().componentType(), size));
+                .toArray(size -> (TankSubject[]) Array.newInstance(FOAM.getDeclaringClass().componentType(), size));
 
     }
 
+    public void fill(Enum input, Integer quantity) {
+
+        if (input.equals(FOAM)) {
+            foamTank.fill(input, quantity);
+        } else {
+            waterTank.fill(input, quantity);
+        }
+    }
+
+    public void fillComplete(Enum input, Integer quantity) {
+        Integer toFill = 0;
+        Double actualFillState;
+
+        if (input.equals(FOAM)) {
+            actualFillState = foamTank.getCapacity() * foamTank.getRelativeFillState();
+            toFill = foamTank.getCapacity() - actualFillState.intValue();
+        } else {
+            actualFillState = waterTank.getCapacity() * waterTank.getRelativeFillState();
+            toFill = waterTank.getCapacity() - actualFillState.intValue();
+        }
+        
+        this.fill(input, toFill);
+    }
 }

@@ -14,7 +14,7 @@ public enum BatteryManagement {
 
     public void fillComplete() {
         Double actualFillState = batteryBox.getCapacity() * batteryBox.getRelativeFillState();
-        batteryBox.fill(batteryBox.getCapacity() - actualFillState.intValue());
+        this.fill(batteryBox.getCapacity() - actualFillState.intValue());
     }
 
     public Double getRelativeFillState() {
