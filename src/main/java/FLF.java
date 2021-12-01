@@ -48,10 +48,12 @@ public class FLF {
         private final List<DirectionIndicator> directionIndicators = new ArrayList<>();
         private final List<BrakingLight> brakingLights = new ArrayList<>();
         private final List<SearchLight> searchLights = new ArrayList<>();
-        private final WarningLight warningLight = new WarningLight();
-        private final FlashingBlueLightSmall flashingBlueLightSmall = new FlashingBlueLightSmall();
-        private final FlashingBlueLightMedium flashingBlueLightMedium = new FlashingBlueLightMedium();
-        private final FlashingBlueLightBig flashingBlueLightBig = new FlashingBlueLightBig();
+
+        private final List<FlashingBlueLightSmall> flashingBlueLightSmall = new ArrayList<>();
+        private final List<FlashingBlueLightMedium> flashingBlueLightMedium = new ArrayList<>();
+        private final List<FlashingBlueLightBig> flashingBlueLightBig = new ArrayList<>();
+        private final List<WarningLight> warningLight = new ArrayList<>();
+
         private final Cabin cabin = new Cabin.Builder().build();
         private final CentralUnit centralUnit = new CentralUnit();
 
@@ -83,6 +85,17 @@ public class FLF {
                 };
                 directionIndicators.add(new DirectionIndicator(position));
             }
+
+            // add small FlashingBlueLights
+            for(int i =0; i<2;i++){
+                flashingBlueLightSmall.add(new FlashingBlueLightSmall( LightPosition.FRONT_AREA));
+            }
+
+            // add medium FlashingBlueLights
+
+            // add big FlashingBlueLights
+
+            // add WarningLights
         }
 
         /**

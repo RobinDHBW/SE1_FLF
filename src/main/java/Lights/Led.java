@@ -1,7 +1,9 @@
 package Lights;
 
-public class Led {
-    String color;
+public class LED {
+    private LEDColor color;
 
-    public Led(String color) {this.color = color; }
+    public LED(LEDColor color) {
+        this.color = color;
+    }
 }

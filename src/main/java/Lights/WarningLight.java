@@ -1,11 +1,8 @@
 package Lights;
 
-public class WarningLight extends Light {
-    public Led led;
+public class WarningLight extends LEDLight {
 
-    public WarningLight() {
-        led = new Led("orange");
+    public WarningLight(LightPosition position) {
+        super(position, 1, LEDColor.ORANGE);
     }
-
-    public Led getLed() {return led;}
 }

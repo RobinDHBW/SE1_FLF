@@ -2,7 +2,13 @@ package Lights;
 
 public abstract class Light {
     protected LightPosition position;
-    public Light(LightPosition position){
+    protected Boolean isOn = false;
+
+    public Light(LightPosition position) {
         this.position = position;
+    }
+
+    public Boolean toggle() {
+        return isOn = !isOn;
     }
 }
