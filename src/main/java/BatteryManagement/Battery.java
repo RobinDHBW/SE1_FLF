@@ -6,10 +6,11 @@ import java.util.HashMap;
 
 public class Battery extends StoreMedium {
 
-    BatteryUnit[][][] battery;
-    HashMap<Character, Integer> fillState = new HashMap<>();
-    Boolean isFull = false;
-    Boolean isEmpty = true;
+    protected BatteryUnit[][][] battery;
+    protected HashMap<Character, Integer> fillState = new HashMap<>();
+
+    protected Boolean isFull = false;
+    protected Boolean isEmpty = true;
 
     public Battery(BatteryUnit subject, Integer length, Integer height, Integer width) {
 

@@ -13,11 +13,13 @@ public abstract class StoreMedium implements IStoreMedium {
     protected Boolean isFull = false;
     protected Boolean isEmpty = true;
     protected Enum subject;
+    protected Integer capacity;
 
     public StoreMedium(Integer length, Integer height, Integer width, Enum subject) {
 
         this.store = new Enum[length][height][width];
         this.subject = subject;
+        this.capacity = length*height*width;
 
         fillState.put('x', length);
         fillState.put('y', height);
@@ -109,5 +111,9 @@ public abstract class StoreMedium implements IStoreMedium {
 
     public Enum getSubject() {
         return subject;
+    }
+
+    public Integer getCapacity() {
+        return capacity;
     }
 }

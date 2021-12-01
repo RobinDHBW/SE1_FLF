@@ -20,9 +20,9 @@ public class BatteryBox {
         }
     }
 
-    public void fill(Enum input, Integer quantity) {
+    public void fill(Integer quantity) {
         for (Battery b : batteryStore) {
-            b.fill(input, quantity / 4);
+            b.fill(BatteryUnit.POSITIVE, quantity / 4);
         }
     }
 
@@ -39,5 +39,11 @@ public class BatteryBox {
                 .mapToDouble(x -> x.getRelativeFillState())
                 .average()
                 .orElse(0);
+    }
+
+    public Integer getCapacity() {
+        return batteryStore.stream()
+                .mapToInt(x -> x.getCapacity())
+                .sum();
     }
 }

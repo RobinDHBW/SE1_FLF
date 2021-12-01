@@ -12,7 +12,7 @@ public class TestBatteryManagementBox {
     public void testFill() {
         Integer width = 2, height = 2, quantity = 1000;
         BatteryBox batteryBox = new BatteryBox(width, height);
-        batteryBox.fill(BatteryUnit.POSITIVE, quantity);
+        batteryBox.fill(quantity);
 
         assertEquals(1 / ((100 * 10 * 100) / (quantity.doubleValue() / (width * height))), batteryBox.getRelativeFillState());
     }
@@ -21,7 +21,7 @@ public class TestBatteryManagementBox {
     public void testTakeout() {
         Integer width = 2, height = 2, quantity = 100000, remove = 25000;
         BatteryBox batteryBox = new BatteryBox(2, 2);
-        batteryBox.fill(BatteryUnit.POSITIVE, quantity);
+        batteryBox.fill(quantity);
         Enum output[] = batteryBox.remove(remove);
 
         assertEquals(output[0], BatteryUnit.POSITIVE);
