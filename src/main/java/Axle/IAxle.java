@@ -1,7 +1,7 @@
 package Axle;
 
 public interface IAxle {
-    public void accelerate(int stepSize);
+    int accelerate();
 
-    public void brake(int stepSize);
+    int brake(Integer actualSpeed);
 }

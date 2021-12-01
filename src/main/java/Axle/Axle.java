@@ -1,15 +1,24 @@
 package Axle;
 
 public class Axle implements IAxle {
-    protected int stepSize;
+    protected Integer stepSize;
+    protected Integer actualSpeed;
 
-    @Override
-    public void accelerate(int stepSize) {
 
+    public Axle() {
+        this.stepSize = 4;
+        this.actualSpeed = 0;
     }
 
     @Override
-    public void brake(int stepSize) {
+    public int accelerate() {
+        actualSpeed += stepSize;
+        return actualSpeed;
+    }
 
+    @Override
+    public int brake(Integer actualSpeed) {
+        Integer speed = actualSpeed-stepSize;
+        return speed;
     }
 }
