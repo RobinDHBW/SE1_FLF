@@ -2,9 +2,10 @@ package Cabin;
 
 import Button.ButtonRotaryWaterCannonFront;
 import Button.ButtonRotaryWaterCannonRoof;
+import Button.PedalType;
 import ControlPanel.ControlPanel;
 import Instruments.BatteryIndicator;
-import Instruments.Pedal;
+import Button.Pedal;
 import Instruments.Speedometer;
 import Instruments.SteeringWheel;
 import Joystick.*;
@@ -51,8 +52,8 @@ public class Cabin {
     public static class Builder {
         private final BatteryIndicator batteryIndicator = new BatteryIndicator();
         private final Speedometer speedometer = new Speedometer();
-        private final Pedal gasPedal = new Pedal(0);
-        private final Pedal brakePedal = new Pedal(0);
+        private final Pedal gasPedal = new Pedal(PedalType.ACCELERATE, 4);
+        private final Pedal brakePedal = new Pedal(PedalType.BREAK, 4);
         private final SteeringWheel steeringWheel = new SteeringWheel();
         private final ButtonRotaryWaterCannonRoof btnRotaryWaterCannonRoof = new ButtonRotaryWaterCannonRoof();
         private final ButtonRotaryWaterCannonFront btnRotaryWaterCannonFront = new ButtonRotaryWaterCannonFront();
