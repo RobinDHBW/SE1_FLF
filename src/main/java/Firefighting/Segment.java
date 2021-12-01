@@ -1,4 +1,7 @@
 package Firefighting;
 
-public class Segment {
+public abstract class Segment {
+
+    public Segment() {
+    }
 }

@@ -1,9 +1,18 @@
 package Firefighting;
 
 public class SegmentMovable extends Segment {
-    int rotation;
+    Integer rotationStepSize, position = 0;
 
-    public void move(int rotation) {
 
-    };
+    public SegmentMovable(Integer rotationStepSize) {
+        this.rotationStepSize = rotationStepSize;
+    }
+
+    public void move(Boolean moveUp) {
+        this.position += moveUp ? this.rotationStepSize : this.rotationStepSize * -1;
+    }
+
+    public Integer getPosition() {
+        return position;
+    }
 }

@@ -1,8 +1,12 @@
 package Firefighting;
 
 public class WaterCannon implements IWaterCannon {
-    protected boolean state;
-    //protected sprayCapacityPerlIteration; ?
+    protected Boolean state = false;
+    protected Integer sprayCapacityPerlIteration;
+
+    public WaterCannon(Integer sprayCapacityPerlIteration){
+        this.sprayCapacityPerlIteration = sprayCapacityPerlIteration;
+    }
 
     @Override
     public void activate() {
