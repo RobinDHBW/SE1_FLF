@@ -1,11 +1,7 @@
 package Button;
 
-public class ButtonPress extends ButtonTap{
+public class ButtonPress extends Button{
     public ButtonPress(){
-    }
-
-    @Override
-    public void tapButton() {
 
     }
 }
