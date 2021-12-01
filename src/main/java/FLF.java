@@ -12,9 +12,9 @@ import java.util.List;
  *
  */
 public class FLF {
-    private final DirectionIndicator directionIndicator;
-    private final BrakingLight brakingLight;
-    private final SearchLight searchLight;
+    private final List<SearchLight> searchLights;
+    private final List<DirectionIndicator> directionIndicators;
+    private final List<BrakingLight> brakingLights;
     private final WarningLight warningLight;
     private final FlashingBlueLightSmall flashingBlueLightSmall;
     private final FlashingBlueLightMedium flashingBlueLightMedium;
@@ -25,15 +25,17 @@ public class FLF {
 
     private FLF(Builder builder) {
         FLF built = builder.build();
+        this.brakingLights = built.brakingLights;
+        this.searchLights = built.searchLights;
+        this.directionIndicators = built.directionIndicators;
+
         this.cabin = built.cabin;
         this.centralUnit = built.centralUnit;
-        this.directionIndicator = builder.build().directionIndicator;
-        this.brakingLight = builder.build().brakingLight;
-        this.searchLight = builder.build().searchLight;
-        this.warningLight = builder.build().warningLight;
-        this.flashingBlueLightSmall = builder.build().flashingBlueLightSmall;
-        this.flashingBlueLightMedium = builder.build().flashingBlueLightMedium;
-        this.flashingBlueLightBig = builder.build().flashingBlueLightBig;
+
+        this.warningLight = built.warningLight;
+        this.flashingBlueLightSmall = built.flashingBlueLightSmall;
+        this.flashingBlueLightMedium = built.flashingBlueLightMedium;
+        this.flashingBlueLightBig = built.flashingBlueLightBig;
 
     }
 
@@ -42,9 +44,9 @@ public class FLF {
      */
     public static class Builder {
 
-        private final DirectionIndicator directionIndicator = new DirectionIndicator();
-        private final BrakingLight brakingLight = new BrakingLight();
-        private final SearchLight searchLight = new SearchLight();
+        private final List<DirectionIndicator> directionIndicators = new ArrayList<>();
+        private final List<BrakingLight> brakingLights = new ArrayList<>();
+        private final List<SearchLight> searchLights = new ArrayList<>();
         private final WarningLight warningLight = new WarningLight();
         private final FlashingBlueLightSmall flashingBlueLightSmall = new FlashingBlueLightSmall();
         private final FlashingBlueLightMedium flashingBlueLightMedium = new FlashingBlueLightMedium();
@@ -54,7 +56,32 @@ public class FLF {
 
         public Builder() {
 
+            // add Breaklights
+            for (int i = 0; i < 2; i++) {
+                LightPosition position = i == 0 ? LightPosition.BACK_LEFT : LightPosition.BACK_RIGHT;
+                brakingLights.add(new BrakingLight(position));
+            }
 
+            // add Searchlights
+            for (int i = 0; i < 10; i++) {
+                LightPosition position = switch (i) {
+                    case 0, 1, 2 -> LightPosition.FRONT_LEFT;
+                    case 3, 4, 5 -> LightPosition.FRONT_RIGHT;
+                    default -> LightPosition.ROOF_FRONT;
+                };
+                searchLights.add(new SearchLight(position));
+            }
+
+            // add Indicators
+            for (int i = 0; i < 4; i++) {
+                LightPosition position = switch (i) {
+                    case 0 -> LightPosition.FRONT_LEFT;
+                    case 1 -> LightPosition.FRONT_RIGHT;
+                    case 2 -> LightPosition.BACK_LEFT;
+                    default -> LightPosition.BACK_RIGHT;
+                };
+                directionIndicators.add(new DirectionIndicator(position));
+            }
         }
 
         /**
