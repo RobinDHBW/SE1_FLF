@@ -49,10 +49,10 @@ public class FLF {
         private final List<BrakingLight> brakingLights = new ArrayList<>();
         private final List<SearchLight> searchLights = new ArrayList<>();
 
-        private final List<FlashingBlueLightSmall> flashingBlueLightSmall = new ArrayList<>();
-        private final List<FlashingBlueLightMedium> flashingBlueLightMedium = new ArrayList<>();
-        private final List<FlashingBlueLightBig> flashingBlueLightBig = new ArrayList<>();
-        private final List<WarningLight> warningLight = new ArrayList<>();
+        private final List<FlashingBlueLightSmall> flashingBlueLightsSmall = new ArrayList<>();
+        private final List<FlashingBlueLightMedium> flashingBlueLightsMedium = new ArrayList<>();
+        private final List<FlashingBlueLightBig> flashingBlueLightsBig = new ArrayList<>();
+        private final List<WarningLight> warningLights = new ArrayList<>();
 
         private final Cabin cabin = new Cabin.Builder().build();
         private final CentralUnit centralUnit = new CentralUnit();
@@ -87,15 +87,25 @@ public class FLF {
             }
 
             // add small FlashingBlueLights
-            for(int i =0; i<2;i++){
-                flashingBlueLightSmall.add(new FlashingBlueLightSmall( LightPosition.FRONT_AREA));
+            for (int i = 0; i < 2; i++) {
+                flashingBlueLightsSmall.add(new FlashingBlueLightSmall(LightPosition.FRONT_AREA));
             }
 
             // add medium FlashingBlueLights
+            for (int i = 0; i < 4; i++) {
+                LightPosition position = i < 2 ? LightPosition.ROOF_BACK_LEFT : LightPosition.ROOF_BACK_RIGHT;
+                flashingBlueLightsMedium.add(new FlashingBlueLightMedium(position));
+            }
 
             // add big FlashingBlueLights
+            for (int i = 0; i < 4; i++) {
+                LightPosition position = i < 2 ? LightPosition.ROOF_FRONT_LEFT : LightPosition.ROOF_FRONT_RIGHT;
+                flashingBlueLightsBig.add(new FlashingBlueLightBig(position));
+            }
 
             // add WarningLights
+            warningLights.add(new WarningLight(LightPosition.ROOF_FRONT_LEFT));
+            warningLights.add(new WarningLight(LightPosition.ROOF_BACK_RIGHT));
         }
 
         /**

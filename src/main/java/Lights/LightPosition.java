@@ -8,6 +8,9 @@ public enum LightPosition {
     ROOF_FRONT,
     ROOF_FRONT_LEFT,
     ROOF_FRONT_RIGHT,
+    ROOF_BACK_LEFT,
+    ROOF_BACK_RIGHT,
     FRONT_AREA
+
 
 }
