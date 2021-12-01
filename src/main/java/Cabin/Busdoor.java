@@ -1,27 +1,25 @@
 package Cabin;
 
 import Button.ButtonPush;
+import Button.IButtonListener;
 
-public class Busdoor {
+public class Busdoor implements IButtonListener {
     private final VehicleSide side;
-    private Boolean isOpen = false;
 
-    /**
-     * @TODO Person should interact with button to open door -> Maybe eventListener
-     */
     public ButtonPush btnPushOutside = new ButtonPush();
     public ButtonPush btnPushInside = new ButtonPush();
+    private Boolean isOpen = false;
 
     public Busdoor(VehicleSide side) {
         this.side = side;
+        btnPushInside.addListener(this);
+        btnPushOutside.addListener(this);
     }
 
-    public void open() {
-        isOpen = true;
-    }
 
-    public void close() {
-        isOpen = false;
+    @Override
+    public void onToggleButton() {
+        this.isOpen = !this.isOpen;
     }
 
     public Boolean getOpen() {

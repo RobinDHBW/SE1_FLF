@@ -1,5 +1,5 @@
 package Button;
 
 public interface IButtonListener {
-    void toggleButton();
+    void onToggleButton();
 }

@@ -1,6 +1,6 @@
 package Button;
 
-public abstract class ButtonBoolean implements IButtonBoolean{
+public abstract class ButtonBoolean extends Button implements IButtonBoolean{
     protected Boolean isOn = false;
 
     public ButtonBoolean(){

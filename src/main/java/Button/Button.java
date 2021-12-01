@@ -16,7 +16,7 @@ public abstract class Button {
 
     public void toggle() {
         for (IButtonListener listener : listeners) {
-            listener.toggleButton();
+            listener.onToggleButton();
         }
     }
 }
