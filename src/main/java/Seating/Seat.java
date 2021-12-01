@@ -1,16 +1,28 @@
 package Seating;
 
-public class Seat {
-    protected int seatRow = 0;
-    protected boolean leftSide = false;
-    protected boolean occupied = false;
-    public Respirator respirator = new Respirator();
+import Person.Person;
 
-    public Seat(Integer seatRow, Boolean leftSide, Boolean occupied) {
+public class Seat {
+    public Respirator respirator = new Respirator();
+    protected int seatRow = 0;
+    protected boolean leftSide;
+    protected boolean occupied = false;
+    protected Person seatWarmer;
+
+    public Seat(Integer seatRow, Boolean leftSide) {
         this.seatRow = seatRow;
         this.leftSide = leftSide;
-        this.occupied = occupied;
 
+    }
+
+    public void sitDown(Person person) {
+        this.seatWarmer = person;
+        this.occupied = true;
+    }
+
+    public void leave() {
+        this.seatWarmer = null;
+        this.occupied = false;
     }
 
     public Integer getSeatRow() {
@@ -25,7 +37,5 @@ public class Seat {
         return occupied;
     }
 
-    public void setOccupied(boolean occupied) {
-        this.occupied = occupied;
-    }
+
 }

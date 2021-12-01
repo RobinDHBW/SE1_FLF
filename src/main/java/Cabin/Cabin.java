@@ -9,6 +9,8 @@ import Button.Pedal;
 import Instruments.Speedometer;
 import Instruments.SteeringWheel;
 import Joystick.*;
+import Person.Driver;
+import Person.Operator;
 import Seating.Seat;
 import Seating.SeatFirefighting;
 
@@ -67,10 +69,11 @@ public class Cabin {
 
         public Builder() {
             for (int i = 0; i < 2; i++) {
-                boolean leftSide = i == 0;
-                seatList.add(new Seat(1, leftSide, false));
-                seatList.add(new SeatFirefighting(leftSide, false));
+                Boolean leftSide = i == 0;
+                seatList.add(new Seat(1, leftSide));
             }
+            seatList.add(new SeatFirefighting(new Driver(),  true ));
+            seatList.add(new SeatFirefighting(new Operator(),  false ));
         }
 
         public Cabin build() {
