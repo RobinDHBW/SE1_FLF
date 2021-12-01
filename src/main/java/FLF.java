@@ -15,10 +15,12 @@ public class FLF {
     private final List<SearchLight> searchLights;
     private final List<DirectionIndicator> directionIndicators;
     private final List<BrakingLight> brakingLights;
-    private final WarningLight warningLight;
-    private final FlashingBlueLightSmall flashingBlueLightSmall;
-    private final FlashingBlueLightMedium flashingBlueLightMedium;
-    private final FlashingBlueLightBig flashingBlueLightBig;
+
+    private final List<FlashingBlueLightSmall> flashingBlueLightsSmall;
+    private final List<FlashingBlueLightMedium> flashingBlueLightsMedium;
+    private final List<FlashingBlueLightBig> flashingBlueLightsBig;
+    private final List<WarningLight> warningLights;
+
     private final Cabin cabin;
     private final CentralUnit centralUnit;
 
@@ -29,14 +31,13 @@ public class FLF {
         this.searchLights = built.searchLights;
         this.directionIndicators = built.directionIndicators;
 
+        this.flashingBlueLightsSmall = built.flashingBlueLightsSmall;
+        this.flashingBlueLightsMedium = built.flashingBlueLightsMedium;
+        this.flashingBlueLightsBig = built.flashingBlueLightsBig;
+        this.warningLights = built.warningLights;
+
         this.cabin = built.cabin;
         this.centralUnit = built.centralUnit;
-
-        this.warningLight = built.warningLight;
-        this.flashingBlueLightSmall = built.flashingBlueLightSmall;
-        this.flashingBlueLightMedium = built.flashingBlueLightMedium;
-        this.flashingBlueLightBig = built.flashingBlueLightBig;
-
     }
 
     /**
