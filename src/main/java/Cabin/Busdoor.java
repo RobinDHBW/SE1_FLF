@@ -1,5 +1,6 @@
 package Cabin;
 
+import Button.Button;
 import Button.ButtonPush;
 import Button.IButtonListener;
 
@@ -18,7 +19,7 @@ public class Busdoor implements IButtonListener {
 
 
     @Override
-    public void onToggleButton() {
+    public void onToggleButton(Button o) {
         this.isOpen = !this.isOpen;
     }
 

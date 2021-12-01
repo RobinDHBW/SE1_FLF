@@ -7,7 +7,7 @@ import Instruments.BatteryIndicator;
 import Instruments.Pedal;
 import Instruments.Speedometer;
 import Instruments.SteeringWheel;
-import Joystick.Joystick;
+import Joystick.*;
 import Seating.Seat;
 import Seating.SeatFirefighting;
 
@@ -58,8 +58,8 @@ public class Cabin {
         private final ButtonRotaryWaterCannonFront btnRotaryWaterCannonFront = new ButtonRotaryWaterCannonFront();
         private final ControlPanel ctrlPanel = new ControlPanel.Builder().build();
         private final List<Seat> seatList = new ArrayList<>();
-        private final Joystick joystickDriver = new Joystick();
-        private final Joystick joystickOperator = new Joystick();
+        private final Joystick joystickDriver = new JoystickDriver();
+        private final Joystick joystickOperator = new JoystickOperator();
         private final Busdoor busdoorLeft = new Busdoor(VehicleSide.LEFT);
         private final Busdoor busdoorRight = new Busdoor(VehicleSide.RIGHT);
 

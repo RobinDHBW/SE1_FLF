@@ -4,7 +4,7 @@ import Button.ButtonPress;
 import Button.ButtonPush;
 import Button.IButtonListener;
 
-public class Joystick implements IButtonListener {
+public abstract class Joystick implements IButtonListener {
     public ButtonPush btnPush = new ButtonPush();
     public ButtonPress btnPressLeft = new ButtonPress();
     public ButtonPress btnPressRight = new ButtonPress();
@@ -15,8 +15,5 @@ public class Joystick implements IButtonListener {
         btnPressRight.addListener(this);
     }
 
-    @Override
-    public void onToggleButton(Object o) {
-        //@TODO Alle Zustände abfragen -> Was ist zu tun?
-    }
+
 }
