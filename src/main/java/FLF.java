@@ -12,8 +12,10 @@ import java.util.List;
  *
  */
 public class FLF {
+    private final 
     private final Cabin cabin;
     private final CentralUnit centralUnit;
+
 
     private FLF(Builder builder) {
         FLF built = builder.build();
