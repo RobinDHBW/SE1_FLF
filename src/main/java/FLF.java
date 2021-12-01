@@ -1,9 +1,15 @@
+import BatteryManagement.BatteryManagement;
 import Button.Button;
 import Button.IButtonListener;
 import Cabin.Cabin;
+import ControlPanel.ControlPanel;
+import Firefighting.WaterCannonFront;
+import Firefighting.WaterCannonRoof;
+import Firefighting.WaterDieSelfprotection;
 import Lights.*;
 import Seating.Seat;
 import Seating.SeatFirefighting;
+import Tank.MixingProcessor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +29,18 @@ public class FLF {
 
     private final Cabin cabin;
     private final CentralUnit centralUnit;
+    private final ControlPanel controlPanel;
+
+    private final WaterCannonRoof waterCannonRoof;
+    private final WaterCannonFront waterCannonFront;
+    private final List<WaterDieSelfprotection> waterDiesSelfprotection;
+
+    private final MixingProcessor mixingProcessor;
+    //private final BatteryManagement batteryManagement;
 
 
     private FLF(Builder builder) {
+
         FLF built = builder.build();
         this.brakingLights = built.brakingLights;
         this.searchLights = built.searchLights;
@@ -38,6 +53,14 @@ public class FLF {
 
         this.cabin = built.cabin;
         this.centralUnit = built.centralUnit;
+        this.controlPanel = built.controlPanel;
+
+        this.waterCannonRoof = built.waterCannonRoof;
+        this.waterCannonFront = built.waterCannonFront;
+        this.waterDiesSelfprotection = built.waterDiesSelfprotection;
+
+        this.mixingProcessor = built.mixingProcessor;
+        //this.batteryManagement = built.batteryManagement;
     }
 
     /**
@@ -56,13 +79,31 @@ public class FLF {
 
         private final Cabin cabin = new Cabin.Builder().build();
         private final CentralUnit centralUnit = new CentralUnit();
+        private final ControlPanel controlPanel = new ControlPanel.Builder().build();
+
+        private final WaterCannonRoof waterCannonRoof = new WaterCannonRoof(500);
+        private final WaterCannonFront waterCannonFront = new WaterCannonFront(500, 90);
+        private final List<WaterDieSelfprotection> waterDiesSelfprotection = new ArrayList<>();
+
+        private final MixingProcessor mixingProcessor = new MixingProcessor();
+        //private final BatteryManagement batteryManagement = BatteryManagement;
 
         public Builder() {
 
+            buildLights();
+
+
+            //add Waterdies
+            for (int i = 0; i < 7; i++) {
+                this.waterDiesSelfprotection.add(new WaterDieSelfprotection(100));
+            }
+        }
+
+        private void buildLights() {
             // add Breaklights
             for (int i = 0; i < 2; i++) {
                 LightPosition position = i == 0 ? LightPosition.BACK_LEFT : LightPosition.BACK_RIGHT;
-                brakingLights.add(new BrakingLight(position));
+                this.brakingLights.add(new BrakingLight(position));
             }
 
             // add Searchlights
@@ -72,7 +113,7 @@ public class FLF {
                     case 3, 4, 5 -> LightPosition.FRONT_RIGHT;
                     default -> LightPosition.ROOF_FRONT;
                 };
-                searchLights.add(new SearchLight(position));
+                this.searchLights.add(new SearchLight(position));
             }
 
             // add Indicators
@@ -83,29 +124,29 @@ public class FLF {
                     case 2 -> LightPosition.BACK_LEFT;
                     default -> LightPosition.BACK_RIGHT;
                 };
-                directionIndicators.add(new DirectionIndicator(position));
+                this.directionIndicators.add(new DirectionIndicator(position));
             }
 
             // add small FlashingBlueLights
             for (int i = 0; i < 2; i++) {
-                flashingBlueLightsSmall.add(new FlashingBlueLightSmall(LightPosition.FRONT_AREA));
+                this.flashingBlueLightsSmall.add(new FlashingBlueLightSmall(LightPosition.FRONT_AREA));
             }
 
             // add medium FlashingBlueLights
             for (int i = 0; i < 4; i++) {
                 LightPosition position = i < 2 ? LightPosition.ROOF_BACK_LEFT : LightPosition.ROOF_BACK_RIGHT;
-                flashingBlueLightsMedium.add(new FlashingBlueLightMedium(position));
+                this.flashingBlueLightsMedium.add(new FlashingBlueLightMedium(position));
             }
 
             // add big FlashingBlueLights
             for (int i = 0; i < 4; i++) {
                 LightPosition position = i < 2 ? LightPosition.ROOF_FRONT_LEFT : LightPosition.ROOF_FRONT_RIGHT;
-                flashingBlueLightsBig.add(new FlashingBlueLightBig(position));
+                this.flashingBlueLightsBig.add(new FlashingBlueLightBig(position));
             }
 
             // add WarningLights
-            warningLights.add(new WarningLight(LightPosition.ROOF_FRONT_LEFT));
-            warningLights.add(new WarningLight(LightPosition.ROOF_BACK_RIGHT));
+            this.warningLights.add(new WarningLight(LightPosition.ROOF_FRONT_LEFT));
+            this.warningLights.add(new WarningLight(LightPosition.ROOF_BACK_RIGHT));
         }
 
         /**

@@ -9,7 +9,7 @@ public class WaterCannonFront extends WaterCannon {
     }
 
     public void rotateLeft() {
-        if (position > -180) position -= rotationStepSize;
+        if (position > 0) position -= rotationStepSize;
     }
 
 
