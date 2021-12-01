@@ -5,18 +5,16 @@ import Store.StoreMedium;
 import java.util.HashMap;
 
 public class Tank extends StoreMedium {
-    TankSubject subject;
     HashMap<Character, Integer> fillState = new HashMap<>();
     Boolean isFull = false;
     Boolean isEmpty = true;
 
     public Tank(TankSubject subject, Integer length, Integer height, Integer width) {
-        super(length, height, width);
-        this.subject = subject;
+        super(length, height, width, subject);
     }
 
     @Override
-    public void fill(Object input, Integer quantity){
+    public void fill(Enum input, Integer quantity){
         super.fill(input,quantity);
     };
 
@@ -29,11 +27,5 @@ public class Tank extends StoreMedium {
         return fillState;
     }
 
-    public TankSubject getSubject() {
-        return subject;
-    }
 
-    public Integer getRelativeFillState() {
-        return (store.length * store[0].length * store[0][0].length) / (fillState.get('x') * fillState.get('y') * fillState.get('z'));
-    }
 }

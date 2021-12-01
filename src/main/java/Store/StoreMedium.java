@@ -5,14 +5,16 @@ import Tank.TankSubject;
 import java.util.HashMap;
 
 public abstract class StoreMedium implements IStoreMedium {
-    protected Object[][][] store;
+    protected Enum[][][] store;
     protected HashMap<Character, Integer> fillState = new HashMap<>();
     protected Boolean isFull = false;
     protected Boolean isEmpty = true;
+    protected Enum subject;
 
-    public StoreMedium(Integer length, Integer height, Integer width) {
+    public StoreMedium(Integer length, Integer height, Integer width, Enum subject) {
 
-        this.store = new Object[length][height][width];
+        this.store = new Enum[length][height][width];
+        this.subject = subject;
 
         fillState.put('x', length);
         fillState.put('y', height);
@@ -24,7 +26,7 @@ public abstract class StoreMedium implements IStoreMedium {
      * @param input
      * @param quantity
      */
-    public void fill(Object input, Integer quantity) {
+    public void fill(Enum input, Integer quantity) {
         int x = fillState.get('x');
         int y = fillState.get('y');
         int z = fillState.get('z');
@@ -50,12 +52,12 @@ public abstract class StoreMedium implements IStoreMedium {
      * @param quantity
      * @return
      */
-    public Object[] remove(Integer quantity) {
+    public Enum[] remove(Integer quantity) {
         int x = fillState.get('x');
         int y = fillState.get('y');
         int z = fillState.get('z');
 
-        Object[] output = new Object[quantity];
+        Enum[] output = new Enum[quantity];
 
         if (!isEmpty) {
             for (int j = y; j < store[0].length; j++) {
@@ -70,5 +72,13 @@ public abstract class StoreMedium implements IStoreMedium {
             }
         }
         return output;
+    }
+
+    public Integer getRelativeFillState() {
+        return (store.length * store[0].length * store[0][0].length) / (fillState.get('x') * fillState.get('y') * fillState.get('z'));
+    }
+
+    public Enum getSubject() {
+        return subject;
     }
 }

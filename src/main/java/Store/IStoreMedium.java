@@ -3,6 +3,7 @@ package Store;
 import Tank.TankSubject;
 
 public interface IStoreMedium {
-    void fill(Object input, Integer quantity);
-    Object[] remove(Integer quantity);
+    void fill(Enum input, Integer quantity);
+    Enum[] remove(Integer quantity);
+    Integer getRelativeFillState();
 }
