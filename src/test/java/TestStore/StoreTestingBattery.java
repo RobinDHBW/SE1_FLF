@@ -1,8 +1,7 @@
-package StoreTesting;
+package TestStore;
 
 import BatteryManagement.Battery;
 import BatteryManagement.BatteryUnit;
-import Tank.Tank;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

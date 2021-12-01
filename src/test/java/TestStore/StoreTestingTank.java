@@ -1,4 +1,4 @@
-package StoreTesting;
+package TestStore;
 
 
 import Tank.Tank;
