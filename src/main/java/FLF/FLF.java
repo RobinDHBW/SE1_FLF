@@ -3,6 +3,7 @@ package FLF;
 import Button.ButtonSwitch;
 import Button.SwitchDevice;
 import Cabin.Cabin;
+import Drive.Drive;
 import Firefighting.WaterCannonFront;
 import Firefighting.WaterCannonRoof;
 import Firefighting.WaterDieSelfprotection;
@@ -23,11 +24,11 @@ public class FLF {
     private final List<BrakingLight> brakingLights;
 
     private final List<FlashingBlueLight> flashingBlueLights;
-    //private final List<FlashingBlueLightMedium> flashingBlueLightsMedium;
-    //private final List<FlashingBlueLightBig> flashingBlueLightsBig;
     private final List<WarningLight> warningLights;
 
     private final Cabin cabin;
+
+    private final Drive drive;
 
     private final WaterCannonRoof waterCannonRoof;
     private final WaterCannonFront waterCannonFront;
@@ -47,11 +48,11 @@ public class FLF {
         this.directionIndicators = built.directionIndicators;
 
         this.flashingBlueLights = built.flashingBlueLights;
-        //this.flashingBlueLightsMedium = built.flashingBlueLightsMedium;
-        //this.flashingBlueLightsBig = built.flashingBlueLightsBig;
         this.warningLights = built.warningLights;
 
         this.cabin = built.cabin;
+
+        this.drive = built.drive;
 
         this.waterCannonRoof = built.waterCannonRoof;
         this.waterCannonFront = built.waterCannonFront;
@@ -73,9 +74,9 @@ public class FLF {
         private final List<SearchLight> searchLightsRoof = new ArrayList<>();
         private final List<SearchLight> searchLightsSide = new ArrayList<>();
         private final List<FlashingBlueLight> flashingBlueLights = new ArrayList<>();
-        // private final List<FlashingBlueLightMedium> flashingBlueLightsMedium = new ArrayList<>();
-        // private final List<FlashingBlueLightBig> flashingBlueLightsBig = new ArrayList<>();
         private final Cabin cabin;
+
+        private final Drive drive = new Drive();
 
         private final WaterCannonRoof waterCannonRoof = new WaterCannonRoof(500);
         private final WaterCannonFront waterCannonFront = new WaterCannonFront(500, 90);
@@ -114,8 +115,8 @@ public class FLF {
             for (int i = 0; i < 4; i++) {
                 this.searchLightsRoof.add(new SearchLight(LightPosition.ROOF_FRONT));
             }
-            for(int i=0;i<10;i++) {
-                LightPosition position = i<5?LightPosition.LEFT_SIDE:LightPosition.RIGHT_SIDE;
+            for (int i = 0; i < 10; i++) {
+                LightPosition position = i < 5 ? LightPosition.LEFT_SIDE : LightPosition.RIGHT_SIDE;
                 this.searchLightsSide.add(new SearchLight((position)));
             }
 
@@ -170,10 +171,17 @@ public class FLF {
                 });
             }
 
-            switches.add(new ButtonSwitch(waterDiesSelfprotection){
+            switches.add(new ButtonSwitch(waterDiesSelfprotection) {
                 @Override
                 public void operateDevice() {
                     ((WaterDieSelfprotection) this.operatingDevice).toggle();
+                }
+            });
+
+            switches.add(new ButtonSwitch(drive) {
+                @Override
+                public void operateDevice() {
+                    ((Drive) this.operatingDevice).toggleEngine();
                 }
             });
 

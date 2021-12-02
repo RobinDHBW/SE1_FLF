@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Axle {
 
-    private List<Tire> tires = new ArrayList<>();
+    private final List<Tire> tires = new ArrayList<>();
     private List<DiscBrake> brakes = new ArrayList<>();
 
     public Axle() {
@@ -13,11 +13,15 @@ public class Axle {
             tires.add(new Tire());
         }
         for (int i = 0; i < 6; i++) {
-            brakes.add(new DiscBrake(Double.valueOf(4 / 24)));
+            brakes.add(new DiscBrake(4.0 / 24));
         }
     }
 
     public Double brake() {
-        return null;
+        Double brakePower = 0.0;
+        for (DiscBrake b : brakes) {
+            brakePower += b.brake();
+        }
+        return brakePower;
     }
 }

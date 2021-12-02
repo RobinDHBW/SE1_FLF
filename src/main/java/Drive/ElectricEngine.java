@@ -13,4 +13,8 @@ public class ElectricEngine {
         return this.stepSize * -1;
     }
 
+    public void toggle() {
+        this.state = !this.state;
+    }
+
 }

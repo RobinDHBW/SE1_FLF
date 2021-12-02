@@ -2,6 +2,8 @@ package Drive;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Drive {
 
@@ -24,13 +26,24 @@ public class Drive {
     }
 
     public Integer brake() {
+        Double calc = Double.valueOf(this.speed);
+        for (Axle a : Stream.concat(steerables.stream(), axles.stream()).collect(Collectors.toList())) {
+            calc += a.brake();
+        }
+        this.speed = calc.intValue();
         return speed;
     }
 
-    public Integer accelerate(){
-        for(ElectricEngine e : engines){
-            this.speed+=e.accelerate();
+    public Integer accelerate() {
+        for (ElectricEngine e : engines) {
+            this.speed += e.accelerate();
         }
         return this.speed;
+    }
+
+    public void toggleEngine(){
+        for(ElectricEngine e:engines){
+            e.toggle();
+        }
     }
 }

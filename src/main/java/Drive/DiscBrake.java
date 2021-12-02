@@ -8,6 +8,6 @@ public class DiscBrake {
     }
 
     public Double brake() {
-        return this.stepSize;
+        return this.stepSize * -1;
     }
 }
