@@ -1,7 +1,7 @@
 package Axle;
 
 public interface IAxle {
-    int accelerate();
+    Integer accelerate();
 
-    int brake(Integer actualSpeed);
+    Integer brake(Integer actualSpeed);
 }
