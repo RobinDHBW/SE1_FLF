@@ -1,5 +1,7 @@
 package FLF;
 
+import Button.ButtonSwitch;
+import Button.SwitchDevice;
 import Cabin.Cabin;
 import Firefighting.WaterCannonFront;
 import Firefighting.WaterCannonRoof;
@@ -16,12 +18,13 @@ import java.util.List;
 public class FLF {
     private final List<SearchLight> searchLightsFront;
     private final List<SearchLight> searchLightsRoof;
+    private final List<SearchLight> searchLightsSide;
     private final List<DirectionIndicator> directionIndicators;
     private final List<BrakingLight> brakingLights;
 
-    private final List<FlashingBlueLightSmall> flashingBlueLightsSmall;
-    private final List<FlashingBlueLightMedium> flashingBlueLightsMedium;
-    private final List<FlashingBlueLightBig> flashingBlueLightsBig;
+    private final List<FlashingBlueLight> flashingBlueLights;
+    //private final List<FlashingBlueLightMedium> flashingBlueLightsMedium;
+    //private final List<FlashingBlueLightBig> flashingBlueLightsBig;
     private final List<WarningLight> warningLights;
 
     private final Cabin cabin;
@@ -40,11 +43,12 @@ public class FLF {
         this.brakingLights = built.brakingLights;
         this.searchLightsFront = built.searchLightsFront;
         this.searchLightsRoof = built.searchLightsRoof;
+        this.searchLightsSide = built.searchLightsSide;
         this.directionIndicators = built.directionIndicators;
 
-        this.flashingBlueLightsSmall = built.flashingBlueLightsSmall;
-        this.flashingBlueLightsMedium = built.flashingBlueLightsMedium;
-        this.flashingBlueLightsBig = built.flashingBlueLightsBig;
+        this.flashingBlueLights = built.flashingBlueLights;
+        //this.flashingBlueLightsMedium = built.flashingBlueLightsMedium;
+        //this.flashingBlueLightsBig = built.flashingBlueLightsBig;
         this.warningLights = built.warningLights;
 
         this.cabin = built.cabin;
@@ -67,10 +71,11 @@ public class FLF {
         private final List<BrakingLight> brakingLights = new ArrayList<>();
         private final List<SearchLight> searchLightsFront = new ArrayList<>();
         private final List<SearchLight> searchLightsRoof = new ArrayList<>();
-        private final List<FlashingBlueLightSmall> flashingBlueLightsSmall = new ArrayList<>();
-        private final List<FlashingBlueLightMedium> flashingBlueLightsMedium = new ArrayList<>();
-        private final List<FlashingBlueLightBig> flashingBlueLightsBig = new ArrayList<>();
-        private final Cabin cabin = new Cabin.Builder().build();
+        private final List<SearchLight> searchLightsSide = new ArrayList<>();
+        private final List<FlashingBlueLight> flashingBlueLights = new ArrayList<>();
+        // private final List<FlashingBlueLightMedium> flashingBlueLightsMedium = new ArrayList<>();
+        // private final List<FlashingBlueLightBig> flashingBlueLightsBig = new ArrayList<>();
+        private final Cabin cabin;
 
         private final WaterCannonRoof waterCannonRoof = new WaterCannonRoof(500);
         private final WaterCannonFront waterCannonFront = new WaterCannonFront(500, 90);
@@ -82,6 +87,7 @@ public class FLF {
         public Builder() {
 
             buildLights();
+            this.cabin = new Cabin.Builder(buildControlPanelButtons()).build();
 
 
             //add Waterdies
@@ -108,6 +114,10 @@ public class FLF {
             for (int i = 0; i < 4; i++) {
                 this.searchLightsRoof.add(new SearchLight(LightPosition.ROOF_FRONT));
             }
+            for(int i=0;i<10;i++) {
+                LightPosition position = i<5?LightPosition.LEFT_SIDE:LightPosition.RIGHT_SIDE;
+                this.searchLightsSide.add(new SearchLight((position)));
+            }
 
             // add Indicators
             for (int i = 0; i < 4; i++) {
@@ -122,24 +132,46 @@ public class FLF {
 
             // add small FlashingBlueLights
             for (int i = 0; i < 2; i++) {
-                this.flashingBlueLightsSmall.add(new FlashingBlueLightSmall(LightPosition.FRONT_AREA));
+                this.flashingBlueLights.add(new FlashingBlueLightSmall(LightPosition.FRONT_AREA));
             }
 
             // add medium FlashingBlueLights
             for (int i = 0; i < 4; i++) {
                 LightPosition position = i < 2 ? LightPosition.ROOF_BACK_LEFT : LightPosition.ROOF_BACK_RIGHT;
-                this.flashingBlueLightsMedium.add(new FlashingBlueLightMedium(position));
+                this.flashingBlueLights.add(new FlashingBlueLightMedium(position));
             }
 
             // add big FlashingBlueLights
             for (int i = 0; i < 4; i++) {
                 LightPosition position = i < 2 ? LightPosition.ROOF_FRONT_LEFT : LightPosition.ROOF_FRONT_RIGHT;
-                this.flashingBlueLightsBig.add(new FlashingBlueLightBig(position));
+                this.flashingBlueLights.add(new FlashingBlueLightBig(position));
             }
 
             // add WarningLights
             this.warningLights.add(new WarningLight(LightPosition.ROOF_FRONT_LEFT));
             this.warningLights.add(new WarningLight(LightPosition.ROOF_BACK_RIGHT));
+        }
+
+        private List<ButtonSwitch> buildControlPanelButtons() {
+            List<ButtonSwitch> switches = new ArrayList<>();
+            for (int i = 0; i < 5; i++) {
+                switches.add(new ButtonSwitch(switch (i) {
+                    case 0 -> warningLights;
+                    case 1 -> flashingBlueLights;
+                    case 2 -> searchLightsFront;
+                    case 3 -> searchLightsRoof;
+                    default -> searchLightsSide;
+                }) {
+                    @Override
+                    public void operateDevice() {
+                        for (Light l : (ArrayList<Light>) this.operatingDevice)
+                            l.toggle();
+                    }
+                });
+            }
+
+
+            return switches;
         }
 
         /**

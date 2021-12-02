@@ -6,7 +6,7 @@ import java.util.function.Function;
 
 public abstract class Button {
     private List<IButtonListener> listeners = new ArrayList<>();
-    private Object operatingDevice;
+    protected Object operatingDevice;
 
     public Button(Object operatingDevice) {
         this.operatingDevice = operatingDevice;
@@ -22,9 +22,9 @@ public abstract class Button {
         }
     }
 
-    //public void operateDevice(Function<Object, Object> callback){
-    //
-    //}
+    public void operateDevice(){
+
+    }
 
     public Object getOperatingDevice() {
         return operatingDevice;
