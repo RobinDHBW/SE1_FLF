@@ -11,13 +11,13 @@ public class Axle implements IAxle {
     }
 
     @Override
-    public int accelerate() {
+    public Integer accelerate() {
         actualSpeed += stepSize;
         return actualSpeed;
     }
 
     @Override
-    public int brake(Integer actualSpeed) {
+    public Integer brake(Integer actualSpeed) {
         Integer speed = actualSpeed-stepSize;
         return speed;
     }
