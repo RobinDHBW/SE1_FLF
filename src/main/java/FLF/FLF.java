@@ -1,8 +1,6 @@
 package FLF;
 
-import Button.ButtonSwitch;
-import Button.Pedal;
-import Button.SwitchDevice;
+import Button.*;
 import Cabin.Cabin;
 import Drive.Drive;
 import Firefighting.WaterCannonFront;
@@ -101,7 +99,22 @@ public class FLF {
                     ((Drive) this.operatingDevice).brake();
                 }
             };
-            this.cabin = new Cabin.Builder(this.buildControlPanelButtons(), pedalAcc, pedalBrake).build();
+
+            ButtonRotaryWaterCannonFront btnCannonFront = new ButtonRotaryWaterCannonFront(this.waterCannonFront){
+                @Override
+                public void operateDevice() {
+                    ((WaterCannonFront) this.operatingDevice).setSprayCapacityPerlIteration(this.amountPerIteration);
+                }
+            };
+
+            ButtonRotaryWaterCannonRoof btnCannonRoof = new ButtonRotaryWaterCannonRoof(this.waterCannonRoof){
+                @Override
+                public void operateDevice() {
+                    ((WaterCannonRoof) this.operatingDevice).setSprayCapacityPerlIteration(this.amountPerIteration);
+                }
+            };
+
+            this.cabin = new Cabin.Builder(this.buildControlPanelButtons(), pedalAcc, pedalBrake, btnCannonRoof, btnCannonFront).build();
 
 
             //add Waterdies

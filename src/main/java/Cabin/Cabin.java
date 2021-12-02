@@ -74,8 +74,8 @@ public class Cabin {
 
         private final SteeringWheel steeringWheel = new SteeringWheel();
 
-        private final ButtonRotaryWaterCannonRoof btnRotaryWaterCannonRoof = new ButtonRotaryWaterCannonRoof();
-        private final ButtonRotaryWaterCannonFront btnRotaryWaterCannonFront = new ButtonRotaryWaterCannonFront();
+        private final ButtonRotaryWaterCannonRoof btnRotaryWaterCannonRoof;
+        private final ButtonRotaryWaterCannonFront btnRotaryWaterCannonFront;
 
         private final ControlPanel ctrlPanel;
 
@@ -88,7 +88,7 @@ public class Cabin {
         private final Busdoor busdoorRight = new Busdoor(VehicleSide.RIGHT);
 
 
-        public Builder(List<ButtonSwitch> switches, Pedal gasPedal, Pedal brakePedal) {
+        public Builder(List<ButtonSwitch> switches, Pedal gasPedal, Pedal brakePedal, ButtonRotaryWaterCannonRoof btnRotaryWaterCannonRoof, ButtonRotaryWaterCannonFront btnRotaryWaterCannonFront) {
             for (int i = 0; i < 2; i++) {
                 Boolean leftSide = i == 0;
                 seatList.add(new Seat(1, leftSide));
@@ -96,10 +96,12 @@ public class Cabin {
             seatList.add(new SeatFirefighting(new Driver(), true));
             seatList.add(new SeatFirefighting(new Operator(), false));
 
-            this.ctrlPanel  = new ControlPanel.Builder(switches).build();
+            this.ctrlPanel = new ControlPanel.Builder(switches).build();
+            this.btnRotaryWaterCannonRoof = btnRotaryWaterCannonRoof;
+            this.btnRotaryWaterCannonFront = btnRotaryWaterCannonFront;
 
-            this.gasPedal=gasPedal;
-            this.brakePedal=brakePedal;
+            this.gasPedal = gasPedal;
+            this.brakePedal = brakePedal;
         }
 
         public Cabin build() {

@@ -21,4 +21,12 @@ public class WaterCannon implements IWaterCannon {
             toSpray[i] = null;
         }
     }
+
+    public void setSprayCapacityPerlIteration(Integer sprayCapacityPerlIteration) {
+        this.sprayCapacityPerlIteration = sprayCapacityPerlIteration;
+    }
+
+    public Integer getSprayCapacityPerlIteration() {
+        return sprayCapacityPerlIteration;
+    }
 }
