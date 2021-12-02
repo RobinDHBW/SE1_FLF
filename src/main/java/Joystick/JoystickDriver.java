@@ -12,7 +12,7 @@ public class JoystickDriver extends Joystick{
 
 
     @Override
-    public void onToggleButton(Button o) {
+    public void onToggle(Button o) {
 
         if(o.equals(this.btnPressLeft)){
             /**

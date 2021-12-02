@@ -1,14 +1,12 @@
-import BatteryManagement.BatteryManagement;
-import Button.Button;
-import Button.IButtonListener;
+package FLF;
+
+import Button.SwitchDevice;
 import Cabin.Cabin;
 import ControlPanel.ControlPanel;
 import Firefighting.WaterCannonFront;
 import Firefighting.WaterCannonRoof;
 import Firefighting.WaterDieSelfprotection;
 import Lights.*;
-import Seating.Seat;
-import Seating.SeatFirefighting;
 import Tank.MixingProcessor;
 
 import java.util.ArrayList;
@@ -18,7 +16,8 @@ import java.util.List;
  *
  */
 public class FLF {
-    private final List<SearchLight> searchLights;
+    private final List<SearchLight> searchLightsFront;
+    private final List<SearchLight> searchLightsRoof;
     private final List<DirectionIndicator> directionIndicators;
     private final List<BrakingLight> brakingLights;
 
@@ -43,7 +42,8 @@ public class FLF {
 
         FLF built = builder.build();
         this.brakingLights = built.brakingLights;
-        this.searchLights = built.searchLights;
+        this.searchLightsFront = built.searchLightsFront;
+        this.searchLightsRoof = built.searchLightsRoof;
         this.directionIndicators = built.directionIndicators;
 
         this.flashingBlueLightsSmall = built.flashingBlueLightsSmall;
@@ -70,7 +70,8 @@ public class FLF {
 
         private final List<DirectionIndicator> directionIndicators = new ArrayList<>();
         private final List<BrakingLight> brakingLights = new ArrayList<>();
-        private final List<SearchLight> searchLights = new ArrayList<>();
+        private final List<SearchLight> searchLightsFront = new ArrayList<>();
+        private final List<SearchLight> searchLightsRoof = new ArrayList<>();
 
         private final List<FlashingBlueLightSmall> flashingBlueLightsSmall = new ArrayList<>();
         private final List<FlashingBlueLightMedium> flashingBlueLightsMedium = new ArrayList<>();
@@ -106,14 +107,16 @@ public class FLF {
                 this.brakingLights.add(new BrakingLight(position));
             }
 
-            // add Searchlights
-            for (int i = 0; i < 10; i++) {
+            // add Searchlights Front
+            for (int i = 0; i < 6; i++) {
                 LightPosition position = switch (i) {
                     case 0, 1, 2 -> LightPosition.FRONT_LEFT;
                     case 3, 4, 5 -> LightPosition.FRONT_RIGHT;
-                    default -> LightPosition.ROOF_FRONT;
                 };
-                this.searchLights.add(new SearchLight(position));
+                this.searchLightsFront.add(new SearchLight(position));
+            }
+            for (int i = 0; i < 4; i++) {
+                this.searchLightsRoof.add(new SearchLight(LightPosition.ROOF_FRONT));
             }
 
             // add Indicators
@@ -150,32 +153,40 @@ public class FLF {
         }
 
         /**
-         * @return FLF
+         * @return FLF.FLF
          */
         public FLF build() {
             return new FLF(this);
         }
     }
 
-    public static class CentralUnit implements ICentralUnit {
+    public static class CentralUnit {
         private Integer speed = 0;
 
         public CentralUnit() {
 
         }
 
-        @Override
-        public void switchLight(Light light) {
-            // Access all FLF properties with -> FLF.this.
-        }
-
-        @Override
-        public void steer(Double degree) {
+        public static void toggleEngines() {
 
         }
 
-        @Override
-        public void adjustSpeed(Integer speed) {
+        public static void switchLight(SwitchDevice device) {
+            List<Light> toToggle = new ArrayList<>();
+            if (device == SwitchDevice.WARNINGLIGHTS) {
+
+            }
+
+            for (Light light : toToggle) {
+                light.toggle();
+            }
+        }
+
+        public static void steer(Double degree) {
+
+        }
+
+        public static void adjustSpeed(Integer speed) {
 
         }
     }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Button {
-    private List<IButtonListener> listeners = new ArrayList<IButtonListener>();
+    private List<IButtonListener> listeners = new ArrayList<>();
 
     public Button() {
 
@@ -16,7 +16,7 @@ public abstract class Button {
 
     public void toggle() {
         for (IButtonListener listener : listeners) {
-            listener.onToggleButton(this);
+            listener.onToggle(this);
         }
     }
 }

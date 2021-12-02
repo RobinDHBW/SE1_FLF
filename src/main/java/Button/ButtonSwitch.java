@@ -6,4 +6,8 @@ public class ButtonSwitch extends ButtonBoolean {
     public ButtonSwitch(SwitchDevice device) {
         this.device = device;
     }
+
+    public SwitchDevice getDevice() {
+        return device;
+    }
 }

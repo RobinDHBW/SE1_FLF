@@ -19,7 +19,7 @@ public class Busdoor implements IButtonListener {
 
 
     @Override
-    public void onToggleButton(Button o) {
+    public void onToggle(Button o) {
         this.isOpen = !this.isOpen;
     }
 

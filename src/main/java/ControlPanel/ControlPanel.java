@@ -1,20 +1,31 @@
 package ControlPanel;
 
-import Button.ButtonBoolean;
-import Button.ButtonSwitch;
-import Button.SwitchDevice;
+import Button.*;
+import FLF.FLF;
+import Lights.WarningLight;
 import Seating.Seat;
 
+import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ControlPanel {
+public class ControlPanel implements IButtonListener {
     private final List<ButtonBoolean> buttonList;
 
     public ControlPanel(Builder builder) {
         ControlPanel built = builder.build();
         this.buttonList = built.buttonList;
 
+    }
+
+    @Override
+    public void onToggle(Button o) {
+        ButtonSwitch btnSwitch = (ButtonSwitch) o;
+
+        switch (btnSwitch.getDevice()) {
+            case ENGINES -> FLF.CentralUnit.toggleEngines();
+            case WARNINGLIGHTS -> FLF.CentralUnit.switchLight(SwitchDevice.WARNINGLIGHTS);
+        }
     }
 
     public static class Builder {
