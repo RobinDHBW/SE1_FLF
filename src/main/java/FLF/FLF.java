@@ -1,8 +1,6 @@
 package FLF;
 
-import Button.SwitchDevice;
 import Cabin.Cabin;
-import ControlPanel.ControlPanel;
 import Firefighting.WaterCannonFront;
 import Firefighting.WaterCannonRoof;
 import Firefighting.WaterDieSelfprotection;
@@ -27,8 +25,6 @@ public class FLF {
     private final List<WarningLight> warningLights;
 
     private final Cabin cabin;
-    private final CentralUnit centralUnit;
-    private final ControlPanel controlPanel;
 
     private final WaterCannonRoof waterCannonRoof;
     private final WaterCannonFront waterCannonFront;
@@ -52,8 +48,6 @@ public class FLF {
         this.warningLights = built.warningLights;
 
         this.cabin = built.cabin;
-        this.centralUnit = built.centralUnit;
-        this.controlPanel = built.controlPanel;
 
         this.waterCannonRoof = built.waterCannonRoof;
         this.waterCannonFront = built.waterCannonFront;
@@ -68,19 +62,15 @@ public class FLF {
      */
     public static class Builder {
 
+        private final static List<WarningLight> warningLights = new ArrayList<>();
         private final List<DirectionIndicator> directionIndicators = new ArrayList<>();
         private final List<BrakingLight> brakingLights = new ArrayList<>();
         private final List<SearchLight> searchLightsFront = new ArrayList<>();
         private final List<SearchLight> searchLightsRoof = new ArrayList<>();
-
         private final List<FlashingBlueLightSmall> flashingBlueLightsSmall = new ArrayList<>();
         private final List<FlashingBlueLightMedium> flashingBlueLightsMedium = new ArrayList<>();
         private final List<FlashingBlueLightBig> flashingBlueLightsBig = new ArrayList<>();
-        private final List<WarningLight> warningLights = new ArrayList<>();
-
         private final Cabin cabin = new Cabin.Builder().build();
-        private final CentralUnit centralUnit = new CentralUnit();
-        private final ControlPanel controlPanel = new ControlPanel.Builder().build();
 
         private final WaterCannonRoof waterCannonRoof = new WaterCannonRoof(500);
         private final WaterCannonFront waterCannonFront = new WaterCannonFront(500, 90);
@@ -111,7 +101,7 @@ public class FLF {
             for (int i = 0; i < 6; i++) {
                 LightPosition position = switch (i) {
                     case 0, 1, 2 -> LightPosition.FRONT_LEFT;
-                    case 3, 4, 5 -> LightPosition.FRONT_RIGHT;
+                    default -> LightPosition.FRONT_RIGHT;
                 };
                 this.searchLightsFront.add(new SearchLight(position));
             }
@@ -157,37 +147,6 @@ public class FLF {
          */
         public FLF build() {
             return new FLF(this);
-        }
-    }
-
-    public static class CentralUnit {
-        private Integer speed = 0;
-
-        public CentralUnit() {
-
-        }
-
-        public static void toggleEngines() {
-
-        }
-
-        public static void switchLight(SwitchDevice device) {
-            List<Light> toToggle = new ArrayList<>();
-            if (device == SwitchDevice.WARNINGLIGHTS) {
-
-            }
-
-            for (Light light : toToggle) {
-                light.toggle();
-            }
-        }
-
-        public static void steer(Double degree) {
-
-        }
-
-        public static void adjustSpeed(Integer speed) {
-
         }
     }
 }

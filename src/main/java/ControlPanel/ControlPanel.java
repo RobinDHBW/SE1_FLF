@@ -1,11 +1,8 @@
 package ControlPanel;
 
 import Button.*;
-import FLF.FLF;
-import Lights.WarningLight;
-import Seating.Seat;
+import Cabin.CentralUnit;
 
-import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +20,8 @@ public class ControlPanel implements IButtonListener {
         ButtonSwitch btnSwitch = (ButtonSwitch) o;
 
         switch (btnSwitch.getDevice()) {
-            case ENGINES -> FLF.CentralUnit.toggleEngines();
-            case WARNINGLIGHTS -> FLF.CentralUnit.switchLight(SwitchDevice.WARNINGLIGHTS);
+           // case ENGINES -> CentralUnit.toggleEngines();
+          //  case WARNINGLIGHTS -> CentralUnit.switchLight(SwitchDevice.WARNINGLIGHTS);
         }
     }
 
