@@ -16,5 +16,7 @@ public class ButtonPress extends Button{
             this.isActivated = false;
         } else this.isActivated = true;
     }
-
+    /**
+     * @TODO UML anpassen
+     */
 }
