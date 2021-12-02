@@ -81,14 +81,27 @@ public class Cabin {
 
         private final List<Seat> seatList = new ArrayList<>();
 
-        private final Joystick joystickDriver = new JoystickDriver(JoystickType.CLASSIC);
-        private final Joystick joystickOperator = new JoystickOperator(JoystickType.CLASSIC);
+        private final Joystick joystickDriver;
+        private final Joystick joystickOperator;
 
         private final Busdoor busdoorLeft = new Busdoor(VehicleSide.LEFT);
         private final Busdoor busdoorRight = new Busdoor(VehicleSide.RIGHT);
 
 
-        public Builder(List<ButtonSwitch> switches, Pedal gasPedal, Pedal brakePedal, ButtonRotaryWaterCannonRoof btnRotaryWaterCannonRoof, ButtonRotaryWaterCannonFront btnRotaryWaterCannonFront) {
+        public Builder(
+                List<ButtonSwitch> switches,
+                Pedal gasPedal,
+                Pedal brakePedal,
+                ButtonRotaryWaterCannonRoof btnRotaryWaterCannonRoof,
+                ButtonRotaryWaterCannonFront btnRotaryWaterCannonFront,
+                ButtonPress btnPressJoystickDriverLeft,
+                ButtonPress btnPressJoystickDriverRight,
+                ButtonPush btnPushJoystickDriver,
+                ButtonPress btnPressJoystickOperatorLeft,
+                ButtonPress btnPressJoystickOperatorRight,
+                ButtonPush btnPushJoystickOperator) {
+
+
             for (int i = 0; i < 2; i++) {
                 Boolean leftSide = i == 0;
                 seatList.add(new Seat(1, leftSide));
@@ -97,8 +110,13 @@ public class Cabin {
             seatList.add(new SeatFirefighting(new Operator(), false));
 
             this.ctrlPanel = new ControlPanel.Builder(switches).build();
+
             this.btnRotaryWaterCannonRoof = btnRotaryWaterCannonRoof;
             this.btnRotaryWaterCannonFront = btnRotaryWaterCannonFront;
+
+            this.joystickDriver = new Joystick(btnPushJoystickDriver, btnPressJoystickDriverLeft, btnPressJoystickDriverRight);
+            this.joystickOperator = new Joystick(btnPushJoystickOperator, btnPressJoystickOperatorLeft, btnPressJoystickOperatorRight);
+
 
             this.gasPedal = gasPedal;
             this.brakePedal = brakePedal;

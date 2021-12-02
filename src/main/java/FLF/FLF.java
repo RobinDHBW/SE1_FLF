@@ -8,6 +8,7 @@ import Firefighting.WaterCannonRoof;
 import Firefighting.WaterDieSelfprotection;
 import Lights.*;
 import Tank.MixingProcessor;
+import Tank.TankSubject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,21 +101,70 @@ public class FLF {
                 }
             };
 
-            ButtonRotaryWaterCannonFront btnCannonFront = new ButtonRotaryWaterCannonFront(this.waterCannonFront){
+            ButtonRotaryWaterCannonFront btnCannonFront = new ButtonRotaryWaterCannonFront(this.waterCannonFront) {
                 @Override
                 public void operateDevice() {
                     ((WaterCannonFront) this.operatingDevice).setSprayCapacityPerlIteration(this.amountPerIteration);
                 }
             };
-
-            ButtonRotaryWaterCannonRoof btnCannonRoof = new ButtonRotaryWaterCannonRoof(this.waterCannonRoof){
+            ButtonRotaryWaterCannonRoof btnCannonRoof = new ButtonRotaryWaterCannonRoof(this.waterCannonRoof) {
                 @Override
                 public void operateDevice() {
                     ((WaterCannonRoof) this.operatingDevice).setSprayCapacityPerlIteration(this.amountPerIteration);
                 }
             };
 
-            this.cabin = new Cabin.Builder(this.buildControlPanelButtons(), pedalAcc, pedalBrake, btnCannonRoof, btnCannonFront).build();
+            ButtonPress btnPressJoystickDriverLeft = new ButtonPress(this.waterCannonFront) {
+                @Override
+                public void operateDevice() {
+                    ((WaterCannonFront) this.operatingDevice).toggle();
+                }
+            };
+            ButtonPress btnPressJoystickDriverRight = new ButtonPress(this.mixingProcessor) {
+                @Override
+                public void operateDevice() {
+                    ((MixingProcessor) this.operatingDevice).changeMixingRate();
+                }
+            };
+            ButtonPush btnPushJoystickDriver = new ButtonPush(this.waterCannonFront){
+                @Override
+                public void operateDevice() {
+                    ((WaterCannonFront) this.operatingDevice).spray(new TankSubject[0]); //@TODO TankSubject da rein bringen^^
+                }
+            };
+
+            ButtonPress btnPressJoystickOperatorLeft = new ButtonPress(this.waterCannonRoof) {
+                @Override
+                public void operateDevice() {
+                    ((WaterCannonRoof) this.operatingDevice).toggle();
+                }
+            };
+            ButtonPress btnPressJoystickOperatorRight = new ButtonPress(this.mixingProcessor) {
+                @Override
+                public void operateDevice() {
+                    ((MixingProcessor) this.operatingDevice).changeMixingRate();
+                }
+            };
+            ButtonPush btnPushJoystickOperator = new ButtonPush(this.waterCannonRoof){
+                @Override
+                public void operateDevice() {
+                    ((WaterCannonRoof) this.operatingDevice).spray(new TankSubject[0]); //@TODO TankSubject da rein bringen^^
+                }
+            };
+
+            this.cabin = new Cabin.Builder(
+                    this.buildControlPanelButtons(),
+                    pedalAcc,
+                    pedalBrake,
+                    btnCannonRoof,
+                    btnCannonFront,
+                    btnPressJoystickDriverLeft,
+                    btnPressJoystickDriverRight,
+                    btnPushJoystickDriver,
+                    btnPressJoystickOperatorLeft,
+                    btnPressJoystickOperatorRight,
+                    btnPushJoystickOperator
+            ).build();
 
 
             //add Waterdies

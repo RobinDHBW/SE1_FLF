@@ -7,17 +7,23 @@ import java.util.stream.Stream;
 import static Tank.TankSubject.FOAM;
 
 public class MixingProcessor {
-    private MixingRate mixingRate;
+    private MixingRate mixingRate = MixingRate.NULL;
 
     private Tank foamTank = new Tank(FOAM, 25, 10, 10);
     private Tank waterTank = new Tank(TankSubject.WATER, 50, 25, 10);
 
     public MixingProcessor() {
-        this.setMixingRate(MixingRate.NULL);
+
     }
 
-    public void setMixingRate(MixingRate mixingRate) {
-        this.mixingRate = mixingRate;
+    public void changeMixingRate() {
+        this.mixingRate = switch (this.mixingRate) {
+            case NULL -> MixingRate.THREE;
+            case THREE -> MixingRate.FIVE;
+            case FIVE -> MixingRate.TEN;
+            default -> MixingRate.NULL;
+        };
+
     }
 
     public TankSubject[] mix(Integer quantity) {
@@ -54,7 +60,7 @@ public class MixingProcessor {
             actualFillState = waterTank.getCapacity() * waterTank.getRelativeFillState();
             toFill = waterTank.getCapacity() - actualFillState.intValue();
         }
-        
+
         this.fill(input, toFill);
     }
 }
