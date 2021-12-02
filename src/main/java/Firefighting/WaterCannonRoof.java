@@ -10,4 +10,9 @@ public class WaterCannonRoof extends WaterCannon {
         this.segment = new BranchSegment(3, new Integer[]{6, 6, 5});
         this.segmentMovable = new SegmentMovable(90);
     }
+
+    @Override
+    public void toggle() {
+        super.toggle();
+    }
 }

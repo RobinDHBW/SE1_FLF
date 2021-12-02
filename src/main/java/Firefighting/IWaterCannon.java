@@ -1,7 +1,8 @@
 package Firefighting;
 
+import Tank.TankSubject;
+
 public interface IWaterCannon {
-    void activate();
-    void deactivate();
-    void spray();
+    void toggle();
+    void spray(TankSubject[] toSpray);
 }

@@ -87,7 +87,7 @@ public class FLF {
         public Builder() {
 
             buildLights();
-            this.cabin = new Cabin.Builder(buildControlPanelButtons()).build();
+            this.cabin = new Cabin.Builder(this.buildControlPanelButtons()).build();
 
 
             //add Waterdies
@@ -170,6 +170,12 @@ public class FLF {
                 });
             }
 
+            switches.add(new ButtonSwitch(waterDiesSelfprotection){
+                @Override
+                public void operateDevice() {
+                    ((WaterDieSelfprotection) this.operatingDevice).toggle();
+                }
+            });
 
             return switches;
         }
