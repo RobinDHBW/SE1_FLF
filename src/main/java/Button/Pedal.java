@@ -5,8 +5,9 @@ public class Pedal extends ButtonTap{
     protected PedalType pedalType;
     protected Integer speed =0;
 
-    public Pedal(PedalType pedalType, Integer stepSize)
+    public Pedal(Object o, PedalType pedalType, Integer stepSize)
     {
+        super(o);
         this.pedalType = pedalType;
         this.stepSize=stepSize;
     }

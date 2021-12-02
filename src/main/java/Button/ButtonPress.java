@@ -7,7 +7,8 @@ public class ButtonPress extends Button{
         return isActivated;
     }
 
-    public ButtonPress(){
+    public ButtonPress(Object o){
+        super(o);
         this.isActivated = false;
     }
 

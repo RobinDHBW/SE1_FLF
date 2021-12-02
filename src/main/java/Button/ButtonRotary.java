@@ -3,8 +3,8 @@ package Button;
 public abstract class ButtonRotary extends Button implements IButtonRotary {
     protected Integer amountPerIteration;
 
-    public ButtonRotary() {
-
+    public ButtonRotary(Object o) {
+        super(o);
     }
 
     /**

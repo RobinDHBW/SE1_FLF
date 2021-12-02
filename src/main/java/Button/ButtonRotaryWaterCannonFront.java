@@ -1,7 +1,13 @@
 package Button;
 
+import Firefighting.WaterCannonFront;
+
 public class ButtonRotaryWaterCannonFront extends ButtonRotary {
     private final Integer stepSize = 500;
+
+    public ButtonRotaryWaterCannonFront(WaterCannonFront o) {
+        super(o);
+    }
 
     @Override
     public void rotateLeft() {

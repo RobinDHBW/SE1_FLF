@@ -3,7 +3,6 @@ package Cabin;
 import Button.ButtonRotaryWaterCannonFront;
 import Button.ButtonRotaryWaterCannonRoof;
 import Button.PedalType;
-import ControlPanel.ControlPanel;
 import Instruments.BatteryIndicator;
 import Button.Pedal;
 import Instruments.Speedometer;
@@ -68,6 +67,8 @@ public class Cabin {
     }
 
     public static class Builder {
+        private final CentralUnit centralUnit = new CentralUnit();
+
         private final BatteryIndicator batteryIndicator = new BatteryIndicator();
         private final Speedometer speedometer = new Speedometer();
 
@@ -80,7 +81,7 @@ public class Cabin {
         private final ButtonRotaryWaterCannonFront btnRotaryWaterCannonFront = new ButtonRotaryWaterCannonFront();
 
         private final ControlPanel ctrlPanel = new ControlPanel.Builder().build();
-        private final CentralUnit centralUnit = new CentralUnit();
+
 
         private final List<Seat> seatList = new ArrayList<>();
 

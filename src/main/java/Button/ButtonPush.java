@@ -1,7 +1,7 @@
 package Button;
 
 public class ButtonPush extends ButtonBoolean{
-    public ButtonPush(){
-
+    public ButtonPush(Object o){
+        super(o);
     }
 }

@@ -1,7 +1,6 @@
-package ControlPanel;
+package Cabin;
 
 import Button.*;
-import Cabin.CentralUnit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,9 +8,9 @@ import java.util.List;
 public class ControlPanel implements IButtonListener {
     private final List<ButtonBoolean> buttonList;
 
-    public ControlPanel(Builder builder) {
+    public ControlPanel(Builder builder, List<ButtonBoolean> buttonList) {
         ControlPanel built = builder.build();
-        this.buttonList = built.buttonList;
+        this.buttonList = buttonList;
 
     }
 
