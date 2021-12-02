@@ -4,26 +4,33 @@ import Button.Button;
 import Button.ButtonPush;
 import Button.IButtonListener;
 
-public class Busdoor implements IButtonListener {
+public class Busdoor {
     private final VehicleSide side;
 
-    public ButtonPush btnPushOutside = new ButtonPush();
-    public ButtonPush btnPushInside = new ButtonPush();
+    public ButtonPush btnPushOutside = new ButtonPush(this){
+        @Override
+        public void operateDevice() {
+            ((Busdoor) this.operatingDevice).operateDoor();
+        }
+    };
+    public ButtonPush btnPushInside = new ButtonPush(this){
+        @Override
+        public void operateDevice() {
+            ((Busdoor) this.operatingDevice).operateDoor();
+        }
+    };
     private Boolean isOpen = false;
 
     public Busdoor(VehicleSide side) {
         this.side = side;
-        btnPushInside.addListener(this);
-        btnPushOutside.addListener(this);
-    }
-
-
-    @Override
-    public void onToggle(Button o) {
-        this.isOpen = !this.isOpen;
     }
 
     public Boolean getOpen() {
         return isOpen;
     }
+
+    public void operateDoor(){
+        this.isOpen = !this.isOpen;
+    }
+
 }

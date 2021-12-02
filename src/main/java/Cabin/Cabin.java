@@ -69,9 +69,8 @@ public class Cabin {
         private final BatteryIndicator batteryIndicator = new BatteryIndicator();
         private final Speedometer speedometer = new Speedometer();
 
-        //@TODO connect Pedals to the Drive
-        private final Pedal gasPedal = new Pedal(new Object(), PedalType.ACCELERATE, 4);
-        private final Pedal brakePedal = new Pedal(new Object(), PedalType.BREAK, 4);
+        private final Pedal gasPedal;
+        private final Pedal brakePedal;
 
         private final SteeringWheel steeringWheel = new SteeringWheel();
 
@@ -79,7 +78,6 @@ public class Cabin {
         private final ButtonRotaryWaterCannonFront btnRotaryWaterCannonFront = new ButtonRotaryWaterCannonFront();
 
         private final ControlPanel ctrlPanel;
-
 
         private final List<Seat> seatList = new ArrayList<>();
 
@@ -90,7 +88,7 @@ public class Cabin {
         private final Busdoor busdoorRight = new Busdoor(VehicleSide.RIGHT);
 
 
-        public Builder(List<ButtonSwitch> switches) {
+        public Builder(List<ButtonSwitch> switches, Pedal gasPedal, Pedal brakePedal) {
             for (int i = 0; i < 2; i++) {
                 Boolean leftSide = i == 0;
                 seatList.add(new Seat(1, leftSide));
@@ -99,6 +97,9 @@ public class Cabin {
             seatList.add(new SeatFirefighting(new Operator(), false));
 
             this.ctrlPanel  = new ControlPanel.Builder(switches).build();
+
+            this.gasPedal=gasPedal;
+            this.brakePedal=brakePedal;
         }
 
         public Cabin build() {

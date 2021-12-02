@@ -1,6 +1,7 @@
 package FLF;
 
 import Button.ButtonSwitch;
+import Button.Pedal;
 import Button.SwitchDevice;
 import Cabin.Cabin;
 import Drive.Drive;
@@ -88,7 +89,19 @@ public class FLF {
         public Builder() {
 
             buildLights();
-            this.cabin = new Cabin.Builder(this.buildControlPanelButtons()).build();
+            Pedal pedalAcc = new Pedal(drive) {
+                @Override
+                public void operateDevice() {
+                    ((Drive) this.operatingDevice).accelerate();
+                }
+            };
+            Pedal pedalBrake = new Pedal(drive) {
+                @Override
+                public void operateDevice() {
+                    ((Drive) this.operatingDevice).brake();
+                }
+            };
+            this.cabin = new Cabin.Builder(this.buildControlPanelButtons(), pedalAcc, pedalBrake).build();
 
 
             //add Waterdies
