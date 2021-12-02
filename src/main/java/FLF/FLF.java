@@ -11,6 +11,7 @@ import Tank.MixingProcessor;
 import Tank.TankSubject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -67,20 +68,20 @@ public class FLF {
      */
     public static class Builder {
 
-        private final static List<WarningLight> warningLights = new ArrayList<>();
-        private final List<DirectionIndicator> directionIndicators = new ArrayList<>();
-        private final List<BrakingLight> brakingLights = new ArrayList<>();
-        private final List<SearchLight> searchLightsFront = new ArrayList<>();
-        private final List<SearchLight> searchLightsRoof = new ArrayList<>();
-        private final List<SearchLight> searchLightsSide = new ArrayList<>();
-        private final List<FlashingBlueLight> flashingBlueLights = new ArrayList<>();
+        private final static List<WarningLight> warningLights = new ArrayList<WarningLight>();
+        private final List<DirectionIndicator> directionIndicators = new ArrayList<DirectionIndicator>();
+        private final List<BrakingLight> brakingLights = new ArrayList<BrakingLight>();
+        private final List<SearchLight> searchLightsFront = new ArrayList<SearchLight>();
+        private final List<SearchLight> searchLightsRoof = new ArrayList<SearchLight>();
+        private final List<SearchLight> searchLightsSide = new ArrayList<SearchLight>();
+        private final List<FlashingBlueLight> flashingBlueLights = new ArrayList<FlashingBlueLight>();
         private final Cabin cabin;
 
         private final Drive drive = new Drive();
 
         private final WaterCannonRoof waterCannonRoof = new WaterCannonRoof(500);
         private final WaterCannonFront waterCannonFront = new WaterCannonFront(500, 90);
-        private final List<WaterDieSelfprotection> waterDiesSelfprotection = new ArrayList<>();
+        private final List<WaterDieSelfprotection> waterDiesSelfprotection = new ArrayList<WaterDieSelfprotection>();
 
         private final MixingProcessor mixingProcessor = new MixingProcessor();
         //private final BatteryManagement batteryManagement = BatteryManagement;
@@ -126,7 +127,7 @@ public class FLF {
                     ((MixingProcessor) this.operatingDevice).changeMixingRate();
                 }
             };
-            ButtonPush btnPushJoystickDriver = new ButtonPush(this.waterCannonFront){
+            ButtonPush btnPushJoystickDriver = new ButtonPush(this.waterCannonFront) {
                 @Override
                 public void operateDevice() {
                     ((WaterCannonFront) this.operatingDevice).spray(new TankSubject[0]); //@TODO TankSubject da rein bringen^^
@@ -145,7 +146,7 @@ public class FLF {
                     ((MixingProcessor) this.operatingDevice).changeMixingRate();
                 }
             };
-            ButtonPush btnPushJoystickOperator = new ButtonPush(this.waterCannonRoof){
+            ButtonPush btnPushJoystickOperator = new ButtonPush(this.waterCannonRoof) {
                 @Override
                 public void operateDevice() {
                     ((WaterCannonRoof) this.operatingDevice).spray(new TankSubject[0]); //@TODO TankSubject da rein bringen^^
@@ -230,7 +231,7 @@ public class FLF {
         }
 
         private List<ButtonSwitch> buildControlPanelButtons() {
-            List<ButtonSwitch> switches = new ArrayList<>();
+            List<ButtonSwitch> switches = new ArrayList<ButtonSwitch>();
             for (int i = 0; i < 5; i++) {
                 switches.add(new ButtonSwitch(switch (i) {
                     case 0 -> warningLights;
@@ -241,8 +242,9 @@ public class FLF {
                 }) {
                     @Override
                     public void operateDevice() {
-                        for (Light l : (ArrayList<Light>) this.operatingDevice)
-                            l.toggle();
+                        List<Object> lights = Arrays.asList(operatingDevice);
+                        for (Object l : lights)
+                            ((Light) l).toggle();
                     }
                 });
             }

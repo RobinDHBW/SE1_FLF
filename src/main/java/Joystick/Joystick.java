@@ -6,9 +6,9 @@ import Button.ButtonPush;
 import Button.IButtonListener;
 
 public class Joystick {
-    public ButtonPush btnPush;
-    public ButtonPress btnPressLeft;
-    public ButtonPress btnPressRight;
+    private ButtonPush btnPush;
+    private ButtonPress btnPressLeft;
+    private ButtonPress btnPressRight;
     //public ButtonPress btnPressInt = new ButtonPress();
 
     public Joystick(ButtonPush btnPush, ButtonPress btnPressLeft, ButtonPress btnPressRight) {
@@ -16,5 +16,17 @@ public class Joystick {
         this.btnPush = btnPush;
         this.btnPressLeft = btnPressLeft;
         this.btnPressRight = btnPressRight;
+    }
+
+    public void pressBtnLeft() {
+        this.btnPressLeft.operateDevice();
+    }
+
+    public void pressBtnRight() {
+        this.btnPressRight.operateDevice();
+    }
+
+    public void pushBtn() {
+        this.btnPush.operateDevice();
     }
 }

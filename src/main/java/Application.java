@@ -1,4 +1,4 @@
-import FLF.FLF;
+import FLF.*;
 
 public class Application {
 

@@ -33,8 +33,8 @@ public class Cabin {
     private final Joystick joystickDriver;
     private final Joystick joystickOperator;
 
-    private final Busdoor busdoorLeft;
-    private final Busdoor busdoorRight;
+    private final BusDoor busDoorLeft;
+    private final BusDoor busDoorRight;
 
 
     private Cabin(Builder builder) {
@@ -58,8 +58,8 @@ public class Cabin {
         this.joystickDriver = built.joystickDriver;
         this.joystickOperator = built.joystickOperator;
 
-        this.busdoorLeft = built.busdoorLeft;
-        this.busdoorRight = built.busdoorRight;
+        this.busDoorLeft = built.busDoorLeft;
+        this.busDoorRight = built.busDoorRight;
 
     }
 
@@ -84,8 +84,8 @@ public class Cabin {
         private final Joystick joystickDriver;
         private final Joystick joystickOperator;
 
-        private final Busdoor busdoorLeft = new Busdoor(VehicleSide.LEFT);
-        private final Busdoor busdoorRight = new Busdoor(VehicleSide.RIGHT);
+        private final BusDoor busDoorLeft = new BusDoor(VehicleSide.LEFT);
+        private final BusDoor busDoorRight = new BusDoor(VehicleSide.RIGHT);
 
 
         public Builder(

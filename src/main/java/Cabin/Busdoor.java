@@ -1,27 +1,24 @@
 package Cabin;
 
-import Button.Button;
 import Button.ButtonPush;
-import Button.IButtonListener;
 
-public class Busdoor {
+public class BusDoor {
     private final VehicleSide side;
-
-    public ButtonPush btnPushOutside = new ButtonPush(this){
-        @Override
-        public void operateDevice() {
-            ((Busdoor) this.operatingDevice).operateDoor();
-        }
-    };
-    public ButtonPush btnPushInside = new ButtonPush(this){
-        @Override
-        public void operateDevice() {
-            ((Busdoor) this.operatingDevice).operateDoor();
-        }
-    };
     private Boolean isOpen = false;
+    private ButtonPush btnPushOutside = new ButtonPush(this) {
+        @Override
+        public void operateDevice() {
+            ((BusDoor) this.operatingDevice).operateDoor();
+        }
+    };
+    private ButtonPush btnPushInside = new ButtonPush(this) {
+        @Override
+        public void operateDevice() {
+            ((BusDoor) this.operatingDevice).operateDoor();
+        }
+    };
 
-    public Busdoor(VehicleSide side) {
+    public BusDoor(VehicleSide side) {
         this.side = side;
     }
 
@@ -29,8 +26,16 @@ public class Busdoor {
         return isOpen;
     }
 
-    public void operateDoor(){
+    private void operateDoor() {
         this.isOpen = !this.isOpen;
+    }
+
+    public void toggleDoor(Boolean fromOutside) {
+        if (fromOutside) {
+            btnPushOutside.operateDevice();
+        } else {
+            btnPushInside.operateDevice();
+        }
     }
 
 }
