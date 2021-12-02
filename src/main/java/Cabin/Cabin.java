@@ -61,8 +61,8 @@ public class Cabin {
         private final ButtonRotaryWaterCannonFront btnRotaryWaterCannonFront = new ButtonRotaryWaterCannonFront();
         private final ControlPanel ctrlPanel = new ControlPanel.Builder().build();
         private final List<Seat> seatList = new ArrayList<>();
-        private final Joystick joystickDriver = new JoystickDriver();
-        private final Joystick joystickOperator = new JoystickOperator();
+        private final Joystick joystickDriver = new JoystickDriver(JoystickType.CLASSIC);
+        private final Joystick joystickOperator = new JoystickOperator(JoystickType.CLASSIC);
         private final Busdoor busdoorLeft = new Busdoor(VehicleSide.LEFT);
         private final Busdoor busdoorRight = new Busdoor(VehicleSide.RIGHT);
 
