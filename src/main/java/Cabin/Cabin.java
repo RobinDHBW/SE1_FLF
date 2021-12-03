@@ -89,7 +89,7 @@ public class Cabin {
 
 
         public Builder(
-                List<ButtonSwitch> switches,
+                ControlPanel controlPanel,
                 Pedal gasPedal,
                 Pedal brakePedal,
                 ButtonRotaryWaterCannonRoof btnRotaryWaterCannonRoof,
@@ -106,7 +106,7 @@ public class Cabin {
             seatList.add(new SeatFirefighting(new Driver(), true));
             seatList.add(new SeatFirefighting(new Operator(), false));
 
-            this.ctrlPanel = new ControlPanel.Builder(switches).build();
+            this.ctrlPanel = controlPanel;
 
             this.btnRotaryWaterCannonRoof = btnRotaryWaterCannonRoof;
             this.btnRotaryWaterCannonFront = btnRotaryWaterCannonFront;

@@ -1,8 +1,10 @@
 package Tank;
 
 import BatteryManagement.Coulomb;
+import Firefighting.*;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,13 +13,18 @@ import java.util.stream.Stream;
 import static Tank.TankSubject.FOAM;
 
 public class MixingProcessor {
+    private final WaterCannonRoof waterCannonRoof = new WaterCannonRoof();
+    private final WaterCannonFront waterCannonFront = new WaterCannonFront(90);
+    private final List<WaterDieSelfprotection> waterDiesSelfprotection = new ArrayList<>();
     private MixingRate mixingRate = MixingRate.NULL;
-
     private Tank foamTank = new Tank(FOAM, 25, 10, 10);
     private Tank waterTank = new Tank(TankSubject.WATER, 50, 25, 10);
 
     public MixingProcessor() {
-
+        //add Waterdies
+        for (int i = 0; i < 7; i++) {
+            this.waterDiesSelfprotection.add(new WaterDieSelfprotection(100));
+        }
     }
 
     public void changeMixingRate() {
@@ -30,7 +37,7 @@ public class MixingProcessor {
 
     }
 
-    public List<TankSubject> mix(Integer quantity) {
+    private List<TankSubject> mix(Integer quantity) {
 
         Integer foamPortion = switch (this.mixingRate) {
             case NULL -> 0;
@@ -68,6 +75,29 @@ public class MixingProcessor {
         }
 
         this.fill(input, toFill);
+    }
+
+    public void toggle(CannonIdentifier ident) {
+        switch (ident) {
+            case CANNON_ROOF -> this.waterCannonRoof.toggle();
+            case CANNON_FRONT -> this.waterCannonFront.toggle();
+            case CANNON_SELFPROTECTION -> {
+                for (WaterDieSelfprotection die : this.waterDiesSelfprotection) {
+                    die.toggle();
+                }
+            }
+        }
+    }
+
+    public void setSprayCapacityPerlIteration(CannonIdentifier ident, Integer amount) {
+        switch (ident) {
+            case CANNON_ROOF -> this.waterCannonRoof.setSprayCapacityPerlIteration(amount);
+            case CANNON_FRONT -> this.waterCannonFront.setSprayCapacityPerlIteration(amount);
+        }
+    }
+
+    public void spray(CannonIdentifier identifier){
+
     }
 
 }

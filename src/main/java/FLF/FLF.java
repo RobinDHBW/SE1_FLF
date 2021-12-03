@@ -3,6 +3,7 @@ package FLF;
 import Button.*;
 import Cabin.*;
 import Drive.Drive;
+import Firefighting.CannonIdentifier;
 import Firefighting.WaterCannonFront;
 import Firefighting.WaterCannonRoof;
 import Firefighting.WaterDieSelfprotection;
@@ -34,10 +35,6 @@ public class FLF {
 
     private final Drive drive;
 
-    private final WaterCannonRoof waterCannonRoof;
-    private final WaterCannonFront waterCannonFront;
-    private final List<WaterDieSelfprotection> waterDiesSelfprotection;
-
     private final MixingProcessor mixingProcessor;
 
 
@@ -57,10 +54,6 @@ public class FLF {
         this.cabin = built.cabin;
 
         this.drive = built.drive;
-
-        this.waterCannonRoof = built.waterCannonRoof;
-        this.waterCannonFront = built.waterCannonFront;
-        this.waterDiesSelfprotection = built.waterDiesSelfprotection;
 
         this.mixingProcessor = built.mixingProcessor;
     }
@@ -82,15 +75,11 @@ public class FLF {
 
         private final Drive drive = new Drive();
 
-        private final WaterCannonRoof waterCannonRoof = new WaterCannonRoof();
-        private final WaterCannonFront waterCannonFront = new WaterCannonFront(90);
-        private final List<WaterDieSelfprotection> waterDiesSelfprotection = new ArrayList<WaterDieSelfprotection>();
-
         private final MixingProcessor mixingProcessor = new MixingProcessor();
 
         public Builder() {
 
-            CentralUnit centralUnit = new CentralUnit(warningLights, flashingBlueLights, searchLightsFront, searchLightsRoof, searchLightsSide, directionIndicatorsLeft, directionIndicatorsRight, waterDiesSelfprotection, drive);
+            CentralUnit centralUnit = new CentralUnit(warningLights, flashingBlueLights, searchLightsFront, searchLightsRoof, searchLightsSide, directionIndicatorsLeft, directionIndicatorsRight, mixingProcessor, drive);
 
             buildLights();
             Pedal pedalAcc = new Pedal(centralUnit) {
@@ -106,16 +95,16 @@ public class FLF {
                 }
             };
 
-            ButtonRotaryWaterCannonFront btnCannonFront = new ButtonRotaryWaterCannonFront(this.waterCannonFront) {
+            ButtonRotaryWaterCannonFront btnCannonFront = new ButtonRotaryWaterCannonFront(this.mixingProcessor) {
                 @Override
                 public void operateDevice() {
-                    ((WaterCannonFront) this.operatingDevice).setSprayCapacityPerlIteration(this.amountPerIteration);
+                    ((MixingProcessor) this.operatingDevice).setSprayCapacityPerlIteration(CannonIdentifier.CANNON_FRONT, this.amountPerIteration);
                 }
             };
-            ButtonRotaryWaterCannonRoof btnCannonRoof = new ButtonRotaryWaterCannonRoof(this.waterCannonRoof) {
+            ButtonRotaryWaterCannonRoof btnCannonRoof = new ButtonRotaryWaterCannonRoof(this.mixingProcessor) {
                 @Override
                 public void operateDevice() {
-                    ((WaterCannonRoof) this.operatingDevice).setSprayCapacityPerlIteration(this.amountPerIteration);
+                    ((MixingProcessor) this.operatingDevice).setSprayCapacityPerlIteration(CannonIdentifier.CANNON_ROOF, this.amountPerIteration);
                 }
             };
 
@@ -130,7 +119,7 @@ public class FLF {
             };
 
             this.cabin = new Cabin.Builder(
-                    this.buildControlPanelButtons(centralUnit),
+                    this.buildControlPanel(centralUnit),
                     pedalAcc,
                     pedalBrake,
                     btnCannonRoof,
@@ -142,10 +131,6 @@ public class FLF {
             ).build();
 
 
-            //add Waterdies
-            for (int i = 0; i < 7; i++) {
-                this.waterDiesSelfprotection.add(new WaterDieSelfprotection(100));
-            }
         }
 
         private void buildLights() {
@@ -214,10 +199,10 @@ public class FLF {
             ButtonPress btnPressRight;
             ButtonPush btnPush;
             if (isDriver) {
-                btnPressLeft = new ButtonPress(this.waterCannonFront) {
+                btnPressLeft = new ButtonPress(this.mixingProcessor) {
                     @Override
                     public void operateDevice() {
-                        ((WaterCannonFront) this.operatingDevice).toggle();
+                        ((MixingProcessor) this.operatingDevice).toggle(CannonIdentifier.CANNON_FRONT);
                     }
                 };
                 btnPressRight = new ButtonPress(this.mixingProcessor) {
@@ -226,17 +211,17 @@ public class FLF {
                         ((MixingProcessor) this.operatingDevice).changeMixingRate();
                     }
                 };
-                btnPush = new ButtonPush(this.waterCannonFront) {
+                btnPush = new ButtonPush(this.mixingProcessor) {
                     @Override
                     public void operateDevice() {
-                        ((WaterCannonFront) this.operatingDevice).spray(new TankSubject[0]); //@TODO TankSubject da rein bringen^^
+                        ((MixingProcessor) this.operatingDevice).spray(CannonIdentifier.CANNON_FRONT);
                     }
                 };
             } else {
-                btnPressLeft = new ButtonPress(this.waterCannonRoof) {
+                btnPressLeft = new ButtonPress(this.mixingProcessor) {
                     @Override
                     public void operateDevice() {
-                        ((WaterCannonRoof) this.operatingDevice).toggle();
+                        ((MixingProcessor) this.operatingDevice).toggle(CannonIdentifier.CANNON_ROOF);
                     }
                 };
                 btnPressRight = new ButtonPress(this.mixingProcessor) {
@@ -245,69 +230,68 @@ public class FLF {
                         ((MixingProcessor) this.operatingDevice).changeMixingRate();
                     }
                 };
-                btnPush = new ButtonPush(this.waterCannonRoof) {
+                btnPush = new ButtonPush(this.mixingProcessor) {
                     @Override
                     public void operateDevice() {
-                        ((WaterCannonRoof) this.operatingDevice).spray(new TankSubject[0]); //@TODO TankSubject da rein bringen^^
+                        ((MixingProcessor) this.operatingDevice).spray(CannonIdentifier.CANNON_ROOF);
                     }
                 };
             }
             return new Joystick(btnPush, btnPressLeft, btnPressRight);
         }
 
-        private List<ButtonSwitch> buildControlPanelButtons(CentralUnit cu) {
-            List<ButtonSwitch> switches = new ArrayList<ButtonSwitch>();
-            switches.add(new ButtonSwitch(cu) {
+        private ControlPanel buildControlPanel(CentralUnit cu) {
+            List<ButtonSwitch> switches = new ArrayList<>();
+            ButtonSwitch btnWarnLight = new ButtonSwitch(cu) {
                 @Override
                 public void operateDevice() {
                     ((CentralUnit) this.operatingDevice).switchWarningLight();
                 }
-            });
+            };
 
-            switches.add(new ButtonSwitch(cu) {
+            ButtonSwitch btnBlueLight = new ButtonSwitch(cu) {
                 @Override
                 public void operateDevice() {
                     ((CentralUnit) this.operatingDevice).switchBlueLight();
                 }
-            });
+            };
 
-            switches.add(new ButtonSwitch(cu) {
+            ButtonSwitch btnFrontLight = new ButtonSwitch(cu) {
                 @Override
                 public void operateDevice() {
                     ((CentralUnit) this.operatingDevice).switchFrontLight();
                 }
-            });
+            };
 
-            switches.add(new ButtonSwitch(cu) {
+            ButtonSwitch btnRoofLight = new ButtonSwitch(cu) {
                 @Override
                 public void operateDevice() {
                     ((CentralUnit) this.operatingDevice).switchRoofLight();
                 }
-            });
+            };
 
-            switches.add(new ButtonSwitch(cu) {
+            ButtonSwitch btnSideLight = new ButtonSwitch(cu) {
                 @Override
                 public void operateDevice() {
                     ((CentralUnit) this.operatingDevice).switchSideLight();
                 }
-            });
+            };
 
-            switches.add(new ButtonSwitch(cu) {
+            ButtonSwitch btnSelfProtection = new ButtonSwitch(cu) {
                 @Override
                 public void operateDevice() {
                     ((CentralUnit) this.operatingDevice).switchSelfprotection();
                 }
-            });
+            };
 
-            switches.add(new ButtonSwitch(cu) {
+            ButtonSwitch btnEngines = new ButtonSwitch(cu) {
                 @Override
                 public void operateDevice() {
                     ((CentralUnit) this.operatingDevice).switchEngines();
                 }
-            });
+            };
 
-
-            return switches;
+            return new ControlPanel.Builder(btnEngines, btnWarnLight, btnBlueLight, btnFrontLight, btnRoofLight, btnSideLight, btnSelfProtection).build();
         }
 
         /**

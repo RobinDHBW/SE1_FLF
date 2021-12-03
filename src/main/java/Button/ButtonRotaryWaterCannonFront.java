@@ -1,11 +1,12 @@
 package Button;
 
 import Firefighting.WaterCannonFront;
+import Tank.MixingProcessor;
 
 public class ButtonRotaryWaterCannonFront extends ButtonRotary {
     private final Integer stepSize = 500;
 
-    public ButtonRotaryWaterCannonFront(WaterCannonFront o) {
+    public ButtonRotaryWaterCannonFront(MixingProcessor o) {
         super(o);
     }
 

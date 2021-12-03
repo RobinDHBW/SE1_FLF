@@ -1,11 +1,12 @@
 package Button;
 
 import Firefighting.WaterCannonRoof;
+import Tank.MixingProcessor;
 
 public class ButtonRotaryWaterCannonRoof extends ButtonRotary {
     private RoofCannonMode mode = RoofCannonMode.A;
 
-    public ButtonRotaryWaterCannonRoof(WaterCannonRoof o) {
+    public ButtonRotaryWaterCannonRoof(MixingProcessor o) {
         super(o);
 
     }

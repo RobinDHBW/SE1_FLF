@@ -5,25 +5,52 @@ import Button.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ControlPanel implements IButtonListener {
-    private final List<ButtonSwitch> buttonList;
+public class ControlPanel {
+    private final ButtonSwitch btnSwitchEngines;
+    private final ButtonSwitch btnSwitchWarnlight;
+    private final ButtonSwitch btnSwitchBluelight;
+    private final ButtonSwitch btnSwitchFrontlight;
+    private final ButtonSwitch btnSwitchRooflight;
+    private final ButtonSwitch btnSwitchSidelight;
+    private final ButtonSwitch btnSwitchSelfProtection;
 
     public ControlPanel(Builder builder) {
         ControlPanel built = builder.build();
-        this.buttonList = built.buttonList;
+        this.btnSwitchEngines = built.btnSwitchEngines;
+        this.btnSwitchWarnlight = built.btnSwitchWarnlight;
+        this.btnSwitchBluelight = built.btnSwitchBluelight;
+        this.btnSwitchFrontlight = built.btnSwitchFrontlight;
+        this.btnSwitchRooflight = built.btnSwitchRooflight;
+        this.btnSwitchSidelight = built.btnSwitchSidelight;
+        this.btnSwitchSelfProtection = built.btnSwitchSelfProtection;
 
-    }
-
-    @Override
-    public void onToggle(Button o) {
-        o.operateDevice();
     }
 
     public static class Builder {
-        private final List<ButtonSwitch> buttonList;
+        private final ButtonSwitch btnSwitchEngines;
+        private final ButtonSwitch btnSwitchWarnlight;
+        private final ButtonSwitch btnSwitchBluelight;
+        private final ButtonSwitch btnSwitchFrontlight;
+        private final ButtonSwitch btnSwitchRooflight;
+        private final ButtonSwitch btnSwitchSidelight;
+        private final ButtonSwitch btnSwitchSelfProtection;
 
-        public Builder(List<ButtonSwitch> switches) {
-            this.buttonList = switches;
+        public Builder(
+                ButtonSwitch btnSwitchEngines,
+                ButtonSwitch btnSwitchWarnlight,
+                ButtonSwitch btnSwitchBluelight,
+                ButtonSwitch btnSwitchFrontlight,
+                ButtonSwitch btnSwitchRooflight,
+                ButtonSwitch btnSwitchSidelight,
+                ButtonSwitch btnSwitchSelfProtection
+        ) {
+            this.btnSwitchEngines = btnSwitchEngines;
+            this.btnSwitchWarnlight = btnSwitchWarnlight;
+            this.btnSwitchBluelight = btnSwitchBluelight;
+            this.btnSwitchFrontlight = btnSwitchFrontlight;
+            this.btnSwitchRooflight = btnSwitchRooflight;
+            this.btnSwitchSidelight = btnSwitchSidelight;
+            this.btnSwitchSelfProtection = btnSwitchSelfProtection;
         }
 
         public ControlPanel build() {
