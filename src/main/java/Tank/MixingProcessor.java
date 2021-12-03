@@ -102,11 +102,11 @@ public class MixingProcessor {
      */
     public void spray(CannonIdentifier identifier) {
         switch (identifier) {
-            case CANNON_FRONT -> this.waterCannonFront.spray(new TankSubject[0]);
-            case CANNON_ROOF -> this.waterCannonRoof.spray(new TankSubject[0]);
+            case CANNON_FRONT -> this.waterCannonFront.spray(this.mix(this.waterCannonFront.getSprayCapacityPerlIteration()));
+            case CANNON_ROOF -> this.waterCannonRoof.spray(this.mix(this.waterCannonRoof.getSprayCapacityPerlIteration()));
             case CANNON_SELFPROTECTION -> {
                 for (WaterDieSelfprotection die : this.waterDiesSelfprotection) {
-                    die.spray(new TankSubject[0]);
+                    die.spray(this.waterTank.remove(this.waterDiesSelfprotection.get(0).getSprayCapacityPerlIteration()).stream().map(e -> (TankSubject) e).collect(Collectors.toList()));
                 }
             }
         }
