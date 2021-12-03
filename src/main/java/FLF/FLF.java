@@ -6,6 +6,7 @@ import Drive.Drive;
 import Firefighting.WaterCannonFront;
 import Firefighting.WaterCannonRoof;
 import Firefighting.WaterDieSelfprotection;
+import Instruments.SteeringWheel;
 import Joystick.Joystick;
 import Lights.*;
 import Tank.MixingProcessor;
@@ -119,6 +120,13 @@ public class FLF {
          Joystick joystickDriver = buildJoystick(true);
          Joystick joystickOperator = buildJoystick(false);
 
+            SteeringWheel steeringWheel = new SteeringWheel(drive){
+                @Override
+                public void operateDevice() {
+                    ((Drive) this.operatingDevice).steer(this.getDegree());
+                }
+            };
+
             this.cabin = new Cabin.Builder(
                     this.buildControlPanelButtons(),
                     pedalAcc,
@@ -126,7 +134,8 @@ public class FLF {
                     btnCannonRoof,
                     btnCannonFront,
                     joystickDriver,
-                    joystickOperator
+                    joystickOperator,
+                    steeringWheel
             ).build();
 
 

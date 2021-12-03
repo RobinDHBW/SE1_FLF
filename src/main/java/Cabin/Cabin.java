@@ -72,7 +72,7 @@ public class Cabin {
         private final Pedal gasPedal;
         private final Pedal brakePedal;
 
-        private final SteeringWheel steeringWheel = new SteeringWheel();
+        private final SteeringWheel steeringWheel;
 
         private final ButtonRotaryWaterCannonRoof btnRotaryWaterCannonRoof;
         private final ButtonRotaryWaterCannonFront btnRotaryWaterCannonFront;
@@ -95,7 +95,8 @@ public class Cabin {
                 ButtonRotaryWaterCannonRoof btnRotaryWaterCannonRoof,
                 ButtonRotaryWaterCannonFront btnRotaryWaterCannonFront,
                 Joystick joystickDriver,
-                Joystick joystickOperator
+                Joystick joystickOperator,
+                SteeringWheel steeringWheel
         ) {
 
 
@@ -114,6 +115,7 @@ public class Cabin {
             this.joystickDriver = joystickDriver;
             this.joystickOperator = joystickOperator;
 
+            this.steeringWheel = steeringWheel;
 
             this.gasPedal = gasPedal;
             this.brakePedal = brakePedal;

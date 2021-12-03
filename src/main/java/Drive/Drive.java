@@ -16,7 +16,7 @@ public class Drive {
     public Drive() {
         for (int i = 0; i < 2; i++) {
             engines.add(new ElectricEngine(2));
-            steerables.add(new AxleSteerable(5));
+            steerables.add(new AxleSteerable());
             axles.add(new Axle());
         }
     }
@@ -41,9 +41,15 @@ public class Drive {
         return this.speed;
     }
 
-    public void toggleEngine(){
-        for(ElectricEngine e:engines){
+    public void toggleEngine() {
+        for (ElectricEngine e : engines) {
             e.toggle();
+        }
+    }
+
+    public void steer(Integer degree) {
+        for (AxleSteerable as : steerables) {
+            as.steer(degree);
         }
     }
 }

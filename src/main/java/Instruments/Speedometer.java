@@ -9,4 +9,8 @@ public class Speedometer {
     public void setSpeed(Integer speed) {
         this.speed = speed;
     }
+
+    public Integer getSpeed() {
+        return speed;
+    }
 }

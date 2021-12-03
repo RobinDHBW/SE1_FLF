@@ -1,5 +1,5 @@
 package Drive;
 
 public interface IAxleSteerable {
-    Integer steer(Boolean steerLeft);
+    Integer steer(Integer degree);
 }
