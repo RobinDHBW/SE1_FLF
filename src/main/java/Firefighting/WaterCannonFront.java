@@ -3,8 +3,7 @@ package Firefighting;
 public class WaterCannonFront extends WaterCannon {
     Integer rotationStepSize, position = 0;
 
-    public WaterCannonFront(Integer sprayCapacityPerlIteration, Integer rotationStepSize) {
-        super(sprayCapacityPerlIteration);
+    public WaterCannonFront(Integer rotationStepSize) {
         this.rotationStepSize = rotationStepSize;
     }
 

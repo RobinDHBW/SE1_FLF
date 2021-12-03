@@ -82,8 +82,8 @@ public class FLF {
 
         private final Drive drive = new Drive();
 
-        private final WaterCannonRoof waterCannonRoof = new WaterCannonRoof(500);
-        private final WaterCannonFront waterCannonFront = new WaterCannonFront(500, 90);
+        private final WaterCannonRoof waterCannonRoof = new WaterCannonRoof();
+        private final WaterCannonFront waterCannonFront = new WaterCannonFront(90);
         private final List<WaterDieSelfprotection> waterDiesSelfprotection = new ArrayList<WaterDieSelfprotection>();
 
         private final MixingProcessor mixingProcessor = new MixingProcessor();

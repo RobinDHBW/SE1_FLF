@@ -4,10 +4,10 @@ import Tank.TankSubject;
 
 public class WaterCannon implements IWaterCannon {
     protected Boolean state = false;
-    protected Integer sprayCapacityPerlIteration;
+    protected Integer sprayCapacityPerlIteration = 500;
 
-    public WaterCannon(Integer sprayCapacityPerlIteration) {
-        this.sprayCapacityPerlIteration = sprayCapacityPerlIteration;
+    public WaterCannon() {
+
     }
 
     @Override
