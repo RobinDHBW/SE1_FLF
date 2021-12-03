@@ -12,10 +12,12 @@ public class ButtonRotaryWaterCannonFront extends ButtonRotary {
     @Override
     public void rotateLeft() {
         if (amountPerIteration > 500) amountPerIteration -= stepSize;
+        this.operateDevice();
     }
 
     @Override
     public void rotateRight() {
         if (amountPerIteration < 3500) amountPerIteration += stepSize;
+        this.operateDevice();
     }
 }

@@ -17,6 +17,7 @@ public class ButtonRotaryWaterCannonRoof extends ButtonRotary {
     private void setParam(Integer amount, RoofCannonMode mode) {
         this.mode = mode;
         this.amountPerIteration = amount;
+        this.operateDevice();
     }
 
     @Override
@@ -25,14 +26,14 @@ public class ButtonRotaryWaterCannonRoof extends ButtonRotary {
             case C -> this.setParam(1000, RoofCannonMode.B);
             case A, B -> this.setParam(500, RoofCannonMode.A);
         }
-        ;
     }
 
     @Override
     public void rotateRight() {
-        mode = switch (mode) {
-            case A -> RoofCannonMode.B;
-            case B, C -> mode = RoofCannonMode.C;
-        };
+        switch (mode) {
+            case A -> this.setParam(1000, RoofCannonMode.B);
+            case B, C -> this.setParam(2500, RoofCannonMode.C);
+        }
+        ;
     }
 }

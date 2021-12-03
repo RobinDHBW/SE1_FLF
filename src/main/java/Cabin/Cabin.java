@@ -99,8 +99,6 @@ public class Cabin {
                 SteeringWheel steeringWheel,
                 CentralUnit centralUnit
         ) {
-
-
             for (int i = 0; i < 2; i++) {
                 Boolean leftSide = i == 0;
                 seatList.add(new Seat(1, leftSide));
