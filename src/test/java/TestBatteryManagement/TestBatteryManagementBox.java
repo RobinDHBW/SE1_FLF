@@ -2,9 +2,11 @@ package TestBatteryManagement;
 
 import BatteryManagement.BatteryBox;
 import BatteryManagement.BatteryUnit;
+import BatteryManagement.Coulomb;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestBatteryManagementBox {
 
@@ -22,9 +24,9 @@ public class TestBatteryManagementBox {
         Integer width = 2, height = 2, quantity = 100000, remove = 25000;
         BatteryBox batteryBox = new BatteryBox(2, 2);
         batteryBox.fill(quantity);
-        Enum output[] = batteryBox.remove(remove);
+        Object output[] = batteryBox.remove(remove);
 
-        assertEquals(output[0], BatteryUnit.POSITIVE);
+        assertTrue(output[0].getClass().equals(new Coulomb().getClass()));
         assertEquals(1 / ((100 * 10 * 100) / ((quantity.doubleValue() - remove) / (width * height))), batteryBox.getRelativeFillState());
     }
 }

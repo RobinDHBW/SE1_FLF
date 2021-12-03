@@ -25,7 +25,7 @@ public class StoreTestingTank {
 
 
         tank.fill(TankSubject.FOAM, quantity);
-        Enum output[] = tank.remove(remove);
+        Object output[] = tank.remove(remove);
         assertEquals(tank.getRelativeFillState(), 1 / ((length * height * width) / (quantity.doubleValue()-remove)));
         assertEquals(output[0], TankSubject.FOAM);
     }

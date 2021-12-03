@@ -9,21 +9,17 @@ public class Battery extends StoreMedium {
     protected BatteryUnit[][][] battery;
     protected HashMap<Character, Integer> fillState = new HashMap<>();
 
-    protected Boolean isFull = false;
-    protected Boolean isEmpty = true;
-
-    public Battery(BatteryUnit subject, Integer length, Integer height, Integer width) {
-
+    public Battery(Object subject, Integer length, Integer height, Integer width) {
         super(length, height, width, subject);
     }
 
     @Override
-    public void fill(Enum input, Integer quantity) {
+    public void fill(Object input, Integer quantity) {
         super.fill(input, quantity);
     }
 
     @Override
-    public Enum[] remove(Integer quantity) {
+    public Object[] remove(Integer quantity) {
         return super.remove(quantity);
     }
 }

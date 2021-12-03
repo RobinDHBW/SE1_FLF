@@ -1,10 +1,10 @@
 package BatteryManagement;
 
 public enum BatteryManagement {
-    ;
+    instance;
     private BatteryBox batteryBox = new BatteryBox(2, 2);
 
-    public Enum[] remove(Integer quantity) {
+    public Object[] remove(Integer quantity) {
         return batteryBox.remove(quantity);
     }
 

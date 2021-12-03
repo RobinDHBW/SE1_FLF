@@ -14,12 +14,12 @@ public class Tank extends StoreMedium {
     }
 
     @Override
-    public void fill(Enum input, Integer quantity){
+    public void fill(Object input, Integer quantity){
         super.fill(input,quantity);
     };
 
     @Override
-    public Enum[] remove(Integer quantity) {
+    public Object[] remove(Integer quantity) {
         return super.remove(quantity);
     }
 

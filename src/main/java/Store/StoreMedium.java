@@ -8,25 +8,25 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public abstract class StoreMedium implements IStoreMedium {
-    protected Enum[][][] store;
+    protected Object[][][] store;
     protected HashMap<Character, Integer> fillState = new HashMap<>();
     protected Boolean isFull = false;
     protected Boolean isEmpty = true;
-    protected Enum subject;
+    protected Object subject;
     protected Integer capacity;
 
-    public StoreMedium(Integer length, Integer height, Integer width, Enum subject) {
+    public StoreMedium(Integer length, Integer height, Integer width, Object subject) {
 
-        this.store = new Enum[length][height][width];
+        this.store = new Object[length][height][width];
         this.subject = subject;
-        this.capacity = length*height*width;
+        this.capacity = length * height * width;
 
         fillState.put('x', length);
         fillState.put('y', height);
         fillState.put('z', width);
     }
 
-    protected void fillLoop(Enum input, Integer quantity) {
+    protected void fillLoop(Object input, Integer quantity) {
         int x = fillState.get('x');
         int y = fillState.get('y');
         int z = fillState.get('z');
@@ -46,12 +46,12 @@ public abstract class StoreMedium implements IStoreMedium {
         }
     }
 
-    protected Enum[] removeLoop(Integer quantity) {
+    protected Object[] removeLoop(Integer quantity) {
         int x = fillState.get('x');
         int y = fillState.get('y');
         int z = fillState.get('z');
 
-        Enum[] output = new Enum[quantity];
+        Object[] output = new Object[quantity];
 
         for (int j = y; j < store[0].length; j++) {
             for (int i = x; i < store.length; i++) {
@@ -74,7 +74,7 @@ public abstract class StoreMedium implements IStoreMedium {
      * @param input
      * @param quantity
      */
-    public void fill(Enum input, Integer quantity) {
+    public void fill(Object input, Integer quantity) {
         if (!isFull) {
             fillLoop(input, quantity);
         }
@@ -84,9 +84,9 @@ public abstract class StoreMedium implements IStoreMedium {
      * @param quantity
      * @return
      */
-    public Enum[] remove(Integer quantity) {
+    public Object[] remove(Integer quantity) {
 
-        Enum[] output = new Enum[quantity];
+        Object[] output = new Object[quantity];
         if (!isEmpty) {
             output = removeLoop(quantity);
         }
@@ -109,7 +109,7 @@ public abstract class StoreMedium implements IStoreMedium {
         return 1 / ((xLength * yLength * zLength) / count.doubleValue());
     }
 
-    public Enum getSubject() {
+    public Object getSubject() {
         return subject;
     }
 

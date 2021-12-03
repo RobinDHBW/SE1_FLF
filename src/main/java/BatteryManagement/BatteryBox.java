@@ -16,20 +16,20 @@ public class BatteryBox {
         this.height = height;
 
         for (int i = 0; i < width * height; i++) {
-            batteryStore.add(new Battery(BatteryUnit.POSITIVE, 100, 10, 100));
+            batteryStore.add(new Battery(new Coulomb(), 100, 10, 100));
         }
     }
 
     public void fill(Integer quantity) {
         for (Battery b : batteryStore) {
-            b.fill(BatteryUnit.POSITIVE, quantity / 4);
+            b.fill(new Coulomb(), quantity / 4);
         }
     }
 
-    public Enum[] remove(Integer quantity) {
-        Enum[] output = new Enum[0];
+    public Object[] remove(Integer quantity) {
+        Object[] output = new Object[0];
         for (Battery b : batteryStore) {
-            output = Stream.concat(Arrays.stream(b.remove(quantity / 4)), Arrays.stream(output)).toArray(size -> (Enum[]) Array.newInstance(Enum.class, size));
+            output = Stream.concat(Arrays.stream(b.remove(quantity / 4)), Arrays.stream(output)).toArray(size -> (Object[]) Array.newInstance(Coulomb.class, size));
         }
         return output;
     }

@@ -38,7 +38,6 @@ public class FLF {
     private final List<WaterDieSelfprotection> waterDiesSelfprotection;
 
     private final MixingProcessor mixingProcessor;
-    //private final BatteryManagement batteryManagement;
 
 
     private FLF(Builder builder) {
@@ -62,7 +61,6 @@ public class FLF {
         this.waterDiesSelfprotection = built.waterDiesSelfprotection;
 
         this.mixingProcessor = built.mixingProcessor;
-        //this.batteryManagement = built.batteryManagement;
     }
 
     /**
@@ -86,7 +84,6 @@ public class FLF {
         private final List<WaterDieSelfprotection> waterDiesSelfprotection = new ArrayList<WaterDieSelfprotection>();
 
         private final MixingProcessor mixingProcessor = new MixingProcessor();
-        //private final BatteryManagement batteryManagement = BatteryManagement;
 
         public Builder() {
 

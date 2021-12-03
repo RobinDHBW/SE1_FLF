@@ -1,5 +1,7 @@
 package Drive;
 
+import BatteryManagement.BatteryManagement;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,7 +12,6 @@ public class Drive {
     private List<ElectricEngine> engines = new ArrayList<>();
     private List<AxleSteerable> steerables = new ArrayList<>();
     private List<Axle> axles = new ArrayList<>();
-
     private Integer speed = 0;
 
     public Drive() {
@@ -35,6 +36,8 @@ public class Drive {
     }
 
     public Integer accelerate() {
+
+
         for (ElectricEngine e : engines) {
             this.speed += e.accelerate();
         }

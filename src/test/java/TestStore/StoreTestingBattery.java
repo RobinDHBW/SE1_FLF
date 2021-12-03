@@ -23,7 +23,7 @@ public class StoreTestingBattery {
 
 
         battery.fill(BatteryUnit.POSITIVE, quantity);
-        Enum output[] = battery.remove(remove);
+        Object output[] = battery.remove(remove);
         assertEquals(battery.getRelativeFillState(), 1 / ((length * height * width) / (quantity.doubleValue()-remove)));
         assertEquals(output[0], BatteryUnit.POSITIVE);
     }
