@@ -94,12 +94,9 @@ public class Cabin {
                 Pedal brakePedal,
                 ButtonRotaryWaterCannonRoof btnRotaryWaterCannonRoof,
                 ButtonRotaryWaterCannonFront btnRotaryWaterCannonFront,
-                ButtonPress btnPressJoystickDriverLeft,
-                ButtonPress btnPressJoystickDriverRight,
-                ButtonPush btnPushJoystickDriver,
-                ButtonPress btnPressJoystickOperatorLeft,
-                ButtonPress btnPressJoystickOperatorRight,
-                ButtonPush btnPushJoystickOperator) {
+                Joystick joystickDriver,
+                Joystick joystickOperator
+        ) {
 
 
             for (int i = 0; i < 2; i++) {
@@ -114,8 +111,8 @@ public class Cabin {
             this.btnRotaryWaterCannonRoof = btnRotaryWaterCannonRoof;
             this.btnRotaryWaterCannonFront = btnRotaryWaterCannonFront;
 
-            this.joystickDriver = new Joystick(btnPushJoystickDriver, btnPressJoystickDriverLeft, btnPressJoystickDriverRight);
-            this.joystickOperator = new Joystick(btnPushJoystickOperator, btnPressJoystickOperatorLeft, btnPressJoystickOperatorRight);
+            this.joystickDriver = joystickDriver;
+            this.joystickOperator = joystickOperator;
 
 
             this.gasPedal = gasPedal;

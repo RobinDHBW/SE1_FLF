@@ -6,6 +6,7 @@ import Drive.Drive;
 import Firefighting.WaterCannonFront;
 import Firefighting.WaterCannonRoof;
 import Firefighting.WaterDieSelfprotection;
+import Joystick.Joystick;
 import Lights.*;
 import Tank.MixingProcessor;
 import Tank.TankSubject;
@@ -115,43 +116,8 @@ public class FLF {
                 }
             };
 
-            ButtonPress btnPressJoystickDriverLeft = new ButtonPress(this.waterCannonFront) {
-                @Override
-                public void operateDevice() {
-                    ((WaterCannonFront) this.operatingDevice).toggle();
-                }
-            };
-            ButtonPress btnPressJoystickDriverRight = new ButtonPress(this.mixingProcessor) {
-                @Override
-                public void operateDevice() {
-                    ((MixingProcessor) this.operatingDevice).changeMixingRate();
-                }
-            };
-            ButtonPush btnPushJoystickDriver = new ButtonPush(this.waterCannonFront) {
-                @Override
-                public void operateDevice() {
-                    ((WaterCannonFront) this.operatingDevice).spray(new TankSubject[0]); //@TODO TankSubject da rein bringen^^
-                }
-            };
-
-            ButtonPress btnPressJoystickOperatorLeft = new ButtonPress(this.waterCannonRoof) {
-                @Override
-                public void operateDevice() {
-                    ((WaterCannonRoof) this.operatingDevice).toggle();
-                }
-            };
-            ButtonPress btnPressJoystickOperatorRight = new ButtonPress(this.mixingProcessor) {
-                @Override
-                public void operateDevice() {
-                    ((MixingProcessor) this.operatingDevice).changeMixingRate();
-                }
-            };
-            ButtonPush btnPushJoystickOperator = new ButtonPush(this.waterCannonRoof) {
-                @Override
-                public void operateDevice() {
-                    ((WaterCannonRoof) this.operatingDevice).spray(new TankSubject[0]); //@TODO TankSubject da rein bringen^^
-                }
-            };
+         Joystick joystickDriver = buildJoystick(true);
+         Joystick joystickOperator = buildJoystick(false);
 
             this.cabin = new Cabin.Builder(
                     this.buildControlPanelButtons(),
@@ -159,12 +125,8 @@ public class FLF {
                     pedalBrake,
                     btnCannonRoof,
                     btnCannonFront,
-                    btnPressJoystickDriverLeft,
-                    btnPressJoystickDriverRight,
-                    btnPushJoystickDriver,
-                    btnPressJoystickOperatorLeft,
-                    btnPressJoystickOperatorRight,
-                    btnPushJoystickOperator
+                    joystickDriver,
+                    joystickOperator
             ).build();
 
 
@@ -228,6 +190,52 @@ public class FLF {
             // add WarningLights
             this.warningLights.add(new WarningLight(LightPosition.ROOF_FRONT_LEFT));
             this.warningLights.add(new WarningLight(LightPosition.ROOF_BACK_RIGHT));
+        }
+
+        private Joystick buildJoystick(Boolean isDriver) {
+            ButtonPress btnPressLeft;
+            ButtonPress btnPressRight;
+            ButtonPush btnPush;
+            if (isDriver) {
+                btnPressLeft = new ButtonPress(this.waterCannonFront) {
+                    @Override
+                    public void operateDevice() {
+                        ((WaterCannonFront) this.operatingDevice).toggle();
+                    }
+                };
+                btnPressRight = new ButtonPress(this.mixingProcessor) {
+                    @Override
+                    public void operateDevice() {
+                        ((MixingProcessor) this.operatingDevice).changeMixingRate();
+                    }
+                };
+                btnPush = new ButtonPush(this.waterCannonFront) {
+                    @Override
+                    public void operateDevice() {
+                        ((WaterCannonFront) this.operatingDevice).spray(new TankSubject[0]); //@TODO TankSubject da rein bringen^^
+                    }
+                };
+            } else {
+                btnPressLeft = new ButtonPress(this.waterCannonRoof) {
+                    @Override
+                    public void operateDevice() {
+                        ((WaterCannonRoof) this.operatingDevice).toggle();
+                    }
+                };
+                btnPressRight = new ButtonPress(this.mixingProcessor) {
+                    @Override
+                    public void operateDevice() {
+                        ((MixingProcessor) this.operatingDevice).changeMixingRate();
+                    }
+                };
+                btnPush = new ButtonPush(this.waterCannonRoof) {
+                    @Override
+                    public void operateDevice() {
+                        ((WaterCannonRoof) this.operatingDevice).spray(new TankSubject[0]); //@TODO TankSubject da rein bringen^^
+                    }
+                };
+            }
+            return new Joystick(btnPush, btnPressLeft, btnPressRight);
         }
 
         private List<ButtonSwitch> buildControlPanelButtons() {
