@@ -90,17 +90,19 @@ public class FLF {
 
         public Builder() {
 
+            CentralUnit centralUnit = new CentralUnit(warningLights, flashingBlueLights, searchLightsFront, searchLightsRoof, searchLightsSide, waterDiesSelfprotection, drive);
+
             buildLights();
-            Pedal pedalAcc = new Pedal(drive) {
+            Pedal pedalAcc = new Pedal(centralUnit) {
                 @Override
                 public void operateDevice() {
-                    ((Drive) this.operatingDevice).accelerate();
+                    ((CentralUnit) this.operatingDevice).accelerate();
                 }
             };
-            Pedal pedalBrake = new Pedal(drive) {
+            Pedal pedalBrake = new Pedal(centralUnit) {
                 @Override
                 public void operateDevice() {
-                    ((Drive) this.operatingDevice).brake();
+                    ((CentralUnit) this.operatingDevice).brake();
                 }
             };
 
@@ -120,14 +122,12 @@ public class FLF {
             Joystick joystickDriver = buildJoystick(true);
             Joystick joystickOperator = buildJoystick(false);
 
-            SteeringWheel steeringWheel = new SteeringWheel(drive) {
+            SteeringWheel steeringWheel = new SteeringWheel(centralUnit) {
                 @Override
                 public void operateDevice() {
-                    ((Drive) this.operatingDevice).steer(this.getDegree());
+                    ((CentralUnit) this.operatingDevice).steer(this.getDegree());
                 }
             };
-
-            CentralUnit centralUnit = new CentralUnit(warningLights, flashingBlueLights, searchLightsFront, searchLightsRoof, searchLightsSide, waterDiesSelfprotection, drive);
 
             this.cabin = new Cabin.Builder(
                     this.buildControlPanelButtons(centralUnit),
@@ -137,7 +137,8 @@ public class FLF {
                     btnCannonFront,
                     joystickDriver,
                     joystickOperator,
-                    steeringWheel
+                    steeringWheel,
+                    centralUnit
             ).build();
 
 
@@ -254,49 +255,49 @@ public class FLF {
             switches.add(new ButtonSwitch(cu) {
                 @Override
                 public void operateDevice() {
-                    cu.switchWarningLight();
+                    ((CentralUnit) this.operatingDevice).switchWarningLight();
                 }
             });
 
             switches.add(new ButtonSwitch(cu) {
                 @Override
                 public void operateDevice() {
-                    cu.switchBlueLight();
+                    ((CentralUnit) this.operatingDevice).switchBlueLight();
                 }
             });
 
             switches.add(new ButtonSwitch(cu) {
                 @Override
                 public void operateDevice() {
-                    cu.switchFrontLight();
+                    ((CentralUnit) this.operatingDevice).switchFrontLight();
                 }
             });
 
             switches.add(new ButtonSwitch(cu) {
                 @Override
                 public void operateDevice() {
-                    cu.switchRoofLight();
+                    ((CentralUnit) this.operatingDevice).switchRoofLight();
                 }
             });
 
             switches.add(new ButtonSwitch(cu) {
                 @Override
                 public void operateDevice() {
-                    cu.switchSideLight();
+                    ((CentralUnit) this.operatingDevice).switchSideLight();
                 }
             });
 
             switches.add(new ButtonSwitch(cu) {
                 @Override
                 public void operateDevice() {
-                    cu.switchSelfprotection();
+                    ((CentralUnit) this.operatingDevice).switchSelfprotection();
                 }
             });
 
             switches.add(new ButtonSwitch(cu) {
                 @Override
                 public void operateDevice() {
-                    cu.switchEngines();
+                    ((CentralUnit) this.operatingDevice).switchEngines();
                 }
             });
 

@@ -64,7 +64,7 @@ public class Cabin {
     }
 
     public static class Builder {
-        private final CentralUnit centralUnit = new CentralUnit();
+        private final CentralUnit centralUnit;
 
         private final BatteryIndicator batteryIndicator = new BatteryIndicator();
         private final Speedometer speedometer = new Speedometer();
@@ -96,7 +96,8 @@ public class Cabin {
                 ButtonRotaryWaterCannonFront btnRotaryWaterCannonFront,
                 Joystick joystickDriver,
                 Joystick joystickOperator,
-                SteeringWheel steeringWheel
+                SteeringWheel steeringWheel,
+                CentralUnit centralUnit
         ) {
 
 
@@ -119,6 +120,7 @@ public class Cabin {
 
             this.gasPedal = gasPedal;
             this.brakePedal = brakePedal;
+            this.centralUnit = centralUnit;
         }
 
         public Cabin build() {
