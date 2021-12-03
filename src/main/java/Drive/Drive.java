@@ -45,9 +45,12 @@ public class Drive {
     // @TODO 25/2 = 12+13...
     public void drive() {
         Double eAmount = this.speed * 12.5;
+        int i = 0;
         for (ElectricEngine e : engines) {
+            if (i == 1) eAmount-=1;
             List<Coulomb> energy = BatteryManagement.instance.remove(eAmount.intValue());
             e.drive(energy);
+            i++;
         }
     }
 

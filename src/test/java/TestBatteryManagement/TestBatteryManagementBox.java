@@ -24,7 +24,7 @@ public class TestBatteryManagementBox {
     @Test
     public void testTakeout() {
         Integer width = 2, height = 2, quantity = 100000, remove = 25000;
-        BatteryBox batteryBox = new BatteryBox(2, 2);
+        BatteryBox batteryBox = new BatteryBox(width, height);
         batteryBox.fill(quantity);
         List<Coulomb> output  = batteryBox.remove(remove);
 
