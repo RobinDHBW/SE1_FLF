@@ -11,4 +11,8 @@ public class AxleSteerable extends Axle implements IAxleSteerable {
     public Integer steer(Integer degree) {
         return this.steeringAngle = degree;
     }
+
+    public Integer getSteeringAngle() {
+        return steeringAngle;
+    }
 }

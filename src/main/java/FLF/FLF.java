@@ -23,7 +23,8 @@ public class FLF {
     private final List<SearchLight> searchLightsFront;
     private final List<SearchLight> searchLightsRoof;
     private final List<SearchLight> searchLightsSide;
-    private final List<DirectionIndicator> directionIndicators;
+    private final List<DirectionIndicator> directionIndicatorsLeft;
+    private final List<DirectionIndicator> directionIndicatorsRight;
     private final List<BrakingLight> brakingLights;
 
     private final List<FlashingBlueLight> flashingBlueLights;
@@ -47,7 +48,8 @@ public class FLF {
         this.searchLightsFront = built.searchLightsFront;
         this.searchLightsRoof = built.searchLightsRoof;
         this.searchLightsSide = built.searchLightsSide;
-        this.directionIndicators = built.directionIndicators;
+        this.directionIndicatorsLeft = built.directionIndicatorsLeft;
+        this.directionIndicatorsRight = built.directionIndicatorsRight;
 
         this.flashingBlueLights = built.flashingBlueLights;
         this.warningLights = built.warningLights;
@@ -68,13 +70,14 @@ public class FLF {
      */
     public static class Builder {
 
-        private final static List<WarningLight> warningLights = new ArrayList<WarningLight>();
-        private final List<DirectionIndicator> directionIndicators = new ArrayList<DirectionIndicator>();
-        private final List<BrakingLight> brakingLights = new ArrayList<BrakingLight>();
-        private final List<SearchLight> searchLightsFront = new ArrayList<SearchLight>();
-        private final List<SearchLight> searchLightsRoof = new ArrayList<SearchLight>();
-        private final List<SearchLight> searchLightsSide = new ArrayList<SearchLight>();
-        private final List<FlashingBlueLight> flashingBlueLights = new ArrayList<FlashingBlueLight>();
+        private final static List<WarningLight> warningLights = new ArrayList<>();
+        private final List<DirectionIndicator> directionIndicatorsLeft = new ArrayList<>();
+        private final List<DirectionIndicator> directionIndicatorsRight = new ArrayList<>();
+        private final List<BrakingLight> brakingLights = new ArrayList<>();
+        private final List<SearchLight> searchLightsFront = new ArrayList<>();
+        private final List<SearchLight> searchLightsRoof = new ArrayList<>();
+        private final List<SearchLight> searchLightsSide = new ArrayList<>();
+        private final List<FlashingBlueLight> flashingBlueLights = new ArrayList<>();
         private final Cabin cabin;
 
         private final Drive drive = new Drive();
@@ -87,7 +90,7 @@ public class FLF {
 
         public Builder() {
 
-            CentralUnit centralUnit = new CentralUnit(warningLights, flashingBlueLights, searchLightsFront, searchLightsRoof, searchLightsSide, waterDiesSelfprotection, drive);
+            CentralUnit centralUnit = new CentralUnit(warningLights, flashingBlueLights, searchLightsFront, searchLightsRoof, searchLightsSide, directionIndicatorsLeft, directionIndicatorsRight, waterDiesSelfprotection, drive);
 
             buildLights();
             Pedal pedalAcc = new Pedal(centralUnit) {
@@ -172,11 +175,16 @@ public class FLF {
             for (int i = 0; i < 4; i++) {
                 LightPosition position = switch (i) {
                     case 0 -> LightPosition.FRONT_LEFT;
-                    case 1 -> LightPosition.FRONT_RIGHT;
-                    case 2 -> LightPosition.BACK_LEFT;
+                    case 1 -> LightPosition.BACK_LEFT;
+                    case 2 -> LightPosition.FRONT_RIGHT;
                     default -> LightPosition.BACK_RIGHT;
                 };
-                this.directionIndicators.add(new DirectionIndicator(position));
+                if (i < 2) {
+                    this.directionIndicatorsLeft.add(new DirectionIndicator(position));
+                } else {
+                    this.directionIndicatorsRight.add(new DirectionIndicator(position));
+                }
+
             }
 
             // add small FlashingBlueLights

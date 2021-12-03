@@ -65,4 +65,8 @@ public class Drive {
             as.steer(degree);
         }
     }
+
+    public Integer getSteeringAngle(){
+        return this.steerables.get(0).getSteeringAngle();
+    }
 }

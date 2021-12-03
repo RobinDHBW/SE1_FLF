@@ -11,4 +11,8 @@ public abstract class Light {
     public Boolean toggle() {
         return isOn = !isOn;
     }
+
+    public Boolean getState() {
+        return isOn;
+    }
 }

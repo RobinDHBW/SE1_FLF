@@ -21,6 +21,8 @@ public class CentralUnit {
     private List<SearchLight> searchLightsFront;
     private List<SearchLight> searchLightsRoof;
     private List<SearchLight> searchLightsSide;
+    private List<DirectionIndicator> indicatorsLeft;
+    private List<DirectionIndicator> indicatorsRight;
     private List<WaterDieSelfprotection> selfprotection;
     private Drive drive;
 
@@ -30,6 +32,8 @@ public class CentralUnit {
             List<SearchLight> searchLightsFront,
             List<SearchLight> searchLightsRoof,
             List<SearchLight> searchLightsSide,
+            List<DirectionIndicator> indicatorsLeft,
+            List<DirectionIndicator> indicatorsRight,
             List<WaterDieSelfprotection> selfprotection,
             Drive drive
     ) {
@@ -38,6 +42,8 @@ public class CentralUnit {
         this.searchLightsFront = searchLightsFront;
         this.searchLightsRoof = searchLightsRoof;
         this.searchLightsSide = searchLightsSide;
+        this.indicatorsLeft = indicatorsLeft;
+        this.indicatorsRight = indicatorsRight;
         this.selfprotection = selfprotection;
         this.drive = drive;
     }
@@ -83,21 +89,31 @@ public class CentralUnit {
         }
     }
 
-
     public void steer(Integer degree) {
         this.drive.steer(degree);
+        Integer angle = this.drive.getSteeringAngle();
+
+        //First switch off all Indicators
+        for (DirectionIndicator di : Stream.concat(indicatorsLeft.stream(), indicatorsRight.stream()).collect(Collectors.toList())) {
+            if (di.getState()) di.toggle();
+        }
+
+        //Switch on needed indicators
+        if (angle < 0) {
+            for (DirectionIndicator di : indicatorsLeft) {
+                if (!di.getState()) di.toggle();
+            }
+        } else if (angle > 0) {
+            for (DirectionIndicator di : indicatorsRight) {
+                if (!di.getState()) di.toggle();
+            }
+        }
     }
 
-    /**
-     * @TODO Consume Energy
-     */
     public void accelerate() {
         this.drive.accelerate();
     }
 
-    /**
-     * @TODO Consume Energy
-     */
     public void brake() {
         this.drive.brake();
     }
