@@ -29,4 +29,8 @@ public class WaterCannon implements IWaterCannon {
     public Integer getSprayCapacityPerlIteration() {
         return sprayCapacityPerlIteration;
     }
+
+    public Boolean getState() {
+        return state;
+    }
 }

@@ -198,45 +198,31 @@ public class FLF {
             ButtonPress btnPressLeft;
             ButtonPress btnPressRight;
             ButtonPush btnPush;
-            if (isDriver) {
-                btnPressLeft = new ButtonPress(this.mixingProcessor) {
-                    @Override
-                    public void operateDevice() {
-                        ((MixingProcessor) this.operatingDevice).toggle(CannonIdentifier.CANNON_FRONT);
-                    }
-                };
-                btnPressRight = new ButtonPress(this.mixingProcessor) {
-                    @Override
-                    public void operateDevice() {
+            CannonIdentifier ident = isDriver ? CannonIdentifier.CANNON_FRONT : CannonIdentifier.CANNON_ROOF;
+
+            btnPressLeft = new ButtonPress(this.mixingProcessor) {
+                @Override
+                public void operateDevice() {
+                    ((MixingProcessor) this.operatingDevice).toggle(ident);
+                }
+            };
+            btnPressRight = new ButtonPress(this.mixingProcessor) {
+                @Override
+                public void operateDevice() {
+                    if (((MixingProcessor) this.operatingDevice).getCannonState(ident)) {
                         ((MixingProcessor) this.operatingDevice).changeMixingRate();
                     }
-                };
-                btnPush = new ButtonPush(this.mixingProcessor) {
-                    @Override
-                    public void operateDevice() {
-                        ((MixingProcessor) this.operatingDevice).spray(CannonIdentifier.CANNON_FRONT);
+                }
+            };
+            btnPush = new ButtonPush(this.mixingProcessor) {
+                @Override
+                public void operateDevice() {
+                    if (((MixingProcessor) this.operatingDevice).getCannonState(ident)) {
+                        ((MixingProcessor) this.operatingDevice).spray(ident);
                     }
-                };
-            } else {
-                btnPressLeft = new ButtonPress(this.mixingProcessor) {
-                    @Override
-                    public void operateDevice() {
-                        ((MixingProcessor) this.operatingDevice).toggle(CannonIdentifier.CANNON_ROOF);
-                    }
-                };
-                btnPressRight = new ButtonPress(this.mixingProcessor) {
-                    @Override
-                    public void operateDevice() {
-                        ((MixingProcessor) this.operatingDevice).changeMixingRate();
-                    }
-                };
-                btnPush = new ButtonPush(this.mixingProcessor) {
-                    @Override
-                    public void operateDevice() {
-                        ((MixingProcessor) this.operatingDevice).spray(CannonIdentifier.CANNON_ROOF);
-                    }
-                };
-            }
+                }
+            };
+
             return new Joystick(btnPush, btnPressLeft, btnPressRight);
         }
 

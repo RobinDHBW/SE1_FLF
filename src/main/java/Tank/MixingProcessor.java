@@ -96,8 +96,28 @@ public class MixingProcessor {
         }
     }
 
-    public void spray(CannonIdentifier identifier){
+    /**
+     * @param identifier
+     * @TODO consumption
+     */
+    public void spray(CannonIdentifier identifier) {
+        switch (identifier) {
+            case CANNON_FRONT -> this.waterCannonFront.spray(new TankSubject[0]);
+            case CANNON_ROOF -> this.waterCannonRoof.spray(new TankSubject[0]);
+            case CANNON_SELFPROTECTION -> {
+                for (WaterDieSelfprotection die : this.waterDiesSelfprotection) {
+                    die.spray(new TankSubject[0]);
+                }
+            }
+        }
+    }
 
+    public Boolean getCannonState(CannonIdentifier ident) {
+        return switch (ident) {
+            case CANNON_ROOF -> this.waterCannonRoof.getState();
+            case CANNON_FRONT -> this.waterCannonFront.getState();
+            case CANNON_SELFPROTECTION -> this.waterDiesSelfprotection.get(0).getState();
+        };
     }
 
 }
