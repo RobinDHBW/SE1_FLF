@@ -1,6 +1,6 @@
 package Drive;
 
-import BatteryManagement.BatteryManagement;
+import BatteryManagement.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,12 +36,19 @@ public class Drive {
     }
 
     public Integer accelerate() {
-
-
         for (ElectricEngine e : engines) {
             this.speed += e.accelerate();
         }
         return this.speed;
+    }
+
+    // @TODO 25/2 = 12+13...
+    public void drive() {
+        Double eAmount = this.speed * 12.5;
+        for (ElectricEngine e : engines) {
+            List<Coulomb> energy = BatteryManagement.instance.remove(eAmount.intValue());
+            e.drive(energy);
+        }
     }
 
     public void toggleEngine() {

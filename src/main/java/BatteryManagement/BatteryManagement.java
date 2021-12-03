@@ -1,10 +1,12 @@
 package BatteryManagement;
 
+import java.util.List;
+
 public enum BatteryManagement {
     instance;
     private BatteryBox batteryBox = new BatteryBox(2, 2);
 
-    public Object[] remove(Integer quantity) {
+    public List<Coulomb> remove(Integer quantity) {
         return batteryBox.remove(quantity);
     }
 

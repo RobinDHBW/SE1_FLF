@@ -2,7 +2,9 @@ package Tank;
 
 import Store.StoreMedium;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Tank extends StoreMedium {
     HashMap<Character, Integer> fillState = new HashMap<>();
@@ -19,7 +21,7 @@ public class Tank extends StoreMedium {
     };
 
     @Override
-    public Object[] remove(Integer quantity) {
+    public List<Object> remove(Integer quantity) {
         return super.remove(quantity);
     }
 

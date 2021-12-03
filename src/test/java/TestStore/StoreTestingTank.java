@@ -5,6 +5,9 @@ import Tank.Tank;
 import Tank.TankSubject;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -25,9 +28,9 @@ public class StoreTestingTank {
 
 
         tank.fill(TankSubject.FOAM, quantity);
-        Object output[] = tank.remove(remove);
+        List<Object> output = tank.remove(remove);
         assertEquals(tank.getRelativeFillState(), 1 / ((length * height * width) / (quantity.doubleValue()-remove)));
-        assertEquals(output[0], TankSubject.FOAM);
+        assertEquals(output.get(0), TankSubject.FOAM);
     }
 
 }

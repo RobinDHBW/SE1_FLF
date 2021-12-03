@@ -1,10 +1,10 @@
 package BatteryManagement;
 
-import Tank.TankSubject;
-
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class BatteryBox {
@@ -26,10 +26,10 @@ public class BatteryBox {
         }
     }
 
-    public Object[] remove(Integer quantity) {
-        Object[] output = new Object[0];
+    public List<Coulomb> remove(Integer quantity) {
+        List<Coulomb> output = new ArrayList<>();
         for (Battery b : batteryStore) {
-            output = Stream.concat(Arrays.stream(b.remove(quantity / 4)), Arrays.stream(output)).toArray(size -> (Object[]) Array.newInstance(Coulomb.class, size));
+            output = Stream.concat(output.stream(), b.remove(quantity).stream().map(e -> (Coulomb) e).collect(Collectors.toList()).stream()).collect(Collectors.toList());
         }
         return output;
     }

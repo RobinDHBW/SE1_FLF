@@ -1,10 +1,6 @@
 package Store;
 
-import Tank.TankSubject;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class StoreMedium implements IStoreMedium {
@@ -46,19 +42,19 @@ public abstract class StoreMedium implements IStoreMedium {
         }
     }
 
-    protected Object[] removeLoop(Integer quantity) {
+    protected List<Object> removeLoop(Integer quantity) {
         int x = fillState.get('x');
         int y = fillState.get('y');
         int z = fillState.get('z');
 
-        Object[] output = new Object[quantity];
+        List<Object> output = new ArrayList<>();
 
         for (int j = y; j < store[0].length; j++) {
             for (int i = x; i < store.length; i++) {
                 for (int k = z; k < store[0][0].length; k++) {
                     if (j == store[0].length && i == store.length && k == store[0][0].length) isEmpty = true;
                     if (quantity-- == 0) return output;
-                    output[quantity] = store[i][j][k];
+                    output.add(store[i][j][k]);
                     store[i][j][k] = null;
                     isFull = false;
                     fillState.put('x', i);
@@ -84,13 +80,11 @@ public abstract class StoreMedium implements IStoreMedium {
      * @param quantity
      * @return
      */
-    public Object[] remove(Integer quantity) {
-
-        Object[] output = new Object[quantity];
+    public List<Object> remove(Integer quantity) {
         if (!isEmpty) {
-            output = removeLoop(quantity);
+            return removeLoop(quantity);
         }
-        return output;
+        return null;
     }
 
     public Double getRelativeFillState() {

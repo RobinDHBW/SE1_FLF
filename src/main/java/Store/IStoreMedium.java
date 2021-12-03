@@ -1,9 +1,9 @@
 package Store;
 
-import Tank.TankSubject;
+import java.util.List;
 
 public interface IStoreMedium {
     void fill(Object input, Integer quantity);
-    Object[] remove(Integer quantity);
+    List<Object> remove(Integer quantity);
     Double getRelativeFillState();
 }
