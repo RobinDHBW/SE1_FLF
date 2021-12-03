@@ -1,7 +1,7 @@
 package FLF;
 
 import Button.*;
-import Cabin.Cabin;
+import Cabin.*;
 import Drive.Drive;
 import Firefighting.WaterCannonFront;
 import Firefighting.WaterCannonRoof;
@@ -117,18 +117,20 @@ public class FLF {
                 }
             };
 
-         Joystick joystickDriver = buildJoystick(true);
-         Joystick joystickOperator = buildJoystick(false);
+            Joystick joystickDriver = buildJoystick(true);
+            Joystick joystickOperator = buildJoystick(false);
 
-            SteeringWheel steeringWheel = new SteeringWheel(drive){
+            SteeringWheel steeringWheel = new SteeringWheel(drive) {
                 @Override
                 public void operateDevice() {
                     ((Drive) this.operatingDevice).steer(this.getDegree());
                 }
             };
 
+            CentralUnit centralUnit = new CentralUnit(warningLights, flashingBlueLights, searchLightsFront, searchLightsRoof, searchLightsSide, waterDiesSelfprotection, drive);
+
             this.cabin = new Cabin.Builder(
-                    this.buildControlPanelButtons(),
+                    this.buildControlPanelButtons(centralUnit),
                     pedalAcc,
                     pedalBrake,
                     btnCannonRoof,
@@ -247,38 +249,57 @@ public class FLF {
             return new Joystick(btnPush, btnPressLeft, btnPressRight);
         }
 
-        private List<ButtonSwitch> buildControlPanelButtons() {
+        private List<ButtonSwitch> buildControlPanelButtons(CentralUnit cu) {
             List<ButtonSwitch> switches = new ArrayList<ButtonSwitch>();
-            for (int i = 0; i < 5; i++) {
-                switches.add(new ButtonSwitch(switch (i) {
-                    case 0 -> warningLights;
-                    case 1 -> flashingBlueLights;
-                    case 2 -> searchLightsFront;
-                    case 3 -> searchLightsRoof;
-                    default -> searchLightsSide;
-                }) {
-                    @Override
-                    public void operateDevice() {
-                        List<Object> lights = Arrays.asList(operatingDevice);
-                        for (Object l : lights)
-                            ((Light) l).toggle();
-                    }
-                });
-            }
-
-            switches.add(new ButtonSwitch(waterDiesSelfprotection) {
+            switches.add(new ButtonSwitch(cu) {
                 @Override
                 public void operateDevice() {
-                    ((WaterDieSelfprotection) this.operatingDevice).toggle();
+                    cu.switchWarningLight();
                 }
             });
 
-            switches.add(new ButtonSwitch(drive) {
+            switches.add(new ButtonSwitch(cu) {
                 @Override
                 public void operateDevice() {
-                    ((Drive) this.operatingDevice).toggleEngine();
+                    cu.switchBlueLight();
                 }
             });
+
+            switches.add(new ButtonSwitch(cu) {
+                @Override
+                public void operateDevice() {
+                    cu.switchFrontLight();
+                }
+            });
+
+            switches.add(new ButtonSwitch(cu) {
+                @Override
+                public void operateDevice() {
+                    cu.switchRoofLight();
+                }
+            });
+
+            switches.add(new ButtonSwitch(cu) {
+                @Override
+                public void operateDevice() {
+                    cu.switchSideLight();
+                }
+            });
+
+            switches.add(new ButtonSwitch(cu) {
+                @Override
+                public void operateDevice() {
+                    cu.switchSelfprotection();
+                }
+            });
+
+            switches.add(new ButtonSwitch(cu) {
+                @Override
+                public void operateDevice() {
+                    cu.switchEngines();
+                }
+            });
+
 
             return switches;
         }

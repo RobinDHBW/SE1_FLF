@@ -16,11 +16,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class CentralUnit {
-    private List<ElectricEngine> engines;
     private List<WarningLight> warningLights;
-    private List<FlashingBlueLightBig> flashingBlueLightsBig;
-    private List<FlashingBlueLightMedium> flashingBlueLightsMedium;
-    private List<FlashingBlueLightSmall> flashingBlueLightsSmall;
+    private List<FlashingBlueLight> flashingBlueLights;
     private List<SearchLight> searchLightsFront;
     private List<SearchLight> searchLightsRoof;
     private List<SearchLight> searchLightsSide;
@@ -28,22 +25,16 @@ public class CentralUnit {
     private Drive drive;
 
     public CentralUnit(
-            List<ElectricEngine> engines,
             List<WarningLight> warningLights,
-            List<FlashingBlueLightBig> flashingBlueLightsBig,
-            List<FlashingBlueLightMedium> flashingBlueLightsMedium,
-            List<FlashingBlueLightSmall> flashingBlueLightsSmall,
+            List<FlashingBlueLight> flashingBlueLights,
             List<SearchLight> searchLightsFront,
             List<SearchLight> searchLightsRoof,
             List<SearchLight> searchLightsSide,
             List<WaterDieSelfprotection> selfprotection,
             Drive drive
     ) {
-        this.engines = engines;
         this.warningLights = warningLights;
-        this.flashingBlueLightsBig = flashingBlueLightsBig;
-        this.flashingBlueLightsMedium = flashingBlueLightsMedium;
-        this.flashingBlueLightsSmall = flashingBlueLightsSmall;
+        this.flashingBlueLights = flashingBlueLights;
         this.searchLightsFront = searchLightsFront;
         this.searchLightsRoof = searchLightsRoof;
         this.searchLightsSide = searchLightsSide;
@@ -53,9 +44,7 @@ public class CentralUnit {
 
 
     public void switchEngines() {
-        for (ElectricEngine e : this.engines) {
-            e.toggle();
-        }
+        this.drive.toggleEngine();
     }
 
     public void switchWarningLight() {
@@ -65,9 +54,7 @@ public class CentralUnit {
     }
 
     public void switchBlueLight() {
-        List<FlashingBlueLight> all = Stream.of(flashingBlueLightsBig, flashingBlueLightsMedium, flashingBlueLightsSmall).flatMap(Collection::stream).collect(Collectors.toList());
-
-        for (Light l : all) {
+        for (Light l : this.flashingBlueLights) {
             l.toggle();
         }
     }
