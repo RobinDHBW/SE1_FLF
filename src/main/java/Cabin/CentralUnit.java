@@ -110,11 +110,15 @@ public class CentralUnit {
         }
     }
 
-    public void accelerate() {
-        this.drive.accelerate();
+    public Integer accelerate() {
+        return this.drive.accelerate();
     }
 
-    public void brake() {
-        this.drive.brake();
+    public Integer brake() {
+        return this.drive.brake();
+    }
+
+    public Integer drive() {
+        return this.drive.drive();
     }
 }

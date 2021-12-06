@@ -27,16 +27,6 @@ public class MixingProcessor {
         }
     }
 
-    public void changeMixingRate() {
-        this.mixingRate = switch (this.mixingRate) {
-            case NULL -> MixingRate.THREE;
-            case THREE -> MixingRate.FIVE;
-            case FIVE -> MixingRate.TEN;
-            default -> MixingRate.NULL;
-        };
-
-    }
-
     private List<TankSubject> mix(Integer quantity) {
 
         Integer foamPortion = switch (this.mixingRate) {
@@ -53,6 +43,16 @@ public class MixingProcessor {
 
     }
 
+    public void changeMixingRate() {
+        this.mixingRate = switch (this.mixingRate) {
+            case NULL -> MixingRate.THREE;
+            case THREE -> MixingRate.FIVE;
+            case FIVE -> MixingRate.TEN;
+            default -> MixingRate.NULL;
+        };
+
+    }
+
     public void fill(Enum input, Integer quantity) {
 
         if (input.equals(FOAM)) {
@@ -62,7 +62,7 @@ public class MixingProcessor {
         }
     }
 
-    public void fillComplete(Enum input, Integer quantity) {
+    public void fillComplete(Enum input) {
         Integer toFill = 0;
         Double actualFillState;
 

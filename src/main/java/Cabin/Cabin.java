@@ -63,6 +63,18 @@ public class Cabin {
 
     }
 
+    public void accelerate() {
+        this.speedometer.setSpeed(this.centralUnit.accelerate());
+    }
+
+    public void brake() {
+        this.speedometer.setSpeed(this.centralUnit.brake());
+    }
+
+    public void drive() {
+        this.speedometer.setSpeed(this.centralUnit.drive());
+    }
+
     public static class Builder {
         private final CentralUnit centralUnit;
 
