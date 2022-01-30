@@ -88,22 +88,22 @@ public class FLF {
 
     private FLF(Builder builder) {
 
-        FLF built = builder.build();
-        this.brakingLights = built.brakingLights;
-        this.searchLightsFront = built.searchLightsFront;
-        this.searchLightsRoof = built.searchLightsRoof;
-        this.searchLightsSide = built.searchLightsSide;
-        this.directionIndicatorsLeft = built.directionIndicatorsLeft;
-        this.directionIndicatorsRight = built.directionIndicatorsRight;
+        //FLF built = builder.build();
+        this.brakingLights = builder.brakingLights;
+        this.searchLightsFront = builder.searchLightsFront;
+        this.searchLightsRoof = builder.searchLightsRoof;
+        this.searchLightsSide = builder.searchLightsSide;
+        this.directionIndicatorsLeft = builder.directionIndicatorsLeft;
+        this.directionIndicatorsRight = builder.directionIndicatorsRight;
 
-        this.flashingBlueLights = built.flashingBlueLights;
-        this.warningLights = built.warningLights;
+        this.flashingBlueLights = builder.flashingBlueLights;
+        this.warningLights = builder.warningLights;
 
-        this.cabin = built.cabin;
+        this.cabin = builder.cabin;
 
-        this.drive = built.drive;
+        this.drive = builder.drive;
 
-        this.mixingProcessor = built.mixingProcessor;
+        this.mixingProcessor = builder.mixingProcessor;
     }
 
     /**

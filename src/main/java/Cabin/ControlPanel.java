@@ -15,14 +15,14 @@ public class ControlPanel {
     private final ButtonSwitch btnSwitchSelfProtection;
 
     public ControlPanel(Builder builder) {
-        ControlPanel built = builder.build();
-        this.btnSwitchEngines = built.btnSwitchEngines;
-        this.btnSwitchWarnlight = built.btnSwitchWarnlight;
-        this.btnSwitchBluelight = built.btnSwitchBluelight;
-        this.btnSwitchFrontlight = built.btnSwitchFrontlight;
-        this.btnSwitchRooflight = built.btnSwitchRooflight;
-        this.btnSwitchSidelight = built.btnSwitchSidelight;
-        this.btnSwitchSelfProtection = built.btnSwitchSelfProtection;
+        //ControlPanel built = builder.build();
+        this.btnSwitchEngines = builder.btnSwitchEngines;
+        this.btnSwitchWarnlight = builder.btnSwitchWarnlight;
+        this.btnSwitchBluelight = builder.btnSwitchBluelight;
+        this.btnSwitchFrontlight = builder.btnSwitchFrontlight;
+        this.btnSwitchRooflight = builder.btnSwitchRooflight;
+        this.btnSwitchSidelight = builder.btnSwitchSidelight;
+        this.btnSwitchSelfProtection = builder.btnSwitchSelfProtection;
 
     }
 

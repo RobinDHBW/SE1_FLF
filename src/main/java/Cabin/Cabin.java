@@ -38,28 +38,28 @@ public class Cabin {
 
 
     private Cabin(Builder builder) {
-        Cabin built = builder.build();
-        this.seatList = built.seatList;
+        //Cabin built = builder.build();
+        this.seatList = builder.seatList;
 
-        this.batteryIndicator = built.batteryIndicator;
-        this.speedometer = built.speedometer;
+        this.batteryIndicator = builder.batteryIndicator;
+        this.speedometer = builder.speedometer;
 
-        this.gasPedal = built.gasPedal;
-        this.brakePedal = built.brakePedal;
+        this.gasPedal = builder.gasPedal;
+        this.brakePedal = builder.brakePedal;
 
-        this.steeringWheel = built.steeringWheel;
+        this.steeringWheel = builder.steeringWheel;
 
-        this.btnRotaryWaterCannonRoof = built.btnRotaryWaterCannonRoof;
-        this.btnRotaryWaterCannonFront = built.btnRotaryWaterCannonFront;
+        this.btnRotaryWaterCannonRoof = builder.btnRotaryWaterCannonRoof;
+        this.btnRotaryWaterCannonFront = builder.btnRotaryWaterCannonFront;
 
-        this.ctrlPanel = built.ctrlPanel;
-        this.centralUnit = built.centralUnit;
+        this.ctrlPanel = builder.ctrlPanel;
+        this.centralUnit = builder.centralUnit;
 
-        this.joystickDriver = built.joystickDriver;
-        this.joystickOperator = built.joystickOperator;
+        this.joystickDriver = builder.joystickDriver;
+        this.joystickOperator = builder.joystickOperator;
 
-        this.busDoorLeft = built.busDoorLeft;
-        this.busDoorRight = built.busDoorRight;
+        this.busDoorLeft = builder.busDoorLeft;
+        this.busDoorRight = builder.busDoorRight;
 
     }
 
