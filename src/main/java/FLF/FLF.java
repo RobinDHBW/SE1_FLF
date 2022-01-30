@@ -38,6 +38,54 @@ public class FLF {
     private final MixingProcessor mixingProcessor;
 
 
+    /**********
+     * Getter
+     *********/
+
+    public List<SearchLight> getSearchLightsFront() {
+        return searchLightsFront;
+    }
+
+    public List<SearchLight> getSearchLightsRoof() {
+        return searchLightsRoof;
+    }
+
+    public List<SearchLight> getSearchLightsSide() {
+        return searchLightsSide;
+    }
+
+    public List<DirectionIndicator> getDirectionIndicatorsLeft() {
+        return directionIndicatorsLeft;
+    }
+
+    public List<DirectionIndicator> getDirectionIndicatorsRight() {
+        return directionIndicatorsRight;
+    }
+
+    public List<BrakingLight> getBrakingLights() {
+        return brakingLights;
+    }
+
+    public List<FlashingBlueLight> getFlashingBlueLights() {
+        return flashingBlueLights;
+    }
+
+    public List<WarningLight> getWarningLights() {
+        return warningLights;
+    }
+
+    public Cabin getCabin() {
+        return cabin;
+    }
+
+    public Drive getDrive() {
+        return drive;
+    }
+
+    public MixingProcessor getMixingProcessor() {
+        return mixingProcessor;
+    }
+
     private FLF(Builder builder) {
 
         FLF built = builder.build();
@@ -286,5 +334,7 @@ public class FLF {
         public FLF build() {
             return new FLF(this);
         }
+
+
     }
 }

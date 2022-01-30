@@ -42,7 +42,6 @@ public class Drive {
         return this.speed;
     }
 
-    // @TODO 25/2 = 12+13...
     public Integer drive() {
         Double eAmount = this.speed * 12.5;
         int i = 0;

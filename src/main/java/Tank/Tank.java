@@ -6,10 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * @TODO Klassen Battery/Tank benötigt?
- * Store Medium enthält theoretisch alles
- */
+
 public class Tank extends StoreMedium {
 
     public Tank(TankSubject subject, Integer length, Integer height, Integer width) {
