@@ -111,7 +111,7 @@ public class FLF {
      */
     public static class Builder {
 
-        private final static List<WarningLight> warningLights = new ArrayList<>();
+        private final List<WarningLight> warningLights = new ArrayList<>();
         private final List<DirectionIndicator> directionIndicatorsLeft = new ArrayList<>();
         private final List<DirectionIndicator> directionIndicatorsRight = new ArrayList<>();
         private final List<BrakingLight> brakingLights = new ArrayList<>();
@@ -127,9 +127,9 @@ public class FLF {
 
         public Builder() {
 
+            buildLights();
             CentralUnit centralUnit = new CentralUnit(warningLights, flashingBlueLights, searchLightsFront, searchLightsRoof, searchLightsSide, directionIndicatorsLeft, directionIndicatorsRight, mixingProcessor, drive);
 
-            buildLights();
             Pedal pedalAcc = new Pedal(centralUnit) {
                 @Override
                 public void operateDevice() {
@@ -238,8 +238,9 @@ public class FLF {
             }
 
             // add WarningLights
-            this.warningLights.add(new WarningLight(LightPosition.ROOF_FRONT_LEFT));
-            this.warningLights.add(new WarningLight(LightPosition.ROOF_BACK_RIGHT));
+            for(int i = 0; i < 2; i++){
+                this.warningLights.add(new WarningLight(i<1?LightPosition.ROOF_FRONT_LEFT:LightPosition.ROOF_BACK_RIGHT));
+            }
         }
 
         private Joystick buildJoystick(Boolean isDriver) {
