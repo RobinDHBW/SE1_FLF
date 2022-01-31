@@ -36,6 +36,66 @@ public class Cabin {
     private final BusDoor busDoorLeft;
     private final BusDoor busDoorRight;
 
+    /**********
+     * Getter
+     *********/
+
+    public List<Seat> getSeatList() {
+        return seatList;
+    }
+
+    public BatteryIndicator getBatteryIndicator() {
+        return batteryIndicator;
+    }
+
+    public Speedometer getSpeedometer() {
+        return speedometer;
+    }
+
+    public Pedal getGasPedal() {
+        return gasPedal;
+    }
+
+    public Pedal getBrakePedal() {
+        return brakePedal;
+    }
+
+    public SteeringWheel getSteeringWheel() {
+        return steeringWheel;
+    }
+
+    public ButtonRotaryWaterCannonRoof getBtnRotaryWaterCannonRoof() {
+        return btnRotaryWaterCannonRoof;
+    }
+
+    public ButtonRotaryWaterCannonFront getBtnRotaryWaterCannonFront() {
+        return btnRotaryWaterCannonFront;
+    }
+
+    public ControlPanel getCtrlPanel() {
+        return ctrlPanel;
+    }
+
+    public CentralUnit getCentralUnit() {
+        return centralUnit;
+    }
+
+    public Joystick getJoystickDriver() {
+        return joystickDriver;
+    }
+
+    public Joystick getJoystickOperator() {
+        return joystickOperator;
+    }
+
+    public BusDoor getBusDoorLeft() {
+        return busDoorLeft;
+    }
+
+    public BusDoor getBusDoorRight() {
+        return busDoorRight;
+    }
+
 
     private Cabin(Builder builder) {
         //Cabin built = builder.build();
