@@ -12,7 +12,42 @@ public class ControlPanel {
     private final ButtonSwitch btnSwitchFrontlight;
     private final ButtonSwitch btnSwitchRooflight;
     private final ButtonSwitch btnSwitchSidelight;
+
+    /**********
+     * Getter
+     *********/
+
+    public ButtonSwitch getBtnSwitchEngines() {
+        return btnSwitchEngines;
+    }
+
+    public ButtonSwitch getBtnSwitchWarnlight() {
+        return btnSwitchWarnlight;
+    }
+
+    public ButtonSwitch getBtnSwitchBluelight() {
+        return btnSwitchBluelight;
+    }
+
+    public ButtonSwitch getBtnSwitchFrontlight() {
+        return btnSwitchFrontlight;
+    }
+
+    public ButtonSwitch getBtnSwitchRooflight() {
+        return btnSwitchRooflight;
+    }
+
+    public ButtonSwitch getBtnSwitchSidelight() {
+        return btnSwitchSidelight;
+    }
+
+    public ButtonSwitch getBtnSwitchSelfProtection() {
+        return btnSwitchSelfProtection;
+    }
+
     private final ButtonSwitch btnSwitchSelfProtection;
+
+
 
     public ControlPanel(Builder builder) {
         //ControlPanel built = builder.build();

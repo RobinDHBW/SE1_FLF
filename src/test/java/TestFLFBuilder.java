@@ -1,5 +1,6 @@
 import Button.ButtonRotaryWaterCannonFront;
 import Button.ButtonRotaryWaterCannonRoof;
+import Button.ButtonSwitch;
 import Button.Pedal;
 import Cabin.*;
 import Drive.Drive;
@@ -31,6 +32,20 @@ private FLF proto;
     void buildProto(){
         this.proto=new FLF.Builder().build();
     }
+
+    @TestFactory
+    Stream<DynamicTest> testCtrlPanelBuild() {
+        ControlPanel ctrProto = this.proto.getCabin().getCtrlPanel();
+        return  Arrays.asList(
+                DynamicTest.dynamicTest("check btnSwitchEngines", () -> assertTrue(ctrProto.getBtnSwitchEngines() instanceof ButtonSwitch)),
+                DynamicTest.dynamicTest("check btnSwitchWarnlight", () -> assertTrue(ctrProto.getBtnSwitchWarnlight() instanceof ButtonSwitch)),
+                DynamicTest.dynamicTest("check btnSwitchBluelight", () -> assertTrue(ctrProto.getBtnSwitchBluelight() instanceof ButtonSwitch)),
+                DynamicTest.dynamicTest("check btnSwitchFrontlight", () -> assertTrue(ctrProto.getBtnSwitchFrontlight() instanceof ButtonSwitch)),
+                DynamicTest.dynamicTest("check btnSwitchRooflight", () -> assertTrue(ctrProto.getBtnSwitchRooflight() instanceof ButtonSwitch)),
+                DynamicTest.dynamicTest("check btnSwitchSidelight", () -> assertTrue(ctrProto.getBtnSwitchSidelight() instanceof ButtonSwitch))
+        ).stream();
+    }
+
 
     @TestFactory
     Stream<DynamicTest> testCabinBuild() {
