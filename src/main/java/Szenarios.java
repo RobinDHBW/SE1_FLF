@@ -24,7 +24,7 @@ public class Szenarios {
         this.flf.enterFLF(driver, true);
         this.flf.enterFLF(operator, false);
 
-        if(this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_FRONT)) this.driver.toggleFrontCannon();
-        if(this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_ROOF)) 
+        if(this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_FRONT)) this.driver.toggleCannon();
+        if(this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_ROOF)) this.operator.toggleCannon();
     }
 }

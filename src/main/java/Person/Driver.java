@@ -5,7 +5,7 @@ import Cabin.ControlPanel;
 import Instruments.SteeringWheel;
 import Joystick.Joystick;
 
-public class Driver extends Person {
+public class Driver extends ActivePassenger {
     private SteeringWheel steeringWheel;
     private Pedal gasPedal;
     private Pedal brakePedal;
@@ -19,7 +19,7 @@ public class Driver extends Person {
         this.steeringWheel = wheel;
         this.gasPedal = gas;
         this.brakePedal = brake;
-        this.drJoystick = stick;
+        this.equip(stick);
     }
 
 
@@ -33,18 +33,6 @@ public class Driver extends Person {
 
     public void steer(Boolean isLeft, Integer degree){
         this.steeringWheel.steer(isLeft, degree);
-    }
-
-    public void toggleFrontCannon(){
-        this.drJoystick.pressBtnLeft();
-    }
-
-    public void switchMix(){
-        this.drJoystick.pressBtnRight();
-    }
-
-    public void spray(){
-        this.drJoystick.pushBtn();
     }
 
 
