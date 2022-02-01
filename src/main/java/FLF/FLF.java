@@ -110,7 +110,7 @@ public class FLF {
     public void toggleLeftDoor(Boolean fromOutside){this.cabin.toggleLeftDoor(fromOutside);}
     public void toggleRightDoor(Boolean fromOutside){this.cabin.toggleRightDoor(fromOutside);}
 
-    public void enterFLF(Person enterer, Boolean isFirefighting, Boolean isDriver) {this.cabin.enterCabin(enterer, isFirefighting, isDriver);}
+    public void enterFLF(Person enterer, Boolean isLeft) {this.cabin.enterCabin(enterer, isLeft);}
 
     /**
      *

@@ -1,10 +1,12 @@
 package Cabin;
 
-import Button.*;
+import Button.ButtonRotaryWaterCannonFront;
+import Button.ButtonRotaryWaterCannonRoof;
+import Button.Pedal;
 import Instruments.BatteryIndicator;
 import Instruments.Speedometer;
 import Instruments.SteeringWheel;
-import Joystick.*;
+import Joystick.Joystick;
 import Person.Driver;
 import Person.Operator;
 import Person.Person;
@@ -36,6 +38,32 @@ public class Cabin {
 
     private final BusDoor busDoorLeft;
     private final BusDoor busDoorRight;
+
+    private Cabin(Builder builder) {
+        //Cabin built = builder.build();
+        this.seatList = builder.seatList;
+
+        this.batteryIndicator = builder.batteryIndicator;
+        this.speedometer = builder.speedometer;
+
+        this.gasPedal = builder.gasPedal;
+        this.brakePedal = builder.brakePedal;
+
+        this.steeringWheel = builder.steeringWheel;
+
+        this.btnRotaryWaterCannonRoof = builder.btnRotaryWaterCannonRoof;
+        this.btnRotaryWaterCannonFront = builder.btnRotaryWaterCannonFront;
+
+        this.ctrlPanel = builder.ctrlPanel;
+        this.centralUnit = builder.centralUnit;
+
+        this.joystickDriver = builder.joystickDriver;
+        this.joystickOperator = builder.joystickOperator;
+
+        this.busDoorLeft = builder.busDoorLeft;
+        this.busDoorRight = builder.busDoorRight;
+
+    }
 
     /**********
      * Getter
@@ -97,33 +125,6 @@ public class Cabin {
         return busDoorRight;
     }
 
-
-    private Cabin(Builder builder) {
-        //Cabin built = builder.build();
-        this.seatList = builder.seatList;
-
-        this.batteryIndicator = builder.batteryIndicator;
-        this.speedometer = builder.speedometer;
-
-        this.gasPedal = builder.gasPedal;
-        this.brakePedal = builder.brakePedal;
-
-        this.steeringWheel = builder.steeringWheel;
-
-        this.btnRotaryWaterCannonRoof = builder.btnRotaryWaterCannonRoof;
-        this.btnRotaryWaterCannonFront = builder.btnRotaryWaterCannonFront;
-
-        this.ctrlPanel = builder.ctrlPanel;
-        this.centralUnit = builder.centralUnit;
-
-        this.joystickDriver = builder.joystickDriver;
-        this.joystickOperator = builder.joystickOperator;
-
-        this.busDoorLeft = builder.busDoorLeft;
-        this.busDoorRight = builder.busDoorRight;
-
-    }
-
     public void accelerate() {
         this.speedometer.setSpeed(this.centralUnit.accelerate());
     }
@@ -136,17 +137,19 @@ public class Cabin {
         this.speedometer.setSpeed(this.centralUnit.drive());
     }
 
-    public void toggleLeftDoor(Boolean fromOutside){this.getBusDoorLeft().toggleDoor(fromOutside);}
-    public void toggleRightDoor(Boolean fromOutside){this.getBusDoorRight().toggleDoor(fromOutside);}
+    public void toggleLeftDoor(Boolean fromOutside) {
+        this.getBusDoorLeft().toggleDoor(fromOutside);
+    }
 
-    public void enterCabin(Person enterer, Boolean isFirefighting, Boolean isDriver){
-        for(Seat seat : seatList){
-            if (isFirefighting && isDriver){
-                if(seat instanceof SeatFirefighting && enterer.equals(((SeatFirefighting) seat).getPersonAllowed()) && !seat.getOccupied()) seat.sitDown(enterer);
-            }else if(isFirefighting){
-                if(seat instanceof SeatFirefighting && !seat.getOccupied()) seat.sitDown(enterer);
-            }else{
-                if(!seat.getOccupied()) seat.sitDown(enterer);
+    public void toggleRightDoor(Boolean fromOutside) {
+        this.getBusDoorRight().toggleDoor(fromOutside);
+    }
+
+    public void enterCabin(Person enterer, Boolean isLeft) {
+        for (Seat seat : seatList) {
+            if (seat.getOccupied()) continue;
+            if ((seat instanceof SeatFirefighting && enterer.equals(((SeatFirefighting) seat).getPersonAllowed())) || !(seat instanceof SeatFirefighting) && seat.getLeftSide() == isLeft) {
+                seat.sitDown(enterer);
             }
         }
     }
@@ -188,7 +191,7 @@ public class Cabin {
                 CentralUnit centralUnit
         ) {
             for (int i = 0; i < 2; i++) {
-                Boolean leftSide = i == 0;
+                Boolean leftSide = (i == 0);
                 seatList.add(new Seat(1, leftSide));
             }
             seatList.add(new SeatFirefighting(new Driver(), true));
