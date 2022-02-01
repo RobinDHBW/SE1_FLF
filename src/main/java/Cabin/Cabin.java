@@ -148,9 +148,17 @@ public class Cabin {
     public void enterCabin(Person enterer, Boolean isLeft) {
         for (Seat seat : seatList) {
             if (seat.getOccupied()) continue;
-            if ((seat instanceof SeatFirefighting && enterer.equals(((SeatFirefighting) seat).getPersonAllowed())) || !(seat instanceof SeatFirefighting) && seat.getLeftSide() == isLeft) {
+            if (seat instanceof SeatFirefighting && enterer.equals(((SeatFirefighting) seat).getPersonAllowed())) {
+                seat.sitDown(enterer);
+                if(enterer instanceof Driver){
+                    ((Driver) enterer).equip(this.steeringWheel, this.gasPedal, this.brakePedal, this.joystickDriver);
+                }else{
+                    ((Operator)enterer).equip(this.ctrlPanel, this.joystickOperator);
+                }
+            }else if(!(seat instanceof SeatFirefighting) && seat.getLeftSide() == isLeft){
                 seat.sitDown(enterer);
             }
+            enterer.setIsInVehicle(true);
         }
     }
 
