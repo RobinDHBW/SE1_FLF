@@ -21,4 +21,31 @@ public class Driver extends Person {
         this.brakePedal = brake;
         this.drJoystick = stick;
     }
+
+
+    public void accelerate(){
+        this.gasPedal.operateDevice();
+    }
+
+    public void brake(){
+        this.brakePedal.operateDevice();
+    }
+
+    public void steer(Boolean isLeft, Integer degree){
+        this.steeringWheel.steer(isLeft, degree);
+    }
+
+    public void toggleFrontCannon(){
+        this.drJoystick.pressBtnLeft();
+    }
+
+    public void switchMix(){
+        this.drJoystick.pressBtnRight();
+    }
+
+    public void spray(){
+        this.drJoystick.pushBtn();
+    }
+
+
 }
