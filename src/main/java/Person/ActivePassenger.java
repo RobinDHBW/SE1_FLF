@@ -10,6 +10,11 @@ public abstract class ActivePassenger extends Person{
         this.joystick = stick;
     }
 
+    public void uneqip(){
+        this.joystick = null;
+    }
+
+
     public void toggleCannon(){
         this.joystick.pressBtnLeft();
     }

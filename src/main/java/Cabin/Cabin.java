@@ -153,13 +153,20 @@ public class Cabin {
                 if(enterer instanceof Driver){
                     ((Driver) enterer).equip(this.steeringWheel, this.gasPedal, this.brakePedal, this.joystickDriver);
                 }else{
-                    ((Operator)enterer).equip(this.ctrlPanel, this.joystickOperator);
+                    ((Operator)enterer).equip(this.ctrlPanel, this.joystickOperator, this.btnRotaryWaterCannonFront, this.btnRotaryWaterCannonRoof);
                 }
             }else if(!(seat instanceof SeatFirefighting) && seat.getLeftSide() == isLeft){
                 seat.sitDown(enterer);
             }
             enterer.setIsInVehicle(true);
         }
+    }
+
+    public Person leaveCabin(Integer row, Boolean isLeft){
+        for(Seat seat : seatList){
+            if(seat.getSeatRow() == row && seat.getLeftSide() == isLeft) return  seat.leave();
+        }
+        return null;
     }
 
     public static class Builder {

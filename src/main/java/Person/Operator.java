@@ -16,8 +16,18 @@ public class Operator extends ActivePassenger {
 
     public void equip(ControlPanel panel, Joystick opJoystick, ButtonRotaryWaterCannonFront rotaryWaterCannonFront, ButtonRotaryWaterCannonRoof rotaryWaterCannonRoof) {
         this.panel = panel;
-        this.equip(opJoystick);
+        this.rotaryWaterCannonRoof = rotaryWaterCannonRoof;
+        this.rotaryWaterCannonFront = rotaryWaterCannonFront;
+        super.equip(opJoystick);
     }
+
+    public void uneqip(){
+        this.panel = null;
+        this.rotaryWaterCannonRoof = null;
+        this.rotaryWaterCannonFront = null;
+        super.uneqip();
+    }
+
 
     public void toggleEngines() {
         this.panel.getBtnSwitchEngines().operateDevice();

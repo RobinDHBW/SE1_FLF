@@ -73,4 +73,8 @@ public class Drive {
     public Boolean getEngineState(){
         return this.engines.get(0).getState();
     }
+
+    public void fillComplete(){
+        BatteryManagement.instance.fillComplete();
+    }
 }

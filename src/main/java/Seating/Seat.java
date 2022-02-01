@@ -4,7 +4,7 @@ import Person.Person;
 
 public class Seat {
     private Respirator respirator = new Respirator();
-    protected int seatRow = 0;
+    protected Integer seatRow = 0;
     protected boolean leftSide;
     protected boolean occupied = false;
     protected Person seatWarmer;
@@ -20,9 +20,11 @@ public class Seat {
         this.occupied = true;
     }
 
-    public void leave() {
+    public Person leave() {
+        Person p = this.seatWarmer;
         this.seatWarmer = null;
         this.occupied = false;
+        return p;
     }
 
     public Respirator getRespirator() {

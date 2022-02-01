@@ -10,7 +10,8 @@ import Firefighting.WaterDieSelfprotection;
 import Instruments.SteeringWheel;
 import Joystick.Joystick;
 import Lights.*;
-import Person.Person;
+import Person.*;
+import Seating.Seat;
 import Tank.MixingProcessor;
 import Tank.TankSubject;
 
@@ -37,6 +38,8 @@ public class FLF {
     private final Drive drive;
 
     private final MixingProcessor mixingProcessor;
+
+    private Boolean maintenanceState = false;
 
 
     /**********
@@ -112,6 +115,10 @@ public class FLF {
 
     public void enterFLF(Person enterer, Boolean isLeft) {this.cabin.enterCabin(enterer, isLeft);}
 
+    public Person leaveFLF(Integer row, Boolean isLeft){
+        return this.cabin.leaveCabin(row, isLeft);
+    }
+
     public Boolean getSearchLightFrontState(){
         return this.searchLightsFront.get(0).getState();
     }
@@ -130,6 +137,15 @@ public class FLF {
 
     public Boolean getWarnLightsState(){
         return this.warningLights.get(0).getState();
+    }
+
+    public void toggleMaintenance(EmployeeFirebase eFB){
+        if(this.maintenanceState){
+            eFB.uneqip();
+        }else{
+            eFB.equip(this.mixingProcessor, this.drive);
+        }
+        this.maintenanceState = !this.maintenanceState;
     }
 
     /**

@@ -19,7 +19,14 @@ public class Driver extends ActivePassenger {
         this.steeringWheel = wheel;
         this.gasPedal = gas;
         this.brakePedal = brake;
-        this.equip(stick);
+        super.equip(stick);
+    }
+
+    public void uneqip(){
+        this.steeringWheel = null;
+        this.gasPedal = null;
+        this.brakePedal = null;
+        super.uneqip();
     }
 
 
