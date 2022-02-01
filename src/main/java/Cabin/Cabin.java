@@ -7,6 +7,7 @@ import Instruments.SteeringWheel;
 import Joystick.*;
 import Person.Driver;
 import Person.Operator;
+import Person.Person;
 import Seating.Seat;
 import Seating.SeatFirefighting;
 
@@ -133,6 +134,21 @@ public class Cabin {
 
     public void drive() {
         this.speedometer.setSpeed(this.centralUnit.drive());
+    }
+
+    public void toggleLeftDoor(Boolean fromOutside){this.getBusDoorLeft().toggleDoor(fromOutside);}
+    public void toggleRightDoor(Boolean fromOutside){this.getBusDoorRight().toggleDoor(fromOutside);}
+
+    public void enterCabin(Person enterer, Boolean isFirefighting, Boolean isDriver){
+        for(Seat seat : seatList){
+            if (isFirefighting && isDriver){
+                if(seat instanceof SeatFirefighting && enterer.equals(((SeatFirefighting) seat).getPersonAllowed()) && !seat.getOccupied()) seat.sitDown(enterer);
+            }else if(isFirefighting){
+                if(seat instanceof SeatFirefighting && !seat.getOccupied()) seat.sitDown(enterer);
+            }else{
+                if(!seat.getOccupied()) seat.sitDown(enterer);
+            }
+        }
     }
 
     public static class Builder {

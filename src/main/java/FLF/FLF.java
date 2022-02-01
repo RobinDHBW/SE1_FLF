@@ -10,6 +10,7 @@ import Firefighting.WaterDieSelfprotection;
 import Instruments.SteeringWheel;
 import Joystick.Joystick;
 import Lights.*;
+import Person.Person;
 import Tank.MixingProcessor;
 import Tank.TankSubject;
 
@@ -105,6 +106,11 @@ public class FLF {
 
         this.mixingProcessor = builder.mixingProcessor;
     }
+
+    public void toggleLeftDoor(Boolean fromOutside){this.cabin.toggleLeftDoor(fromOutside);}
+    public void toggleRightDoor(Boolean fromOutside){this.cabin.toggleRightDoor(fromOutside);}
+
+    public void enterFLF(Person enterer, Boolean isFirefighting, Boolean isDriver) {this.cabin.enterCabin(enterer, isFirefighting, isDriver);}
 
     /**
      *
