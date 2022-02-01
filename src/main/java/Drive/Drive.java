@@ -69,4 +69,8 @@ public class Drive {
     public Integer getSteeringAngle(){
         return this.steerables.get(0).getSteeringAngle();
     }
+
+    public Boolean getEngineState(){
+        return this.engines.get(0).getState();
+    }
 }

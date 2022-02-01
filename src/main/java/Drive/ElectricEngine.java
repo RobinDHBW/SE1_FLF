@@ -27,4 +27,7 @@ public class ElectricEngine {
         this.state = !this.state;
     }
 
+    public Boolean getState() {
+        return state;
+    }
 }

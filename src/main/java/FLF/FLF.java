@@ -112,6 +112,26 @@ public class FLF {
 
     public void enterFLF(Person enterer, Boolean isLeft) {this.cabin.enterCabin(enterer, isLeft);}
 
+    public Boolean getSearchLightFrontState(){
+        return this.searchLightsFront.get(0).getState();
+    }
+
+    public Boolean getSearchLightRoofState(){
+        return this.searchLightsRoof.get(0).getState();
+    }
+
+    public Boolean getSearchLightSideState(){
+        return this.searchLightsSide.get(0).getState();
+    }
+
+    public Boolean getBlueLightState(){
+        return this.flashingBlueLights.get(0).getState();
+    }
+
+    public Boolean getWarnLightsState(){
+        return this.warningLights.get(0).getState();
+    }
+
     /**
      *
      */
