@@ -153,6 +153,10 @@ public class FLF {
         return this.drive.drive();
     }
 
+    public void spray(CannonIdentifier ident){
+        this.mixingProcessor.spray(ident);
+    }
+
     /**
      *
      */
