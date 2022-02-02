@@ -113,7 +113,8 @@ public class FLF {
     public void toggleLeftDoor(Boolean fromOutside){this.cabin.toggleLeftDoor(fromOutside);}
     public void toggleRightDoor(Boolean fromOutside){this.cabin.toggleRightDoor(fromOutside);}
 
-    public void enterFLF(Person enterer, Boolean isLeft) {this.cabin.enterCabin(enterer, isLeft);}
+    public void enterFLF(Person enterer, Boolean isLeft) {
+        this.cabin.enterCabin(enterer, isLeft);}
 
     public Person leaveFLF(Integer row, Boolean isLeft){
         return this.cabin.leaveCabin(row, isLeft);
@@ -146,6 +147,10 @@ public class FLF {
             eFB.equip(this.mixingProcessor, this.drive);
         }
         this.maintenanceState = !this.maintenanceState;
+    }
+
+    public Integer drive(){
+        return this.drive.drive();
     }
 
     /**

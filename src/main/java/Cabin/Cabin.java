@@ -146,25 +146,32 @@ public class Cabin {
     }
 
     public void enterCabin(Person enterer, Boolean isLeft) {
-        for (Seat seat : seatList) {
-            if (seat.getOccupied()) continue;
-            if (seat instanceof SeatFirefighting && enterer.equals(((SeatFirefighting) seat).getPersonAllowed())) {
-                seat.sitDown(enterer);
-                if(enterer instanceof Driver){
-                    ((Driver) enterer).equip(this.steeringWheel, this.gasPedal, this.brakePedal, this.joystickDriver);
-                }else{
-                    ((Operator)enterer).equip(this.ctrlPanel, this.joystickOperator, this.btnRotaryWaterCannonFront, this.btnRotaryWaterCannonRoof);
+        try {
+            if (!(isLeft ? this.getBusDoorLeft() : this.getBusDoorRight()).getOpen())
+                throw new Exception("Door not open");
+            for (Seat seat : seatList) {
+                if (seat.getOccupied()) continue;
+                if (seat instanceof SeatFirefighting && enterer.equals(((SeatFirefighting) seat).getPersonAllowed())) {
+                    seat.sitDown(enterer);
+                    if (enterer instanceof Driver) {
+                        ((Driver) enterer).equip(this.steeringWheel, this.gasPedal, this.brakePedal, this.joystickDriver);
+                    } else {
+                        ((Operator) enterer).equip(this.ctrlPanel, this.joystickOperator, this.btnRotaryWaterCannonFront, this.btnRotaryWaterCannonRoof);
+                    }
+                } else if (!(seat instanceof SeatFirefighting) && seat.getLeftSide() == isLeft) {
+                    seat.sitDown(enterer);
                 }
-            }else if(!(seat instanceof SeatFirefighting) && seat.getLeftSide() == isLeft){
-                seat.sitDown(enterer);
+                enterer.setIsInVehicle(true);
             }
-            enterer.setIsInVehicle(true);
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+            System.err.println(ex.getStackTrace());
         }
     }
 
-    public Person leaveCabin(Integer row, Boolean isLeft){
-        for(Seat seat : seatList){
-            if(seat.getSeatRow() == row && seat.getLeftSide() == isLeft) return  seat.leave();
+    public Person leaveCabin(Integer row, Boolean isLeft) {
+        for (Seat seat : seatList) {
+            if (seat.getSeatRow() == row && seat.getLeftSide() == isLeft) return seat.leave();
         }
         return null;
     }
