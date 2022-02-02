@@ -14,10 +14,19 @@ public class Szenarios {
     private Driver driver;
     private Operator operator;
     private ArrayList<Infantry> infanterists;
-    private EmployeeFirebase eFB;
+    private EmployeeFirebase employee;
 
     public Szenarios(FLF flf){
         this.flf = flf;
+    }
+
+    private void doMaintenance(){
+        this.employee = new EmployeeFirebase();
+        this.flf.toggleMaintenance(employee);
+        employee.loadBatteries();
+        employee.fillWaterTank();
+        employee.fillFoamTank();
+        this.flf.toggleMaintenance(employee);
     }
 
     public void park(){
@@ -25,11 +34,11 @@ public class Szenarios {
         if(!this.flf.getCabin().getBusDoorLeft().getOpen()) this.flf.toggleLeftDoor(true);
         this.driver = new Driver();
         this.operator = new Operator();
-        this.eFB = new EmployeeFirebase();
+
+        this.doMaintenance();
 
         this.flf.enterFLF(driver, true);
         this.flf.enterFLF(operator, false);
-        this.flf.toggleMaintenance(eFB);
 
         if(this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_FRONT)) this.driver.toggleCannon();
         if(this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_ROOF)) this.operator.toggleCannon();
@@ -46,11 +55,6 @@ public class Szenarios {
             this.operator.leftRotaryButtonRoofCannon();
         }
 
-        eFB.loadBatteries();
-        eFB.fillWaterTank();
-        eFB.fillFoamTank();
-
-        this.flf.toggleMaintenance(eFB);
         for(int i =0; i<2; i++){
             this.flf.leaveFLF(i, true);
             this.flf.leaveFLF(i, false);
@@ -63,16 +67,11 @@ public class Szenarios {
 
         this.driver = new Driver();
         this.operator = new Operator();
-        this.eFB = new EmployeeFirebase();
+
+        this.doMaintenance();
 
         this.flf.enterFLF(driver, true);
         this.flf.enterFLF(operator, false);
-
-        this.flf.toggleMaintenance(eFB);
-        eFB.loadBatteries();
-        eFB.fillWaterTank();
-        eFB.fillFoamTank();
-        this.flf.toggleMaintenance(eFB);
 
         this.flf.toggleRightDoor(false);
         this.flf.toggleLeftDoor(true);
@@ -121,5 +120,47 @@ public class Szenarios {
             this.driver.accelerate();
             this.flf.drive();
         }
+    }
+
+    public void emergencyRide(){
+        if(!this.flf.getCabin().getBusDoorRight().getOpen()) this.flf.toggleRightDoor(true);
+        if(!this.flf.getCabin().getBusDoorLeft().getOpen()) this.flf.toggleLeftDoor(true);
+
+        this.driver = new Driver();
+        this.operator = new Operator();
+
+        this.doMaintenance();
+
+        this.flf.enterFLF(driver, true);
+        this.flf.enterFLF(operator, false);
+
+        this.flf.toggleRightDoor(false);
+        this.flf.toggleLeftDoor(true);
+
+        if(!this.flf.getDrive().getEngineState()) this.operator.toggleEngines();
+
+        if(this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_FRONT)) this.driver.toggleCannon();
+        if(this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_ROOF)) this.operator.toggleCannon();
+
+        if(!this.flf.getSearchLightFrontState()) this.operator.toggleFrontLights();
+        if(!this.flf.getSearchLightRoofState()) this.operator.toggleRoofLights();
+        if(this.flf.getSearchLightSideState()) this.operator.toggleSideLights();
+        if(!this.flf.getWarnLightsState()) this.operator.toggleWarnlights();
+        if(!this.flf.getBlueLightState()) this.operator.toggleBlueLights();
+
+        while(this.flf.getCabin().getBtnRotaryWaterCannonFront().getMode() > 1 && this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode() != RoofCannonMode.A){
+            this.operator.leftRotaryButtonFrontCannon();
+            this.operator.leftRotaryButtonRoofCannon();
+        }
+
+        for(int i =0; i<20; i++){
+            this.driver.accelerate();
+            this.flf.drive();
+        }
+
+        for(int i =0; i<10;i++){
+            this.flf.drive();
+        }
+
     }
 }
