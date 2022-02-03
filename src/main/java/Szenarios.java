@@ -204,18 +204,22 @@ public class Szenarios {
             this.operator.rightRotaryButtonFrontCannon();
         }
 
+        this.operator.toggleCannon();
         while (this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode() != RoofCannonMode.C){
             this.operator.rightRotaryButtonRoofCannon();
         }
 
 
-        this.operator.rightRotaryButtonFrontCannon();
         this.driver.switchMix();
         for(int i =0; i<3;i++){
             this.driver.spray();
         }
-        this.driver.toggleCannon();
 
+        for(int i =0; i<3;i++){
+            this.operator.spray();
+        }
+
+        this.driver.toggleCannon();
         this.operator.toggleCannon();
 
     }
