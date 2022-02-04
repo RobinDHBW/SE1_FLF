@@ -119,4 +119,7 @@ public class MixingProcessor {
         };
     }
 
+    public MixingRate getMixingRate() {
+        return mixingRate;
+    }
 }
