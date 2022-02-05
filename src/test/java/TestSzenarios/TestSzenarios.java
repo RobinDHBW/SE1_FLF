@@ -1,3 +1,5 @@
+package TestSzenarios;
+
 import Button.RoofCannonMode;
 import FLF.FLF;
 import Firefighting.CannonIdentifier;
@@ -9,7 +11,7 @@ import Tank.MixingRate;
 
 import java.util.ArrayList;
 
-public class Szenarios {
+public class TestSzenarios {
     private FLF flf;
 
     private Driver driver;
@@ -17,7 +19,7 @@ public class Szenarios {
     private ArrayList<Infantry> infanterists;
     private EmployeeFirebase employee;
 
-    public Szenarios(FLF flf){
+    public TestSzenarios(FLF flf){
         this.flf = flf;
     }
 
