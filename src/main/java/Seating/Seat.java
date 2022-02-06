@@ -3,8 +3,8 @@ package Seating;
 import Person.Person;
 
 public class Seat {
-    public Respirator respirator = new Respirator();
-    protected int seatRow = 0;
+    private Respirator respirator = new Respirator();
+    protected Integer seatRow = 0;
     protected boolean leftSide;
     protected boolean occupied = false;
     protected Person seatWarmer;
@@ -20,11 +20,16 @@ public class Seat {
         this.occupied = true;
     }
 
-    public void leave() {
+    public Person leave() {
+        Person p = this.seatWarmer;
         this.seatWarmer = null;
         this.occupied = false;
+        return p;
     }
 
+    public Respirator getRespirator() {
+        return respirator;
+    }
     public Integer getSeatRow() {
         return seatRow;
     }
@@ -36,6 +41,5 @@ public class Seat {
     public Boolean getOccupied() {
         return occupied;
     }
-
 
 }

@@ -4,9 +4,11 @@ import Button.SwitchDevice;
 import Drive.Drive;
 import Drive.ElectricEngine;
 
+import Firefighting.CannonIdentifier;
 import Firefighting.WaterCannon;
 import Firefighting.WaterDieSelfprotection;
 import Lights.*;
+import Tank.MixingProcessor;
 
 import java.sql.Array;
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ public class CentralUnit {
     private List<SearchLight> searchLightsSide;
     private List<DirectionIndicator> indicatorsLeft;
     private List<DirectionIndicator> indicatorsRight;
-    private List<WaterDieSelfprotection> selfprotection;
+    private MixingProcessor mixingProcessor;
     private Drive drive;
 
     public CentralUnit(
@@ -34,7 +36,7 @@ public class CentralUnit {
             List<SearchLight> searchLightsSide,
             List<DirectionIndicator> indicatorsLeft,
             List<DirectionIndicator> indicatorsRight,
-            List<WaterDieSelfprotection> selfprotection,
+            MixingProcessor mixingProcessor,
             Drive drive
     ) {
         this.warningLights = warningLights;
@@ -44,7 +46,7 @@ public class CentralUnit {
         this.searchLightsSide = searchLightsSide;
         this.indicatorsLeft = indicatorsLeft;
         this.indicatorsRight = indicatorsRight;
-        this.selfprotection = selfprotection;
+        this.mixingProcessor = mixingProcessor;
         this.drive = drive;
     }
 
@@ -84,9 +86,7 @@ public class CentralUnit {
     }
 
     public void switchSelfprotection() {
-        for (WaterCannon c : this.selfprotection) {
-            c.toggle();
-        }
+        this.mixingProcessor.toggle(CannonIdentifier.CANNON_SELFPROTECTION);
     }
 
     public void steer(Integer degree) {
@@ -110,11 +110,15 @@ public class CentralUnit {
         }
     }
 
-    public void accelerate() {
-        this.drive.accelerate();
+    public Integer accelerate() {
+        return this.drive.accelerate();
     }
 
-    public void brake() {
-        this.drive.brake();
+    public Integer brake() {
+        return this.drive.brake();
+    }
+
+    public Integer drive() {
+        return this.drive.drive();
     }
 }

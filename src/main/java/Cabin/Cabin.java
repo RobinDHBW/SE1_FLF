@@ -1,12 +1,15 @@
 package Cabin;
 
-import Button.*;
+import Button.ButtonRotaryWaterCannonFront;
+import Button.ButtonRotaryWaterCannonRoof;
+import Button.Pedal;
 import Instruments.BatteryIndicator;
 import Instruments.Speedometer;
 import Instruments.SteeringWheel;
-import Joystick.*;
+import Joystick.Joystick;
 import Person.Driver;
 import Person.Operator;
+import Person.Person;
 import Seating.Seat;
 import Seating.SeatFirefighting;
 
@@ -36,31 +39,141 @@ public class Cabin {
     private final BusDoor busDoorLeft;
     private final BusDoor busDoorRight;
 
-
     private Cabin(Builder builder) {
-        Cabin built = builder.build();
-        this.seatList = built.seatList;
+        //Cabin built = builder.build();
+        this.seatList = builder.seatList;
 
-        this.batteryIndicator = built.batteryIndicator;
-        this.speedometer = built.speedometer;
+        this.batteryIndicator = builder.batteryIndicator;
+        this.speedometer = builder.speedometer;
 
-        this.gasPedal = built.gasPedal;
-        this.brakePedal = built.brakePedal;
+        this.gasPedal = builder.gasPedal;
+        this.brakePedal = builder.brakePedal;
 
-        this.steeringWheel = built.steeringWheel;
+        this.steeringWheel = builder.steeringWheel;
 
-        this.btnRotaryWaterCannonRoof = built.btnRotaryWaterCannonRoof;
-        this.btnRotaryWaterCannonFront = built.btnRotaryWaterCannonFront;
+        this.btnRotaryWaterCannonRoof = builder.btnRotaryWaterCannonRoof;
+        this.btnRotaryWaterCannonFront = builder.btnRotaryWaterCannonFront;
 
-        this.ctrlPanel = built.ctrlPanel;
-        this.centralUnit = built.centralUnit;
+        this.ctrlPanel = builder.ctrlPanel;
+        this.centralUnit = builder.centralUnit;
 
-        this.joystickDriver = built.joystickDriver;
-        this.joystickOperator = built.joystickOperator;
+        this.joystickDriver = builder.joystickDriver;
+        this.joystickOperator = builder.joystickOperator;
 
-        this.busDoorLeft = built.busDoorLeft;
-        this.busDoorRight = built.busDoorRight;
+        this.busDoorLeft = builder.busDoorLeft;
+        this.busDoorRight = builder.busDoorRight;
 
+    }
+
+    /**********
+     * Getter
+     *********/
+
+    public List<Seat> getSeatList() {
+        return seatList;
+    }
+
+    public BatteryIndicator getBatteryIndicator() {
+        return batteryIndicator;
+    }
+
+    public Speedometer getSpeedometer() {
+        return speedometer;
+    }
+
+    public Pedal getGasPedal() {
+        return gasPedal;
+    }
+
+    public Pedal getBrakePedal() {
+        return brakePedal;
+    }
+
+    public SteeringWheel getSteeringWheel() {
+        return steeringWheel;
+    }
+
+    public ButtonRotaryWaterCannonRoof getBtnRotaryWaterCannonRoof() {
+        return btnRotaryWaterCannonRoof;
+    }
+
+    public ButtonRotaryWaterCannonFront getBtnRotaryWaterCannonFront() {
+        return btnRotaryWaterCannonFront;
+    }
+
+    public ControlPanel getCtrlPanel() {
+        return ctrlPanel;
+    }
+
+    public CentralUnit getCentralUnit() {
+        return centralUnit;
+    }
+
+    public Joystick getJoystickDriver() {
+        return joystickDriver;
+    }
+
+    public Joystick getJoystickOperator() {
+        return joystickOperator;
+    }
+
+    public BusDoor getBusDoorLeft() {
+        return busDoorLeft;
+    }
+
+    public BusDoor getBusDoorRight() {
+        return busDoorRight;
+    }
+
+    public void accelerate() {
+        this.speedometer.setSpeed(this.centralUnit.accelerate());
+    }
+
+    public void brake() {
+        this.speedometer.setSpeed(this.centralUnit.brake());
+    }
+
+    public void drive() {
+        this.speedometer.setSpeed(this.centralUnit.drive());
+    }
+
+    public void toggleLeftDoor(Boolean fromOutside) {
+        this.getBusDoorLeft().toggleDoor(fromOutside);
+    }
+
+    public void toggleRightDoor(Boolean fromOutside) {
+        this.getBusDoorRight().toggleDoor(fromOutside);
+    }
+
+    public void enterCabin(Person enterer, Boolean isLeft) {
+        try {
+            if (!(isLeft ? this.getBusDoorLeft() : this.getBusDoorRight()).getOpen())
+                throw new Exception("Door not open");
+            for (Seat seat : seatList) {
+                if (seat.getOccupied()) continue;
+                if (seat instanceof SeatFirefighting && enterer.equals(((SeatFirefighting) seat).getPersonAllowed())) {
+                    seat.sitDown(enterer);
+                    if (enterer instanceof Driver) {
+                        ((Driver) enterer).equip(this.steeringWheel, this.gasPedal, this.brakePedal, this.joystickDriver);
+                    } else {
+                        ((Operator) enterer).equip(this.ctrlPanel, this.joystickOperator, this.btnRotaryWaterCannonFront, this.btnRotaryWaterCannonRoof);
+                    }
+                } else if (!(seat instanceof SeatFirefighting) && seat.getLeftSide() == isLeft) {
+                    seat.sitDown(enterer);
+                }
+                enterer.setIsInVehicle(true);
+            }
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+            System.err.println(ex.getStackTrace());
+        }
+    }
+
+    public Person leaveCabin(Integer row, Boolean isLeft) {
+        for (Seat seat : seatList) {
+            if (seat.getSeatRow() == row && seat.getLeftSide() == isLeft) return seat.leave();
+        }
+        return null;
     }
 
     public static class Builder {
@@ -89,7 +202,7 @@ public class Cabin {
 
 
         public Builder(
-                List<ButtonSwitch> switches,
+                ControlPanel controlPanel,
                 Pedal gasPedal,
                 Pedal brakePedal,
                 ButtonRotaryWaterCannonRoof btnRotaryWaterCannonRoof,
@@ -100,13 +213,13 @@ public class Cabin {
                 CentralUnit centralUnit
         ) {
             for (int i = 0; i < 2; i++) {
-                Boolean leftSide = i == 0;
+                Boolean leftSide = (i == 0);
                 seatList.add(new Seat(1, leftSide));
             }
             seatList.add(new SeatFirefighting(new Driver(), true));
             seatList.add(new SeatFirefighting(new Operator(), false));
 
-            this.ctrlPanel = new ControlPanel.Builder(switches).build();
+            this.ctrlPanel = controlPanel;
 
             this.btnRotaryWaterCannonRoof = btnRotaryWaterCannonRoof;
             this.btnRotaryWaterCannonFront = btnRotaryWaterCannonFront;

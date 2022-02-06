@@ -18,16 +18,16 @@ public class BusDoor {
         }
     };
 
+    private void operateDoor() {
+        this.isOpen = !this.isOpen;
+    }
+
     public BusDoor(VehicleSide side) {
         this.side = side;
     }
 
     public Boolean getOpen() {
         return isOpen;
-    }
-
-    private void operateDoor() {
-        this.isOpen = !this.isOpen;
     }
 
     public void toggleDoor(Boolean fromOutside) {

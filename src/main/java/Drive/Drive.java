@@ -42,8 +42,7 @@ public class Drive {
         return this.speed;
     }
 
-    // @TODO 25/2 = 12+13...
-    public void drive() {
+    public Integer drive() {
         Double eAmount = this.speed * 12.5;
         int i = 0;
         for (ElectricEngine e : engines) {
@@ -52,6 +51,7 @@ public class Drive {
             e.drive(energy);
             i++;
         }
+        return this.speed;
     }
 
     public void toggleEngine() {
@@ -68,5 +68,13 @@ public class Drive {
 
     public Integer getSteeringAngle(){
         return this.steerables.get(0).getSteeringAngle();
+    }
+
+    public Boolean getEngineState(){
+        return this.engines.get(0).getState();
+    }
+
+    public void fillComplete(){
+        BatteryManagement.instance.fillComplete();
     }
 }

@@ -20,7 +20,9 @@ public class SeatFirefighting extends Seat {
             System.err.println(e.getMessage());
             System.err.println(e.getStackTrace());
         }
+    }
 
-
+    public Person getPersonAllowed() {
+        return personAllowed;
     }
 }
