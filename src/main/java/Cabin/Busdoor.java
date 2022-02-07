@@ -2,19 +2,19 @@ package Cabin;
 
 import Button.ButtonPush;
 
-public class BusDoor {
+public class Busdoor {
     private final VehicleSide side;
     private Boolean isOpen = false;
     private ButtonPush btnPushOutside = new ButtonPush(this) {
         @Override
         public void operateDevice() {
-            ((BusDoor) this.operatingDevice).operateDoor();
+            ((Busdoor) this.operatingDevice).operateDoor();
         }
     };
     private ButtonPush btnPushInside = new ButtonPush(this) {
         @Override
         public void operateDevice() {
-            ((BusDoor) this.operatingDevice).operateDoor();
+            ((Busdoor) this.operatingDevice).operateDoor();
         }
     };
 
@@ -22,7 +22,7 @@ public class BusDoor {
         this.isOpen = !this.isOpen;
     }
 
-    public BusDoor(VehicleSide side) {
+    public Busdoor(VehicleSide side) {
         this.side = side;
     }
 

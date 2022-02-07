@@ -49,6 +49,8 @@ public class TestSzenarios {
 
         this.flf.enterFLF(driver, true);
         this.flf.enterFLF(operator, false);
+        this.flf.toggleRightDoor(false);
+        this.flf.toggleLeftDoor(false);
 
         if(this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_FRONT)) this.driver.toggleCannon();
         if(this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_ROOF)) this.operator.toggleCannon();
@@ -77,13 +79,24 @@ public class TestSzenarios {
                 DynamicTest.dynamicTest("check SideLights", () -> assertFalse(this.flf.getSearchLightSideState())),
                 DynamicTest.dynamicTest("check WarnLights", () -> assertFalse(this.flf.getWarnLightsState())),
                 DynamicTest.dynamicTest("check BlueLights", () -> assertFalse(this.flf.getBlueLightState()))
-                        );
+        );
 
+        this.flf.toggleRightDoor(false);
+        this.flf.toggleLeftDoor(false);
 
         for(int i =0; i<2; i++){
             this.flf.leaveFLF(i, true);
             this.flf.leaveFLF(i, false);
         }
+
+        Collections.addAll(tests,
+                DynamicTest.dynamicTest("check FLF empty", () -> assertFalse(this.flf.getDrive().getEngineState())),
+                DynamicTest.dynamicTest("check LeftDoor", () -> assertTrue(this.flf.getCabin().getBusDoorLeft().getOpen())),
+                DynamicTest.dynamicTest("check RightDoor", () -> assertFalse(this.flf.getCabin().getBusDoorRight().getOpen())),
+                DynamicTest.dynamicTest("check SideLights", () -> assertFalse(this.flf.getSearchLightSideState())),
+                DynamicTest.dynamicTest("check WarnLights", () -> assertFalse(this.flf.getWarnLightsState())),
+                DynamicTest.dynamicTest("check BlueLights", () -> assertFalse(this.flf.getBlueLightState()))
+        );
 
         return tests.stream();
     }
@@ -142,7 +155,7 @@ public class TestSzenarios {
         }
 
         for(int i=0; i<7;i++){
-            this.driver.accelerate();
+            this.driver.brake();
             this.flf.drive();
         }
     }

@@ -15,12 +15,9 @@ import Tank.MixingProcessor;
 //import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DynamicTest;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
 
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -63,8 +60,8 @@ private FLF proto;
                 DynamicTest.dynamicTest("check centralUnit", ()->assertTrue(cabProto.getCentralUnit() instanceof CentralUnit)),
                 DynamicTest.dynamicTest("check joystickDriver", ()->assertTrue(cabProto.getJoystickDriver() instanceof Joystick)),
                 DynamicTest.dynamicTest("check joystickOperator", ()->assertTrue(cabProto.getJoystickOperator() instanceof Joystick)),
-                DynamicTest.dynamicTest("check busDoorLeft", ()->assertTrue(cabProto.getBusDoorLeft() instanceof BusDoor)),
-                DynamicTest.dynamicTest("check busDoorRight", ()->assertTrue(cabProto.getBusDoorRight() instanceof BusDoor))
+                DynamicTest.dynamicTest("check busDoorLeft", ()->assertTrue(cabProto.getBusDoorLeft() instanceof Busdoor)),
+                DynamicTest.dynamicTest("check busDoorRight", ()->assertTrue(cabProto.getBusDoorRight() instanceof Busdoor))
         ).stream();
     }
 

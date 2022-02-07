@@ -1,32 +1,27 @@
 package Cabin;
 
-import Button.SwitchDevice;
 import Drive.Drive;
-import Drive.ElectricEngine;
 
 import Firefighting.CannonIdentifier;
-import Firefighting.WaterCannon;
-import Firefighting.WaterDieSelfprotection;
+import Instruments.Speedometer;
 import Lights.*;
 import Tank.MixingProcessor;
 
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class CentralUnit {
-    private List<WarningLight> warningLights;
-    private List<FlashingBlueLight> flashingBlueLights;
-    private List<SearchLight> searchLightsFront;
-    private List<SearchLight> searchLightsRoof;
-    private List<SearchLight> searchLightsSide;
-    private List<DirectionIndicator> indicatorsLeft;
-    private List<DirectionIndicator> indicatorsRight;
-    private MixingProcessor mixingProcessor;
-    private Drive drive;
+    private final List<WarningLight> warningLights;
+    private final List<FlashingBlueLight> flashingBlueLights;
+    private final List<SearchLight> searchLightsFront;
+    private final List<SearchLight> searchLightsRoof;
+    private final List<SearchLight> searchLightsSide;
+    private final List<DirectionIndicator> indicatorsLeft;
+    private final List<DirectionIndicator> indicatorsRight;
+    private final MixingProcessor mixingProcessor;
+    private final Drive drive;
+    private final Speedometer speedometer;
 
     public CentralUnit(
             List<WarningLight> warningLights,
@@ -37,7 +32,8 @@ public class CentralUnit {
             List<DirectionIndicator> indicatorsLeft,
             List<DirectionIndicator> indicatorsRight,
             MixingProcessor mixingProcessor,
-            Drive drive
+            Drive drive,
+            Speedometer speedometer
     ) {
         this.warningLights = warningLights;
         this.flashingBlueLights = flashingBlueLights;
@@ -48,6 +44,7 @@ public class CentralUnit {
         this.indicatorsRight = indicatorsRight;
         this.mixingProcessor = mixingProcessor;
         this.drive = drive;
+        this.speedometer = speedometer;
     }
 
 
@@ -110,15 +107,15 @@ public class CentralUnit {
         }
     }
 
-    public Integer accelerate() {
-        return this.drive.accelerate();
+    public void accelerate() {
+        this.speedometer.setSpeed(this.drive.accelerate());
     }
 
-    public Integer brake() {
-        return this.drive.brake();
+    public void brake() {
+        this.speedometer.setSpeed(this.drive.brake());
     }
 
-    public Integer drive() {
-        return this.drive.drive();
+    public void drive() {
+        this.speedometer.setSpeed(this.drive.drive());
     }
 }

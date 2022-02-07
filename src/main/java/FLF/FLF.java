@@ -7,6 +7,7 @@ import Firefighting.CannonIdentifier;
 import Firefighting.WaterCannonFront;
 import Firefighting.WaterCannonRoof;
 import Firefighting.WaterDieSelfprotection;
+import Instruments.Speedometer;
 import Instruments.SteeringWheel;
 import Joystick.Joystick;
 import Lights.*;
@@ -179,7 +180,8 @@ public class FLF {
         public Builder() {
 
             buildLights();
-            CentralUnit centralUnit = new CentralUnit(warningLights, flashingBlueLights, searchLightsFront, searchLightsRoof, searchLightsSide, directionIndicatorsLeft, directionIndicatorsRight, mixingProcessor, drive);
+            Speedometer speedometer = new Speedometer();
+            CentralUnit centralUnit = new CentralUnit(warningLights, flashingBlueLights, searchLightsFront, searchLightsRoof, searchLightsSide, directionIndicatorsLeft, directionIndicatorsRight, mixingProcessor, drive, speedometer);
 
             Pedal pedalAcc = new Pedal(centralUnit) {
                 @Override
@@ -226,6 +228,7 @@ public class FLF {
                     joystickDriver,
                     joystickOperator,
                     steeringWheel,
+                    speedometer,
                     centralUnit
             ).build();
 

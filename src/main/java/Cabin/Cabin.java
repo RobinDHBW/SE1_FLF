@@ -14,7 +14,9 @@ import Seating.Seat;
 import Seating.SeatFirefighting;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class Cabin {
     private final List<Seat> seatList;
@@ -36,8 +38,8 @@ public class Cabin {
     private final Joystick joystickDriver;
     private final Joystick joystickOperator;
 
-    private final BusDoor busDoorLeft;
-    private final BusDoor busDoorRight;
+    private final Busdoor busdoorLeft;
+    private final Busdoor busdoorRight;
 
     private Cabin(Builder builder) {
         //Cabin built = builder.build();
@@ -60,8 +62,8 @@ public class Cabin {
         this.joystickDriver = builder.joystickDriver;
         this.joystickOperator = builder.joystickOperator;
 
-        this.busDoorLeft = builder.busDoorLeft;
-        this.busDoorRight = builder.busDoorRight;
+        this.busdoorLeft = builder.busdoorLeft;
+        this.busdoorRight = builder.busdoorRight;
 
     }
 
@@ -117,24 +119,12 @@ public class Cabin {
         return joystickOperator;
     }
 
-    public BusDoor getBusDoorLeft() {
-        return busDoorLeft;
+    public Busdoor getBusDoorLeft() {
+        return busdoorLeft;
     }
 
-    public BusDoor getBusDoorRight() {
-        return busDoorRight;
-    }
-
-    public void accelerate() {
-        this.speedometer.setSpeed(this.centralUnit.accelerate());
-    }
-
-    public void brake() {
-        this.speedometer.setSpeed(this.centralUnit.brake());
-    }
-
-    public void drive() {
-        this.speedometer.setSpeed(this.centralUnit.drive());
+    public Busdoor getBusDoorRight() {
+        return busdoorRight;
     }
 
     public void toggleLeftDoor(Boolean fromOutside) {
@@ -165,22 +155,31 @@ public class Cabin {
             }
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
-            System.err.println(ex.getStackTrace());
+            System.err.println(Arrays.toString(ex.getStackTrace()));
         }
     }
 
     public Person leaveCabin(Integer row, Boolean isLeft) {
-        for (Seat seat : seatList) {
-            if (seat.getSeatRow() == row && seat.getLeftSide() == isLeft) return seat.leave();
+        try {
+            if (!(isLeft ? this.getBusDoorLeft() : this.getBusDoorRight()).getOpen())
+                throw new Exception("Door not open");
+
+            for (Seat seat : seatList) {
+                if (Objects.equals(seat.getSeatRow(), row) && seat.getLeftSide() == isLeft) return seat.leave();
+            }
+            return null;
+        }catch (Exception ex){
+            System.err.println(ex.getMessage());
+            System.err.println(Arrays.toString(ex.getStackTrace()));
+            return null;
         }
-        return null;
     }
 
     public static class Builder {
         private final CentralUnit centralUnit;
 
         private final BatteryIndicator batteryIndicator = new BatteryIndicator();
-        private final Speedometer speedometer = new Speedometer();
+        private final Speedometer speedometer;// = new Speedometer();
 
         private final Pedal gasPedal;
         private final Pedal brakePedal;
@@ -197,8 +196,8 @@ public class Cabin {
         private final Joystick joystickDriver;
         private final Joystick joystickOperator;
 
-        private final BusDoor busDoorLeft = new BusDoor(VehicleSide.LEFT);
-        private final BusDoor busDoorRight = new BusDoor(VehicleSide.RIGHT);
+        private final Busdoor busdoorLeft = new Busdoor(VehicleSide.LEFT);
+        private final Busdoor busdoorRight = new Busdoor(VehicleSide.RIGHT);
 
 
         public Builder(
@@ -210,6 +209,7 @@ public class Cabin {
                 Joystick joystickDriver,
                 Joystick joystickOperator,
                 SteeringWheel steeringWheel,
+                Speedometer speedometer,
                 CentralUnit centralUnit
         ) {
             for (int i = 0; i < 2; i++) {
@@ -232,6 +232,7 @@ public class Cabin {
             this.gasPedal = gasPedal;
             this.brakePedal = brakePedal;
             this.centralUnit = centralUnit;
+            this.speedometer = speedometer;
         }
 
         public Cabin build() {
