@@ -24,7 +24,6 @@ public class TestBatteryManagementBox {
 
     @Test
     public void testFillComplete() {
-        Integer width = 2, height = 2, quantity = 1000;
         BatteryManagement batteryManagement = BatteryManagement.instance;
         batteryManagement.fillComplete();
 

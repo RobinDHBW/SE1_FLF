@@ -7,9 +7,7 @@ import Instruments.BatteryIndicator;
 import Instruments.Speedometer;
 import Instruments.SteeringWheel;
 import Joystick.Joystick;
-import Person.Driver;
-import Person.Operator;
-import Person.Person;
+import Person.*;
 import Seating.Seat;
 import Seating.SeatFirefighting;
 
@@ -141,18 +139,23 @@ public class Cabin {
                 throw new Exception("Door not open");
             for (Seat seat : seatList) {
                 if (seat.getOccupied()) continue;
-                if (seat instanceof SeatFirefighting && enterer.equals(((SeatFirefighting) seat).getPersonAllowed())) {
-                    seat.sitDown(enterer);
-                    if (enterer instanceof Driver) {
-                        ((Driver) enterer).equip(this.steeringWheel, this.gasPedal, this.brakePedal, this.joystickDriver);
-                    } else {
-                        ((Operator) enterer).equip(this.ctrlPanel, this.joystickOperator, this.btnRotaryWaterCannonFront, this.btnRotaryWaterCannonRoof);
+
+                if(enterer instanceof ActivePassenger){
+                    if (seat instanceof SeatFirefighting && enterer.getClass().equals(((SeatFirefighting) seat).getPersonAllowed().getClass())) {
+                        seat.sitDown(enterer);
+                        if (enterer instanceof Driver) {
+                            ((Driver) enterer).equip(this.steeringWheel, this.gasPedal, this.brakePedal, this.joystickDriver);
+                        } else {
+                            ((Operator) enterer).equip(this.ctrlPanel, this.joystickOperator, this.btnRotaryWaterCannonFront, this.btnRotaryWaterCannonRoof);
+                        }
                     }
-                } else if (!(seat instanceof SeatFirefighting) && seat.getLeftSide() == isLeft) {
-                    seat.sitDown(enterer);
+                }else{
+                    if (!(seat instanceof SeatFirefighting) && seat.getLeftSide() == isLeft) {
+                        seat.sitDown(enterer);
+                    }
                 }
-                enterer.setIsInVehicle(true);
             }
+            enterer.setIsInVehicle(true);
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
             System.err.println(Arrays.toString(ex.getStackTrace()));

@@ -20,8 +20,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestSzenarios {
     private FLF flf;
@@ -74,18 +73,6 @@ public class TestSzenarios {
         if(this.flf.getWarnLightsState()) this.operator.toggleWarnlights();
         if(this.flf.getBlueLightState()) this.operator.toggleBlueLights();
 
-        Collections.addAll(tests,
-                DynamicTest.dynamicTest("check Engines", () -> assertFalse(this.flf.getDrive().getEngineState())),
-                DynamicTest.dynamicTest("check FrontLights", () -> assertFalse(this.flf.getSearchLightFrontState())),
-                DynamicTest.dynamicTest("check RoofLights", () -> assertFalse(this.flf.getSearchLightRoofState())),
-                DynamicTest.dynamicTest("check SideLights", () -> assertFalse(this.flf.getSearchLightSideState())),
-                DynamicTest.dynamicTest("check WarnLights", () -> assertFalse(this.flf.getWarnLightsState())),
-                DynamicTest.dynamicTest("check BlueLights", () -> assertFalse(this.flf.getBlueLightState())),
-                DynamicTest.dynamicTest("check RotaryButtonFrontCannon", () -> assertTrue(this.flf.getCabin().getBtnRotaryWaterCannonFront().getMode() == 1)),
-                DynamicTest.dynamicTest("check RotaryButtonRoofCannon", () -> assertTrue(this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode() == RoofCannonMode.A))
-
-        );
-
         this.flf.toggleRightDoor(false);
         this.flf.toggleLeftDoor(false);
 
@@ -98,78 +85,114 @@ public class TestSzenarios {
             tests.add(DynamicTest.dynamicTest("check Seat", () -> assertFalse(s.getOccupied())));
         }
 
-        Double waterTank = this.flf.getMixingProcessor().getTankFillState(TankSubject.WATER);
-        Double batterie = this.flf.getDrive().getRelativeFillState();
         Collections.addAll(tests,
+                DynamicTest.dynamicTest("check Engines", () -> assertFalse(this.flf.getDrive().getEngineState())),
+                DynamicTest.dynamicTest("check FrontLights", () -> assertFalse(this.flf.getSearchLightFrontState())),
+                DynamicTest.dynamicTest("check RoofLights", () -> assertFalse(this.flf.getSearchLightRoofState())),
+                DynamicTest.dynamicTest("check SideLights", () -> assertFalse(this.flf.getSearchLightSideState())),
+                DynamicTest.dynamicTest("check WarnLights", () -> assertFalse(this.flf.getWarnLightsState())),
+                DynamicTest.dynamicTest("check BlueLights", () -> assertFalse(this.flf.getBlueLightState())),
+                DynamicTest.dynamicTest("check RotaryButtonFrontCannon", () -> assertTrue(this.flf.getCabin().getBtnRotaryWaterCannonFront().getMode() == 1)),
+                DynamicTest.dynamicTest("check RotaryButtonRoofCannon", () -> assertTrue(this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode() == RoofCannonMode.A)),
                 DynamicTest.dynamicTest("check LeftDoor", () -> assertTrue(this.flf.getCabin().getBusDoorLeft().getOpen())),
                 DynamicTest.dynamicTest("check RightDoor", () -> assertTrue(this.flf.getCabin().getBusDoorRight().getOpen())),
                 DynamicTest.dynamicTest("check FrontCannon", () -> assertFalse(this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_FRONT))),
                 DynamicTest.dynamicTest("check RoofCannon", () -> assertFalse(this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_ROOF))),
-                DynamicTest.dynamicTest("check WaterTank", () -> assertTrue(this.flf.getMixingProcessor().getTankFillState(TankSubject.WATER) == 1)),
-                DynamicTest.dynamicTest("check FoamTank", () -> assertTrue(this.flf.getMixingProcessor().getTankFillState(TankSubject.FOAM) == 1)),
-                DynamicTest.dynamicTest("check Batteries", () -> assertTrue(this.flf.getDrive().getRelativeFillState() == 1))
+                DynamicTest.dynamicTest("check WaterTank", () -> assertEquals(1, this.flf.getMixingProcessor().getTankFillState(TankSubject.WATER))),
+                DynamicTest.dynamicTest("check FoamTank", () -> assertEquals(1, this.flf.getMixingProcessor().getTankFillState(TankSubject.FOAM))),
+                DynamicTest.dynamicTest("check Batteries", () -> assertEquals(1, this.flf.getDrive().getRelativeFillState()))
         );
+
 
         return tests.stream();
     }
 
-    public void controlRide(){
-        if(!this.flf.getCabin().getBusDoorRight().getOpen()) this.flf.toggleRightDoor(true);
-        if(!this.flf.getCabin().getBusDoorLeft().getOpen()) this.flf.toggleLeftDoor(true);
-
-        this.driver = new Driver();
-        this.operator = new Operator();
-
-        this.flf.enterFLF(driver, true);
-        this.flf.enterFLF(operator, false);
-
-        this.flf.toggleRightDoor(false);
-        this.flf.toggleLeftDoor(true);
+    @TestFactory
+    Stream<DynamicTest> controlRide(){
+        ArrayList<DynamicTest> tests = new ArrayList<>();
 
         if(!this.flf.getDrive().getEngineState()) this.operator.toggleEngines();
-
-        if(this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_FRONT)) this.driver.toggleCannon();
-        if(this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_ROOF)) this.operator.toggleCannon();
-
         if(!this.flf.getSearchLightFrontState()) this.operator.toggleFrontLights();
         if(this.flf.getSearchLightRoofState()) this.operator.toggleRoofLights();
         if(this.flf.getSearchLightSideState()) this.operator.toggleSideLights();
         if(!this.flf.getWarnLightsState()) this.operator.toggleWarnlights();
-        if(!this.flf.getBlueLightState()) this.operator.toggleBlueLights();
+        if(this.flf.getBlueLightState()) this.operator.toggleBlueLights();
 
-        while(this.flf.getCabin().getBtnRotaryWaterCannonFront().getMode() > 1 && this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode() != RoofCannonMode.A){
-            this.operator.leftRotaryButtonFrontCannon();
-            this.operator.leftRotaryButtonRoofCannon();
+        for(Seat s : this.flf.getCabin().getSeatList()){
+            if(s.getSeatRow() == 0) {
+                tests.add(DynamicTest.dynamicTest("check Seat", () -> assertTrue(s.getOccupied())));
+            }else {
+                tests.add(DynamicTest.dynamicTest("check Seat", () -> assertFalse(s.getOccupied())));
+            }
         }
+
+        Collections.addAll(tests,
+                DynamicTest.dynamicTest("check Engines", () -> assertTrue(this.flf.getDrive().getEngineState())),
+                DynamicTest.dynamicTest("check FrontLights", () -> assertTrue(this.flf.getSearchLightFrontState())),
+                DynamicTest.dynamicTest("check RoofLights", () -> assertFalse(this.flf.getSearchLightRoofState())),
+                DynamicTest.dynamicTest("check SideLights", () -> assertFalse(this.flf.getSearchLightSideState())),
+                DynamicTest.dynamicTest("check WarnLights", () -> assertTrue(this.flf.getWarnLightsState())),
+                DynamicTest.dynamicTest("check BlueLights", () -> assertFalse(this.flf.getBlueLightState())),
+                DynamicTest.dynamicTest("check RotaryButtonFrontCannon", () -> assertTrue(this.flf.getCabin().getBtnRotaryWaterCannonFront().getMode() == 1)),
+                DynamicTest.dynamicTest("check RotaryButtonRoofCannon", () -> assertTrue(this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode() == RoofCannonMode.A)),
+                DynamicTest.dynamicTest("check LeftDoor", () -> assertFalse(this.flf.getCabin().getBusDoorLeft().getOpen())),
+                DynamicTest.dynamicTest("check RightDoor", () -> assertFalse(this.flf.getCabin().getBusDoorRight().getOpen())),
+                DynamicTest.dynamicTest("check FrontCannon", () -> assertFalse(this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_FRONT))),
+                DynamicTest.dynamicTest("check RoofCannon", () -> assertFalse(this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_ROOF))),
+                DynamicTest.dynamicTest("check WaterTank", () -> assertEquals(1, this.flf.getMixingProcessor().getTankFillState(TankSubject.WATER))),
+                DynamicTest.dynamicTest("check FoamTank", () -> assertEquals(1, this.flf.getMixingProcessor().getTankFillState(TankSubject.FOAM))),
+                DynamicTest.dynamicTest("check Batteries", () -> assertEquals(1, this.flf.getDrive().getRelativeFillState()))
+        );
+
+        Integer setpointConsumption = 0;
 
         for(int i =0; i<7; i++){
             this.driver.accelerate();
             this.flf.drive();
+            setpointConsumption += this.flf.getDrive().getSpeed() * 25;
         }
 
         for(int i=0; i<5;i++){
             this.flf.drive();
+            setpointConsumption += this.flf.getDrive().getSpeed() * 25;
         }
 
         this.driver.steer(true, 5);
+        Integer steerState1 = this.flf.getDrive().getSteeringAngle();
         for(int i=0; i<3; i++){
             this.flf.drive();
+            setpointConsumption += this.flf.getDrive().getSpeed() * 25;
         }
 
         this.driver.steer(false, 5);
+        Integer steerState2 = this.flf.getDrive().getSteeringAngle();
         for(int i=0; i<5; i++){
             this.flf.drive();
+            setpointConsumption += this.flf.getDrive().getSpeed() * 25;
         }
 
         this.driver.steer(false, 5);
+        Integer steerState3 = this.flf.getDrive().getSteeringAngle();
         for(int i=0; i<5; i++){
             this.flf.drive();
+            setpointConsumption += this.flf.getDrive().getSpeed() * 25;
         }
 
         for(int i=0; i<7;i++){
             this.driver.brake();
-            this.flf.drive();
+            if(i <6)this.flf.drive();
+            setpointConsumption += this.flf.getDrive().getSpeed() * 25;
         }
+
+
+        Integer finalSetpointConsumption = setpointConsumption;
+        Collections.addAll(tests,
+                DynamicTest.dynamicTest("check steerLeft", ()->assertEquals(-5, steerState1)),
+                DynamicTest.dynamicTest("check steerStraight", ()->assertEquals(0, steerState2)),
+                DynamicTest.dynamicTest("check steerRight", ()->assertEquals(5, steerState3)),
+                DynamicTest.dynamicTest("check consumption", ()->assertEquals(finalSetpointConsumption.doubleValue(), this.flf.getDrive().getRelativeFillState()))
+        );
+        return tests.stream();
     }
 
     public void emergencyRide(){
