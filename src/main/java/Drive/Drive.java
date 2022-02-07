@@ -9,9 +9,10 @@ import java.util.stream.Stream;
 
 public class Drive {
 
-    private List<ElectricEngine> engines = new ArrayList<>();
-    private List<AxleSteerable> steerables = new ArrayList<>();
-    private List<Axle> axles = new ArrayList<>();
+    private final List<ElectricEngine> engines = new ArrayList<>();
+    private final List<AxleSteerable> steerables = new ArrayList<>();
+    private final List<Axle> axles = new ArrayList<>();
+    private final BatteryManagement batteryManagement = BatteryManagement.instance;
     private Integer speed = 0;
 
     public Drive() {
@@ -47,7 +48,7 @@ public class Drive {
         int i = 0;
         for (ElectricEngine e : engines) {
             if (i == 1) eAmount-=1;
-            List<Coulomb> energy = BatteryManagement.instance.remove(eAmount.intValue());
+            List<Coulomb> energy = this.batteryManagement.remove(eAmount.intValue());
             e.drive(energy);
             i++;
         }
@@ -75,6 +76,10 @@ public class Drive {
     }
 
     public void fillComplete(){
-        BatteryManagement.instance.fillComplete();
+        this.batteryManagement.fillComplete();
+    }
+
+    public Double getRelativeFillState() {
+        return this.batteryManagement.getRelativeFillState();
     }
 }

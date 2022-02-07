@@ -13,8 +13,6 @@ public class ButtonPress extends Button{
     }
 
     public void hold5sec() {
-        if(isHeld5seconds()) {
-            this.isActivated = false;
-        } else this.isActivated = true;
+        this.isActivated = !isHeld5seconds();
     }
 }

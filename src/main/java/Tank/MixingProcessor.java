@@ -6,6 +6,7 @@ import Firefighting.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -17,8 +18,8 @@ public class MixingProcessor {
     private final WaterCannonFront waterCannonFront = new WaterCannonFront(90);
     private final List<WaterDieSelfprotection> waterDiesSelfprotection = new ArrayList<>();
     private MixingRate mixingRate = MixingRate.NULL;
-    private Tank foamTank = new Tank(FOAM, 25, 10, 10);
-    private Tank waterTank = new Tank(TankSubject.WATER, 50, 25, 10);
+    private final Tank foamTank = new Tank(FOAM, 25, 10, 10);
+    private final Tank waterTank = new Tank(TankSubject.WATER, 50, 25, 10);
 
     public MixingProcessor() {
         //add Waterdies
@@ -121,5 +122,12 @@ public class MixingProcessor {
 
     public MixingRate getMixingRate() {
         return mixingRate;
+    }
+
+    public Double getTankFillState(TankSubject ts){
+       return switch (ts){
+            case FOAM -> this.foamTank.getFillState();
+            case WATER -> this.waterTank.getFillState();
+        };
     }
 }

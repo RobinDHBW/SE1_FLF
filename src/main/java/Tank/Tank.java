@@ -23,8 +23,8 @@ public class Tank extends StoreMedium {
         return super.remove(quantity);
     }
 
-    public HashMap<Character, Integer> getFillState() {
-        return fillState;
+    public Double getFillState() {
+        return getRelativeFillState();
     }
 
 

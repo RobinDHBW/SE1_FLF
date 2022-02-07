@@ -3,7 +3,7 @@ package Seating;
 import Person.Person;
 
 public class Seat {
-    private Respirator respirator = new Respirator();
+    private final Respirator respirator = new Respirator();
     protected Integer seatRow = 0;
     protected boolean leftSide;
     protected boolean occupied = false;

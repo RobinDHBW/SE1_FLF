@@ -6,9 +6,9 @@ import Button.ButtonPush;
 import Button.IButtonListener;
 
 public class Joystick {
-    private ButtonPush btnPush;
-    private ButtonPress btnPressLeft;
-    private ButtonPress btnPressRight;
+    private final ButtonPush btnPush;
+    private final ButtonPress btnPressLeft;
+    private final ButtonPress btnPressRight;
     //public ButtonPress btnPressInt = new ButtonPress();
 
     public Joystick(ButtonPush btnPush, ButtonPress btnPressLeft, ButtonPress btnPressRight) {

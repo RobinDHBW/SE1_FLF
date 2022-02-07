@@ -35,6 +35,5 @@ public class ButtonRotaryWaterCannonRoof extends ButtonRotary {
             case A -> this.setParam(1000, RoofCannonMode.B);
             case B, C -> this.setParam(2500, RoofCannonMode.C);
         }
-        ;
     }
 }

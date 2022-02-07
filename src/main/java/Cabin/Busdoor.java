@@ -5,13 +5,13 @@ import Button.ButtonPush;
 public class Busdoor {
     private final VehicleSide side;
     private Boolean isOpen = false;
-    private ButtonPush btnPushOutside = new ButtonPush(this) {
+    private final ButtonPush btnPushOutside = new ButtonPush(this) {
         @Override
         public void operateDevice() {
             ((Busdoor) this.operatingDevice).operateDoor();
         }
     };
-    private ButtonPush btnPushInside = new ButtonPush(this) {
+    private final ButtonPush btnPushInside = new ButtonPush(this) {
         @Override
         public void operateDevice() {
             ((Busdoor) this.operatingDevice).operateDoor();

@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 public class BatteryBox {
     Integer width, height;
-    private ArrayList<Battery> batteryStore = new ArrayList<>();
+    private final ArrayList<Battery> batteryStore = new ArrayList<>();
 
     public BatteryBox(Integer width, Integer height) {
         this.width = width;

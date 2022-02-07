@@ -8,7 +8,9 @@ import Person.Driver;
 import Person.EmployeeFirebase;
 import Person.Infantry;
 import Person.Operator;
+import Seating.Seat;
 import Tank.MixingRate;
+import Tank.TankSubject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
@@ -78,7 +80,10 @@ public class TestSzenarios {
                 DynamicTest.dynamicTest("check RoofLights", () -> assertFalse(this.flf.getSearchLightRoofState())),
                 DynamicTest.dynamicTest("check SideLights", () -> assertFalse(this.flf.getSearchLightSideState())),
                 DynamicTest.dynamicTest("check WarnLights", () -> assertFalse(this.flf.getWarnLightsState())),
-                DynamicTest.dynamicTest("check BlueLights", () -> assertFalse(this.flf.getBlueLightState()))
+                DynamicTest.dynamicTest("check BlueLights", () -> assertFalse(this.flf.getBlueLightState())),
+                DynamicTest.dynamicTest("check RotaryButtonFrontCannon", () -> assertTrue(this.flf.getCabin().getBtnRotaryWaterCannonFront().getMode() == 1)),
+                DynamicTest.dynamicTest("check RotaryButtonRoofCannon", () -> assertTrue(this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode() == RoofCannonMode.A))
+
         );
 
         this.flf.toggleRightDoor(false);
@@ -89,13 +94,20 @@ public class TestSzenarios {
             this.flf.leaveFLF(i, false);
         }
 
+        for(Seat s : this.flf.getCabin().getSeatList()){
+            tests.add(DynamicTest.dynamicTest("check Seat", () -> assertFalse(s.getOccupied())));
+        }
+
+        Double waterTank = this.flf.getMixingProcessor().getTankFillState(TankSubject.WATER);
+        Double batterie = this.flf.getDrive().getRelativeFillState();
         Collections.addAll(tests,
-                DynamicTest.dynamicTest("check FLF empty", () -> assertFalse(this.flf.getDrive().getEngineState())),
                 DynamicTest.dynamicTest("check LeftDoor", () -> assertTrue(this.flf.getCabin().getBusDoorLeft().getOpen())),
-                DynamicTest.dynamicTest("check RightDoor", () -> assertFalse(this.flf.getCabin().getBusDoorRight().getOpen())),
-                DynamicTest.dynamicTest("check SideLights", () -> assertFalse(this.flf.getSearchLightSideState())),
-                DynamicTest.dynamicTest("check WarnLights", () -> assertFalse(this.flf.getWarnLightsState())),
-                DynamicTest.dynamicTest("check BlueLights", () -> assertFalse(this.flf.getBlueLightState()))
+                DynamicTest.dynamicTest("check RightDoor", () -> assertTrue(this.flf.getCabin().getBusDoorRight().getOpen())),
+                DynamicTest.dynamicTest("check FrontCannon", () -> assertFalse(this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_FRONT))),
+                DynamicTest.dynamicTest("check RoofCannon", () -> assertFalse(this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_ROOF))),
+                DynamicTest.dynamicTest("check WaterTank", () -> assertTrue(this.flf.getMixingProcessor().getTankFillState(TankSubject.WATER) == 1)),
+                DynamicTest.dynamicTest("check FoamTank", () -> assertTrue(this.flf.getMixingProcessor().getTankFillState(TankSubject.FOAM) == 1)),
+                DynamicTest.dynamicTest("check Batteries", () -> assertTrue(this.flf.getDrive().getRelativeFillState() == 1))
         );
 
         return tests.stream();
@@ -301,10 +313,10 @@ public class TestSzenarios {
 
         while(this.flf.getMixingProcessor().getMixingRate() != MixingRate.TEN){
             this.driver.switchMix();
-        };
+        }
         for(int i=0; i<3;i++) {
             this.driver.spray();
-        };
+        }
 
         this.operator.toggleCannon();
         while (this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode() != RoofCannonMode.C) {
@@ -317,7 +329,7 @@ public class TestSzenarios {
 
         for(int i=0; i<5;i++) {
             this.operator.spray();
-        };
+        }
 
 
         while (this.flf.getCabin().getBtnRotaryWaterCannonFront().getMode() > 2) {
@@ -328,7 +340,7 @@ public class TestSzenarios {
         }
         for(int i=0; i<3;i++) {
             this.driver.spray();
-        };
+        }
     }
 
     public void fireInPowerPlant(){
@@ -367,10 +379,10 @@ public class TestSzenarios {
 
         while(this.flf.getMixingProcessor().getMixingRate() != MixingRate.TEN){
             this.driver.switchMix();
-        };
+        }
         for(int i=0; i<5;i++) {
             this.driver.spray();
-        };
+        }
 
         this.operator.toggleCannon();
         while (this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode() != RoofCannonMode.C) {
@@ -396,6 +408,6 @@ public class TestSzenarios {
         }
         for(int i=0; i<5;i++) {
             this.driver.spray();
-        };
+        }
     }
 }

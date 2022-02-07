@@ -1,6 +1,7 @@
 package TestBatteryManagement;
 
 import BatteryManagement.BatteryBox;
+import BatteryManagement.BatteryManagement;
 import BatteryManagement.BatteryUnit;
 import BatteryManagement.Coulomb;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,16 @@ public class TestBatteryManagementBox {
         batteryBox.fill(quantity);
 
         assertEquals(1 / ((100 * 10 * 100) / (quantity.doubleValue() / (width * height))), batteryBox.getRelativeFillState());
+    }
+
+    @Test
+    public void testFillComplete() {
+        Integer width = 2, height = 2, quantity = 1000;
+        BatteryManagement batteryManagement = BatteryManagement.instance;
+        batteryManagement.fillComplete();
+
+
+        assertEquals(1, batteryManagement.getRelativeFillState());
     }
 
     @Test
