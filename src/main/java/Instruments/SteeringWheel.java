@@ -11,6 +11,7 @@ public class SteeringWheel extends Button {
 
     public void steer(Boolean isLeft, Integer degree) {
         this.degree += degree * (isLeft ? -1 : 1);
+        this.operateDevice();
     }
 
     public Integer getDegree() {
