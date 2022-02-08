@@ -143,6 +143,7 @@ public class Cabin {
                 if(enterer instanceof ActivePassenger){
                     if (seat instanceof SeatFirefighting && enterer.getClass().equals(((SeatFirefighting) seat).getPersonAllowed().getClass())) {
                         seat.sitDown(enterer);
+                        enterer.setIsInVehicle(true);
                         if (enterer instanceof Driver) {
                             ((Driver) enterer).equip(this.steeringWheel, this.gasPedal, this.brakePedal, this.joystickDriver);
                         } else {
@@ -152,10 +153,11 @@ public class Cabin {
                 }else{
                     if (!(seat instanceof SeatFirefighting) && seat.getLeftSide() == isLeft) {
                         seat.sitDown(enterer);
+                        enterer.setIsInVehicle(true);
                     }
                 }
             }
-            enterer.setIsInVehicle(true);
+
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
             System.err.println(Arrays.toString(ex.getStackTrace()));

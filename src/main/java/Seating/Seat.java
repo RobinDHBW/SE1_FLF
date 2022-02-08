@@ -28,18 +28,18 @@ public class Seat {
     }
 
     public Respirator getRespirator() {
-        return respirator;
+        return this.respirator;
     }
     public Integer getSeatRow() {
-        return seatRow;
+        return this.seatRow;
     }
 
     public Boolean getLeftSide() {
-        return leftSide;
+        return this.leftSide;
     }
 
     public Boolean getOccupied() {
-        return occupied;
+        return this.occupied;
     }
 
 }

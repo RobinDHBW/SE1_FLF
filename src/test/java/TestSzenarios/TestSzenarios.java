@@ -120,9 +120,9 @@ public class TestSzenarios {
 
         for(Seat s : this.flf.getCabin().getSeatList()){
             if(s.getSeatRow() == 0) {
-                tests.add(DynamicTest.dynamicTest("check Seat", () -> assertTrue(s.getOccupied())));
+                tests.add(DynamicTest.dynamicTest("check SeatFront", () -> assertTrue(s.getOccupied())));
             }else {
-                tests.add(DynamicTest.dynamicTest("check Seat", () -> assertFalse(s.getOccupied())));
+                tests.add(DynamicTest.dynamicTest("check SeatBack", () -> assertFalse(s.getOccupied())));
             }
         }
 

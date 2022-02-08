@@ -13,7 +13,7 @@ public class SeatFirefighting extends Seat {
     @Override
     public void sitDown(Person person) {
         try {
-            if (!person.equals(personAllowed))
+            if (!person.getClass().equals(personAllowed.getClass()))
                 throw new Exception("This Seat is reserved for: " + personAllowed.toString());
             super.sitDown(person);
         } catch (Exception e) {
