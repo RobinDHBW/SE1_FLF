@@ -10,7 +10,6 @@ public abstract class StoreMedium implements IStoreMedium {
     protected Boolean isEmpty = true;
     protected Object subject;
     protected Integer capacity;
-    protected Boolean remember = false;
 
     public StoreMedium(Integer length, Integer height, Integer width, Object subject) {
 
@@ -48,33 +47,27 @@ public abstract class StoreMedium implements IStoreMedium {
     }
 
     protected List<Object> removeLoop(Integer quantity) {
-        if (remember) {
-            quantity += 1;
-            remember = false;
-        }
-        int x = fillState.get('x');
-        int y = fillState.get('y');
-        int z = fillState.get('z');
+
+        int x = this.fillState.get('x');
+        int y = this.fillState.get('y');
+        int z = this.fillState.get('z');
 
         List<Object> output = new ArrayList<>();
 
-        for (int i = x; i < store.length; i++) {
-            for (int j = y; j < store[0].length; j++) {
-                for (int k = z; k < store[0][0].length; k++) {
-                    if (quantity == 0 || quantity > 0 && quantity < 1) {
-                        remember = quantity > 0;
+        for (int i = x; i < this.store.length; i++) {
+            for (int j = y; j < this.store[0].length; j++) {
+                for (int k = z; k < this.store[0][0].length; k++) {
+                    if (quantity-- == 0) {
                         return output;
                     }
-                    quantity--;
-                    output.add(store[i][j][k]);
-                    store[i][j][k] = null;
+                    output.add(this.store[i][j][k]);
+                    this.store[i][j][k] = null;
                     isFull = false;
-                    fillState.put('x', i);
-                    fillState.put('y', j);
-                    fillState.put('z', k);
-                    if (i == store.length - 1 && j == store[0].length - 1 && k == store[0][0].length - 1) {
+                    this.fillState.put('x', i);
+                    this.fillState.put('y', j);
+                    this.fillState.put('z', k);
+                    if (i == this.store.length - 1 && j == this.store[0].length - 1 && k == this.store[0][0].length - 1) {
                         isEmpty = true;
-                        remember = false;
                         if (quantity > 1) throw new RuntimeException("Medium already empty");
                     }
                 }
