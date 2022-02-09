@@ -18,13 +18,13 @@ public class BatteryBox {
         }
     }
 
-    public void fill(Integer quantity) {
+    public void fill(Double quantity) {
         for (Battery b : batteryStore) {
             b.fill(new Coulomb(), quantity / 4);
         }
     }
 
-    public List<Coulomb> remove(Integer quantity) {
+    public List<Coulomb> remove(Double quantity) {
         Double q = quantity.doubleValue();
         List<Coulomb> output = new ArrayList<>();
         for (Battery b : batteryStore) {
@@ -37,7 +37,7 @@ public class BatteryBox {
                 toUse = q.doubleValue() - re;
                 q -= toUse;
             }
-            Stream.concat(output.stream(), b.remove(toUse.intValue()).stream().map(e -> (Coulomb) e).collect(Collectors.toList()).stream()).collect(Collectors.toList());
+            Stream.concat(output.stream(), b.remove(toUse).stream().map(e -> (Coulomb) e).collect(Collectors.toList()).stream()).collect(Collectors.toList());
             output = Stream.concat(output.stream(), b.remove(quantity / (this.width * this.height)).stream().map(e -> (Coulomb) e).collect(Collectors.toList()).stream()).collect(Collectors.toList());
         }
         return output;

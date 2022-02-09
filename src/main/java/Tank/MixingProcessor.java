@@ -28,10 +28,10 @@ public class MixingProcessor {
         }
     }
 
-    private List<TankSubject> mix(Integer quantity) {
+    private List<TankSubject> mix(Double quantity) {
 
-        Integer foamPortion = switch (this.mixingRate) {
-            case NULL -> 0;
+        Double foamPortion = switch (this.mixingRate) {
+            case NULL -> 0.0;
             case THREE -> (quantity / 100) * 3;
             case FIVE -> (quantity / 100) * 5;
             case TEN -> (quantity / 100) * 10;
@@ -54,7 +54,7 @@ public class MixingProcessor {
 
     }
 
-    public void fill(Enum input, Integer quantity) {
+    public void fill(Enum input, Double quantity) {
 
         if (input.equals(FOAM)) {
             foamTank.fill(input, quantity);
@@ -64,15 +64,15 @@ public class MixingProcessor {
     }
 
     public void fillComplete(Enum input) {
-        Integer toFill = 0;
+        Double toFill = 0.0;
         Double actualFillState;
 
         if (input.equals(FOAM)) {
             actualFillState = foamTank.getCapacity() * foamTank.getRelativeFillState();
-            toFill = foamTank.getCapacity() - actualFillState.intValue();
+            toFill = foamTank.getCapacity() - actualFillState;
         } else {
             actualFillState = waterTank.getCapacity() * waterTank.getRelativeFillState();
-            toFill = waterTank.getCapacity() - actualFillState.intValue();
+            toFill = waterTank.getCapacity() - actualFillState;
         }
 
         this.fill(input, toFill);
@@ -102,11 +102,11 @@ public class MixingProcessor {
      */
     public void spray(CannonIdentifier identifier) {
         switch (identifier) {
-            case CANNON_FRONT -> this.waterCannonFront.spray(this.mix(this.waterCannonFront.getSprayCapacityPerlIteration()));
-            case CANNON_ROOF -> this.waterCannonRoof.spray(this.mix(this.waterCannonRoof.getSprayCapacityPerlIteration()));
+            case CANNON_FRONT -> this.waterCannonFront.spray(this.mix(this.waterCannonFront.getSprayCapacityPerlIteration().doubleValue()));
+            case CANNON_ROOF -> this.waterCannonRoof.spray(this.mix(this.waterCannonRoof.getSprayCapacityPerlIteration().doubleValue()));
             case CANNON_SELFPROTECTION -> {
                 for (WaterDieSelfprotection die : this.waterDiesSelfprotection) {
-                    die.spray(this.waterTank.remove(this.waterDiesSelfprotection.get(0).getSprayCapacityPerlIteration()).stream().map(e -> (TankSubject) e).collect(Collectors.toList()));
+                    die.spray(this.waterTank.remove(this.waterDiesSelfprotection.get(0).getSprayCapacityPerlIteration().doubleValue()).stream().map(e -> (TankSubject) e).collect(Collectors.toList()));
                 }
             }
         }

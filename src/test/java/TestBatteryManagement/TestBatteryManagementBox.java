@@ -17,11 +17,12 @@ public class TestBatteryManagementBox {
 
     @Test
     public void testFill() {
-        Integer width = 2, height = 2, quantity = 1000;
+        Integer width = 2, height = 2;
+        Double quantity = 1000.0;
         BatteryBox batteryBox = new BatteryBox(width, height);
         batteryBox.fill(quantity);
 
-        assertEquals(1 / ((100 * 10 * 100) / (quantity.doubleValue() / (width * height))), batteryBox.getRelativeFillState());
+        assertEquals(1 / ((100 * 10 * 100) / (quantity / (width * height))), batteryBox.getRelativeFillState());
     }
 
     @Test
@@ -35,7 +36,8 @@ public class TestBatteryManagementBox {
 
     @Test
     public void testTakeout() {
-        Integer width = 2, height = 2, quantity = 100000, remove = 25000;
+        Integer width = 2, height = 2;
+        Double  quantity = 100000.0, remove = 25000.0;
         BatteryBox batteryBox = new BatteryBox(width, height);
         batteryBox.fill(quantity);
         List<Coulomb> output  = batteryBox.remove(remove);

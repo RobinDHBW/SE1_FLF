@@ -22,13 +22,17 @@ public abstract class StoreMedium implements IStoreMedium {
         fillState.put('z', width);
     }
 
-    protected void fillLoop(Object input, Integer quantity) {
+    protected void fillLoop(Object input, Double quantity) {
         int x = fillState.get('x');
         int y = fillState.get('y');
         int z = fillState.get('z');
 
-        for (int j = y - 1; j >= 0; j--) {
-            for (int i = x - 1; i >= 0; i--) {
+        /**
+         * Count backwards from full to 0
+         * x == max length - to count to 0, we need to start with x-1
+         */
+        for (int i = x - 1; i >= 0; i--) {
+            for (int j = y - 1; j >= 0; j--) {
                 for (int k = z - 1; k >= 0; k--) {
                     if (j == 1 && i == 1 && k == 1) isFull = true;
                     if (quantity-- == 0) return;
@@ -42,17 +46,18 @@ public abstract class StoreMedium implements IStoreMedium {
         }
     }
 
-    protected List<Object> removeLoop(Integer quantity) {
+    protected List<Object> removeLoop(Double quantity) {
         int x = fillState.get('x');
         int y = fillState.get('y');
         int z = fillState.get('z');
 
         List<Object> output = new ArrayList<>();
 
-        for (int j = y; j < store[0].length; j++) {
-            for (int i = x; i < store.length; i++) {
+        for (int i = x; i < store.length; i++) {
+            for (int j = y; j < store[0].length; j++) {
                 for (int k = z; k < store[0][0].length; k++) {
                     if (j == store[0].length && i == store.length && k == store[0][0].length) isEmpty = true;
+                    //if(Objects.isNull(store[i][j][k])) continue;
                     if (quantity-- == 0) return output;
                     output.add(store[i][j][k]);
                     store[i][j][k] = null;
@@ -70,7 +75,7 @@ public abstract class StoreMedium implements IStoreMedium {
      * @param input
      * @param quantity
      */
-    public void fill(Object input, Integer quantity) {
+    public void fill(Object input, Double quantity) {
         if (!isFull) {
             fillLoop(input, quantity);
         }
@@ -80,7 +85,7 @@ public abstract class StoreMedium implements IStoreMedium {
      * @param quantity
      * @return
      */
-    public List<Object> remove(Integer quantity) {
+    public List<Object> remove(Double quantity) {
         if (!isEmpty) {
             return removeLoop(quantity);
         }

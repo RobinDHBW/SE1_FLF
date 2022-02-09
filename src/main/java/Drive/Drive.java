@@ -48,8 +48,8 @@ public class Drive {
         Double eAmount = this.speed * 12.5;
         int i = 0;
         for (ElectricEngine e : engines) {
-            if (i % 2 == 1) eAmount-=1;
-            List<Coulomb> energy = this.batteryManagement.remove(eAmount.intValue());
+            //if (i % 2 == 1) eAmount-=1;
+            List<Coulomb> energy = this.batteryManagement.remove(eAmount);
             e.drive(energy);
             i++;
         }
