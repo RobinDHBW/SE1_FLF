@@ -21,7 +21,7 @@ public class BatteryBox {
 
     public void fill(Integer quantity) {
         for (Battery b : batteryStore) {
-            b.fill(new Coulomb(), quantity / 4);
+            b.fill(new Coulomb(), quantity / batteryStore.size());
         }
     }
 

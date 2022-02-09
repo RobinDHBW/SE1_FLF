@@ -34,7 +34,7 @@ public abstract class StoreMedium implements IStoreMedium {
         for (int i = x - 1; i >= 0; i--) {
             for (int j = y - 1; j >= 0; j--) {
                 for (int k = z - 1; k >= 0; k--) {
-                    if (j == 1 && i == 1 && k == 1) isFull = true;
+                    if (j == 0 && i == 0 && k == 0) isFull = true;
                     if (quantity-- == 0) return;
                     this.store[i][j][k] = input;
                     isEmpty = false;
