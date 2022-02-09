@@ -6,17 +6,17 @@ public enum BatteryManagement {
     instance;
     private final BatteryBox batteryBox = new BatteryBox(2, 2);
 
-    public List<Coulomb> remove(Double quantity) {
+    public List<Coulomb> remove(Integer quantity) {
         return batteryBox.remove(quantity);
     }
 
-    public void fill(Double quantity) {
+    public void fill(Integer quantity) {
         batteryBox.fill(quantity);
     }
 
     public void fillComplete() {
         Double actualFillState = batteryBox.getCapacity() * batteryBox.getRelativeFillState();
-        this.fill(batteryBox.getCapacity() - actualFillState);
+        this.fill(batteryBox.getCapacity() - actualFillState.intValue());
     }
 
     public Double getRelativeFillState() {

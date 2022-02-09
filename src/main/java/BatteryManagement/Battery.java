@@ -18,12 +18,12 @@ public class Battery extends StoreMedium {
     }
 
     @Override
-    public void fill(Object input, Double quantity) {
+    public void fill(Object input, Integer quantity) {
         super.fill(input, quantity);
     }
 
     @Override
-    public List<Object> remove(Double quantity) {
+    public List<Object> remove(Integer quantity) {
         return super.remove(quantity);
     }
 }

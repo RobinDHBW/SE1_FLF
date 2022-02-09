@@ -10,6 +10,7 @@ public abstract class StoreMedium implements IStoreMedium {
     protected Boolean isEmpty = true;
     protected Object subject;
     protected Integer capacity;
+    protected Boolean remember = false;
 
     public StoreMedium(Integer length, Integer height, Integer width, Object subject) {
 
@@ -22,14 +23,14 @@ public abstract class StoreMedium implements IStoreMedium {
         fillState.put('z', width);
     }
 
-    protected void fillLoop(Object input, Double quantity) {
+    protected void fillLoop(Object input, Integer quantity) {
         int x = fillState.get('x');
         int y = fillState.get('y');
         int z = fillState.get('z');
 
         /**
          * Count backwards from full to 0
-         * x == max length - to count to 0, we need to start with x-1
+         * x == max length -> to count to 0, we need to start with x-1
          */
         for (int i = x - 1; i >= 0; i--) {
             for (int j = y - 1; j >= 0; j--) {
@@ -46,8 +47,11 @@ public abstract class StoreMedium implements IStoreMedium {
         }
     }
 
-    protected List<Object> removeLoop(Double quantity) {
-        try {
+    protected List<Object> removeLoop(Integer quantity) {
+        if (remember) {
+            quantity += 1;
+            remember = false;
+        }
         int x = fillState.get('x');
         int y = fillState.get('y');
         int z = fillState.get('z');
@@ -57,34 +61,33 @@ public abstract class StoreMedium implements IStoreMedium {
         for (int i = x; i < store.length; i++) {
             for (int j = y; j < store[0].length; j++) {
                 for (int k = z; k < store[0][0].length; k++) {
-                    if (j == store[0].length && i == store.length && k == store[0][0].length) {
-                        isEmpty = true;
-                        if(quantity > 0) throw new Exception("Medium already empty");
+                    if (quantity == 0 || quantity > 0 && quantity < 1) {
+                        remember = quantity > 0;
+                        return output;
                     }
-                    //if(Objects.isNull(store[i][j][k])) continue;
-                    if (quantity-- == 0) return output;
+                    quantity--;
                     output.add(store[i][j][k]);
                     store[i][j][k] = null;
                     isFull = false;
                     fillState.put('x', i);
                     fillState.put('y', j);
                     fillState.put('z', k);
+                    if (i == store.length - 1 && j == store[0].length - 1 && k == store[0][0].length - 1) {
+                        isEmpty = true;
+                        remember = false;
+                        if (quantity > 1) throw new RuntimeException("Medium already empty");
+                    }
                 }
             }
         }
         return output;
-        }catch (Exception ex){
-            System.err.println(ex.getMessage());
-            System.err.println(Arrays.toString(ex.getStackTrace()));
-            return null;
-        }
     }
 
     /**
      * @param input
      * @param quantity
      */
-    public void fill(Object input, Double quantity) {
+    public void fill(Object input, Integer quantity) {
         if (!isFull) {
             fillLoop(input, quantity);
         }
@@ -94,11 +97,10 @@ public abstract class StoreMedium implements IStoreMedium {
      * @param quantity
      * @return
      */
-    public List<Object> remove(Double quantity) {
-        if (!isEmpty) {
-            return removeLoop(quantity);
-        }
-        return null;
+    public List<Object> remove(Integer quantity) {
+        if (isEmpty || quantity > (capacity * getRelativeFillState()))
+            throw new RuntimeException("Not enough stored in medium - Needed: " + quantity + " stored: " + (capacity * getRelativeFillState()));
+        return removeLoop(quantity);
     }
 
     public Double getRelativeFillState() {
