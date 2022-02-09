@@ -46,13 +46,9 @@ public class Drive {
 
     public Integer drive() {
         Integer eAmount = this.speed * 25;
-        Integer mod = eAmount % engines.size();
-        int i=0;
+        List<Coulomb> energy = this.batteryManagement.remove(eAmount);
         for (ElectricEngine e : engines) {
-            if(i==engines.size()) eAmount +=mod;
-            List<Coulomb> energy = this.batteryManagement.remove(eAmount/engines.size());
             e.drive(energy);
-            i++;
         }
         return this.speed;
     }

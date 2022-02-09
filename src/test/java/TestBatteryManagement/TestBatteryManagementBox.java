@@ -21,7 +21,7 @@ public class TestBatteryManagementBox {
         BatteryBox batteryBox = new BatteryBox(width, height);
         batteryBox.fill(quantity);
 
-        assertEquals(1 / ((100 * 10 * 100) / (quantity / (width * height))), batteryBox.getRelativeFillState());
+        assertEquals(1.0 / ((100 * 10 * 100) / (quantity / (width * height))), batteryBox.getRelativeFillState());
     }
 
     @Test
@@ -29,8 +29,17 @@ public class TestBatteryManagementBox {
         Drive drive = new Drive();
         drive.fillComplete();
 
+        assertEquals(1.0, drive.getRelativeFillState());
+    }
 
-        assertEquals(1, drive.getRelativeFillState());
+    @Test
+    public void testEmptyComplete() {
+        BatteryManagement batteryManagement = BatteryManagement.instance;
+        batteryManagement.fillComplete();
+        batteryManagement.remove(batteryManagement.getCapacity());
+
+
+        assertEquals(0, batteryManagement.getRelativeFillState());
     }
 
     @Test

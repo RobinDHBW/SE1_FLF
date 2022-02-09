@@ -28,9 +28,7 @@ public class BatteryBox {
     public List<Coulomb> remove(Integer quantity) {
             List<Coulomb> output = new ArrayList<>();
             for (Battery b : batteryStore) {
-
-                Stream.concat(output.stream(), b.remove(quantity).stream().map(e -> (Coulomb) e).collect(Collectors.toList()).stream()).collect(Collectors.toList());
-                output = Stream.concat(output.stream(), b.remove(quantity / (this.width * this.height)).stream().map(e -> (Coulomb) e).collect(Collectors.toList()).stream()).collect(Collectors.toList());
+                output = Stream.concat(output.stream(), b.remove(quantity / batteryStore.size()).stream().map(e -> (Coulomb) e).collect(Collectors.toList()).stream()).collect(Collectors.toList());
             }
             return output;
     }
