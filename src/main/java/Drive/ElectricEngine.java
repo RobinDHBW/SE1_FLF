@@ -14,7 +14,7 @@ public class ElectricEngine {
     }
 
     public Integer accelerate() {
-        return this.stepSize * -1;
+        return this.stepSize;
     }
 
     public void drive(List<Coulomb> energy) {

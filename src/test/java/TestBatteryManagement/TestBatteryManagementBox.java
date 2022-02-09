@@ -4,6 +4,8 @@ import BatteryManagement.BatteryBox;
 import BatteryManagement.BatteryManagement;
 import BatteryManagement.BatteryUnit;
 import BatteryManagement.Coulomb;
+import Drive.Drive;
+import FLF.FLF;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -24,11 +26,11 @@ public class TestBatteryManagementBox {
 
     @Test
     public void testFillComplete() {
-        BatteryManagement batteryManagement = BatteryManagement.instance;
-        batteryManagement.fillComplete();
+        Drive drive = new Drive();
+        drive.fillComplete();
 
 
-        assertEquals(1, batteryManagement.getRelativeFillState());
+        assertEquals(1, drive.getRelativeFillState());
     }
 
     @Test

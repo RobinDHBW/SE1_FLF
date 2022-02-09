@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 
 public class Battery extends StoreMedium {
 
-    protected BatteryUnit[][][] battery;
-    protected HashMap<Character, Integer> fillState = new HashMap<>();
+    //protected BatteryUnit[][][] battery;
+    //protected HashMap<Character, Integer> fillState = new HashMap<>();
 
     public Battery(Object subject, Integer length, Integer height, Integer width) {
         super(length, height, width, subject);

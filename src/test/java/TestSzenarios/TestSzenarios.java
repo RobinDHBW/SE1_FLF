@@ -85,6 +85,7 @@ public class TestSzenarios {
             tests.add(DynamicTest.dynamicTest("check Seat", () -> assertFalse(s.getOccupied())));
         }
 
+        Double battFull = this.flf.getDrive().getRelativeFillState();
         Collections.addAll(tests,
                 DynamicTest.dynamicTest("check Engines", () -> assertFalse(this.flf.getDrive().getEngineState())),
                 DynamicTest.dynamicTest("check FrontLights", () -> assertFalse(this.flf.getSearchLightFrontState())),
@@ -100,7 +101,7 @@ public class TestSzenarios {
                 DynamicTest.dynamicTest("check RoofCannon", () -> assertFalse(this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_ROOF))),
                 DynamicTest.dynamicTest("check WaterTank", () -> assertEquals(1, this.flf.getMixingProcessor().getTankFillState(TankSubject.WATER))),
                 DynamicTest.dynamicTest("check FoamTank", () -> assertEquals(1, this.flf.getMixingProcessor().getTankFillState(TankSubject.FOAM))),
-                DynamicTest.dynamicTest("check Batteries", () -> assertEquals(1, this.flf.getDrive().getRelativeFillState()))
+                DynamicTest.dynamicTest("check Batteries", () -> assertEquals(1, battFull))
         );
 
 
@@ -126,6 +127,7 @@ public class TestSzenarios {
             }
         }
 
+        Double battFull = this.flf.getDrive().getRelativeFillState();
         Collections.addAll(tests,
                 DynamicTest.dynamicTest("check Engines", () -> assertTrue(this.flf.getDrive().getEngineState())),
                 DynamicTest.dynamicTest("check FrontLights", () -> assertTrue(this.flf.getSearchLightFrontState())),
@@ -141,7 +143,7 @@ public class TestSzenarios {
                 DynamicTest.dynamicTest("check RoofCannon", () -> assertFalse(this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_ROOF))),
                 DynamicTest.dynamicTest("check WaterTank", () -> assertEquals(1, this.flf.getMixingProcessor().getTankFillState(TankSubject.WATER))),
                 DynamicTest.dynamicTest("check FoamTank", () -> assertEquals(1, this.flf.getMixingProcessor().getTankFillState(TankSubject.FOAM))),
-                DynamicTest.dynamicTest("check Batteries", () -> assertEquals(1, this.flf.getDrive().getRelativeFillState()))
+                DynamicTest.dynamicTest("check Batteries", () -> assertEquals(1, battFull))
         );
 
         Integer setpointConsumption = 0;

@@ -28,6 +28,7 @@ public class Drive {
     }
 
     public Integer brake() {
+        if(this.speed == 0) return this.speed;
         Double calc = Double.valueOf(this.speed);
         for (Axle a : Stream.concat(steerables.stream(), axles.stream()).collect(Collectors.toList())) {
             calc += a.brake();
@@ -47,7 +48,7 @@ public class Drive {
         Double eAmount = this.speed * 12.5;
         int i = 0;
         for (ElectricEngine e : engines) {
-            if (i == 1) eAmount-=1;
+            if (i % 2 == 1) eAmount-=1;
             List<Coulomb> energy = this.batteryManagement.remove(eAmount.intValue());
             e.drive(energy);
             i++;

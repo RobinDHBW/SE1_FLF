@@ -1,15 +1,13 @@
 package BatteryManagement;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class BatteryBox {
-    Integer width, height;
     private final ArrayList<Battery> batteryStore = new ArrayList<>();
+    Integer width, height;
 
     public BatteryBox(Integer width, Integer height) {
         this.width = width;
@@ -27,9 +25,20 @@ public class BatteryBox {
     }
 
     public List<Coulomb> remove(Integer quantity) {
+        Double q = quantity.doubleValue();
         List<Coulomb> output = new ArrayList<>();
         for (Battery b : batteryStore) {
-            output = Stream.concat(output.stream(), b.remove(quantity/(this.width*this.height)).stream().map(e -> (Coulomb) e).collect(Collectors.toList()).stream()).collect(Collectors.toList());
+            Double re = b.getCapacity() - (b.getCapacity() * b.getRelativeFillState());
+            Double toUse = 0.0;
+            if (re > q) {
+                toUse = q.doubleValue();
+                q = 0.0;
+            } else {
+                toUse = q.doubleValue() - re;
+                q -= toUse;
+            }
+            Stream.concat(output.stream(), b.remove(toUse.intValue()).stream().map(e -> (Coulomb) e).collect(Collectors.toList()).stream()).collect(Collectors.toList());
+            output = Stream.concat(output.stream(), b.remove(quantity / (this.width * this.height)).stream().map(e -> (Coulomb) e).collect(Collectors.toList()).stream()).collect(Collectors.toList());
         }
         return output;
     }

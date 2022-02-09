@@ -14,7 +14,7 @@ public class EmployeeFirebase extends Person {
 
     public void equip(MixingProcessor mixer, Drive drive){
         this.mixingProcessor =  mixer;
-        this.drive =drive;
+        this.drive = drive;
     }
 
     public void uneqip(){
