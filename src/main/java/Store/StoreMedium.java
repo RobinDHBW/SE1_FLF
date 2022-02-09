@@ -47,6 +47,7 @@ public abstract class StoreMedium implements IStoreMedium {
     }
 
     protected List<Object> removeLoop(Double quantity) {
+        try {
         int x = fillState.get('x');
         int y = fillState.get('y');
         int z = fillState.get('z');
@@ -56,7 +57,10 @@ public abstract class StoreMedium implements IStoreMedium {
         for (int i = x; i < store.length; i++) {
             for (int j = y; j < store[0].length; j++) {
                 for (int k = z; k < store[0][0].length; k++) {
-                    if (j == store[0].length && i == store.length && k == store[0][0].length) isEmpty = true;
+                    if (j == store[0].length && i == store.length && k == store[0][0].length) {
+                        isEmpty = true;
+                        if(quantity > 0) throw new Exception("Medium already empty");
+                    }
                     //if(Objects.isNull(store[i][j][k])) continue;
                     if (quantity-- == 0) return output;
                     output.add(store[i][j][k]);
@@ -69,6 +73,11 @@ public abstract class StoreMedium implements IStoreMedium {
             }
         }
         return output;
+        }catch (Exception ex){
+            System.err.println(ex.getMessage());
+            System.err.println(Arrays.toString(ex.getStackTrace()));
+            return null;
+        }
     }
 
     /**
