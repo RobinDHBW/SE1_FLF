@@ -1,7 +1,6 @@
 package BatteryManagement;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -26,11 +25,17 @@ public class BatteryBox {
     }
 
     public List<Coulomb> remove(Integer quantity) {
-            List<Coulomb> output = new ArrayList<>();
-            for (Battery b : batteryStore) {
-                output = Stream.concat(output.stream(), b.remove(quantity / batteryStore.size()).stream().map(e -> (Coulomb) e).collect(Collectors.toList()).stream()).collect(Collectors.toList());
-            }
-            return output;
+        List<Coulomb> output = new ArrayList<>();
+        for (Battery b : batteryStore) {
+            if(quantity == 0) break;
+            Integer fillState = b.getAbsoluteFillState();
+            Integer toRemove = quantity;
+            if (quantity > fillState) toRemove = fillState;
+
+            output.addAll(b.remove(toRemove).stream().map(x -> (Coulomb) x).collect(Collectors.toList()));
+            quantity -= toRemove;
+        }
+        return output;
     }
 
     public Double getRelativeFillState() {
@@ -40,7 +45,7 @@ public class BatteryBox {
                 .orElse(0);
     }
 
-    public Integer getAbsoluteFillState(){
+    public Integer getAbsoluteFillState() {
         return batteryStore.stream()
                 .mapToInt(x -> x.getAbsoluteFillState())
                 .sum();

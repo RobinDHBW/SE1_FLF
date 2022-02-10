@@ -80,4 +80,6 @@ public class Drive {
     public Double getRelativeFillState() {
         return this.batteryManagement.getRelativeFillState();
     }
+    public Integer getAbsoluteFillState(){return  batteryManagement.getAbsoluteFillState();}
+    public Integer getCapacity(){return  batteryManagement.getCapacity();}
 }

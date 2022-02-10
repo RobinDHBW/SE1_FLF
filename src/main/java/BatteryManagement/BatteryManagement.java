@@ -15,12 +15,13 @@ public enum BatteryManagement {
     }
 
     public void fillComplete() {
-        Integer actualFillState = batteryBox.getAbsoluteFillState();
-        this.fill(batteryBox.getCapacity() - actualFillState);
+        this.fill(batteryBox.getCapacity() - batteryBox.getAbsoluteFillState());
     }
 
     public Double getRelativeFillState() {
         return batteryBox.getRelativeFillState();
     }
+    public Integer getAbsoluteFillState(){return  batteryBox.getAbsoluteFillState();}
     public Integer getCapacity(){return  batteryBox.getCapacity();}
+
 }

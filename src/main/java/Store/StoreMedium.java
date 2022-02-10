@@ -61,10 +61,13 @@ public abstract class StoreMedium implements IStoreMedium {
 
         List<Object> output = new ArrayList<>();
 
-        for (int i = x; i < this.store.length; i++) {
+        for (int i = x; i < this.store.length; i++) {            ;
+            x=0;
             for (int j = y; j < this.store[0].length; j++) {
+                y = 0;
                 for (int k = z; k < this.store[0][0].length; k++) {
-                    if (quantity-- == 0) {
+                    z=0;
+                    if (quantity == output.size()) {
                         return output;
                     }
                     output.add(this.store[i][j][k]);
@@ -98,8 +101,8 @@ public abstract class StoreMedium implements IStoreMedium {
      * @return
      */
     public List<Object> remove(Integer quantity) {
-        if (isEmpty || quantity > (capacity - getAbsoluteFillState()))
-            throw new RuntimeException("Not enough stored in medium - Needed: " + quantity + " stored: " + (capacity - getAbsoluteFillState()));
+        if (isEmpty || quantity > getAbsoluteFillState())
+            throw new RuntimeException("Not enough stored in medium - Needed: " + quantity + " stored: " + getAbsoluteFillState());
         return removeLoop(quantity);
     }
 

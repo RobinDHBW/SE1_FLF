@@ -155,35 +155,35 @@ public class TestSzenarios {
         }
 
         for(int i=0; i<5;i++){
-            //this.flf.drive();
+            this.flf.drive();
             setpointConsumption += this.flf.getDrive().getSpeed() * 25;
         }
 
         this.driver.steer(true, 5);
         Integer steerState1 = this.flf.getDrive().getSteeringAngle();
         for(int i=0; i<3; i++){
-            //this.flf.drive();
+            this.flf.drive();
             setpointConsumption += this.flf.getDrive().getSpeed() * 25;
         }
 
         this.driver.steer(false, 5);
         Integer steerState2 = this.flf.getDrive().getSteeringAngle();
         for(int i=0; i<5; i++){
-            //this.flf.drive();
+            this.flf.drive();
             setpointConsumption += this.flf.getDrive().getSpeed() * 25;
         }
 
         this.driver.steer(false, 5);
         Integer steerState3 = this.flf.getDrive().getSteeringAngle();
         for(int i=0; i<5; i++){
-            //this.flf.drive();
+            this.flf.drive();
             setpointConsumption += this.flf.getDrive().getSpeed() * 25;
         }
 
         for(int i=0; i<7;i++){
             this.driver.brake();
             setpointConsumption += this.flf.getDrive().getSpeed() * 25;
-            //if(this.flf.getDrive().getSpeed() > 0)this.flf.drive();
+            if(this.flf.getDrive().getSpeed() > 0)this.flf.drive();
         }
 
 
@@ -192,7 +192,7 @@ public class TestSzenarios {
                 DynamicTest.dynamicTest("check steerLeft", ()->assertEquals(-5, steerState1)),
                 DynamicTest.dynamicTest("check steerStraight", ()->assertEquals(0, steerState2)),
                 DynamicTest.dynamicTest("check steerRight", ()->assertEquals(5, steerState3)),
-                DynamicTest.dynamicTest("check consumption", ()->assertEquals(finalSetpointConsumption.doubleValue(), this.flf.getDrive().getRelativeFillState()))
+                DynamicTest.dynamicTest("check consumption", ()->assertEquals(finalSetpointConsumption, this.flf.getDrive().getCapacity()-this.flf.getDrive().getAbsoluteFillState()))
         );
         return tests.stream();
     }
