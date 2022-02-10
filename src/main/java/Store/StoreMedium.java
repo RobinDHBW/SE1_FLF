@@ -17,9 +17,9 @@ public abstract class StoreMedium implements IStoreMedium {
         this.subject = subject;
         this.capacity = length * height * width;
 
-        fillState.put('x', length);
-        fillState.put('y', height);
-        fillState.put('z', width);
+        fillState.put('x', length-1);
+        fillState.put('y', height-1);
+        fillState.put('z', width-1);
     }
 
     protected void fillLoop(Object input, Integer quantity) {
@@ -27,13 +27,9 @@ public abstract class StoreMedium implements IStoreMedium {
         int y = fillState.get('y');
         int z = fillState.get('z');
 
-        /**
-         * Count backwards from full to 0
-         * x == max length -> to count to 0, we need to start with x-1
-         */
-        for (int i = x - 1; i >= 0; i--) {
-            for (int j = y - 1; j >= 0; j--) {
-                for (int k = z - 1; k >= 0; k--) {
+        for (int i = x; i >= 0; i--) {
+            for (int j = y; j >= 0; j--) {
+                for (int k = z; k >= 0; k--) {
                     if (j == 0 && i == 0 && k == 0) isFull = true;
                     if (quantity-- == 0) return;
                     this.store[i][j][k] = input;
