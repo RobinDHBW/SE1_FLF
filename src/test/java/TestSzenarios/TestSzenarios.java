@@ -183,7 +183,7 @@ public class TestSzenarios {
         for(int i=0; i<7;i++){
             this.driver.brake();
             setpointConsumption += this.flf.getDrive().getSpeed() * 25;
-            if(this.flf.getDrive().getSpeed() > 0)this.flf.drive();
+            if(this.flf.getDrive().getSpeed() > 0) this.flf.drive();
         }
 
 

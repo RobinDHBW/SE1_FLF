@@ -67,15 +67,16 @@ public abstract class StoreMedium implements IStoreMedium {
                 y = 0;
                 for (int k = z; k < this.store[0][0].length; k++) {
                     z=0;
-                    if (quantity == output.size()) {
-                        return output;
-                    }
-                    output.add(this.store[i][j][k]);
-                    this.store[i][j][k] = null;
-                    isFull = false;
                     this.fillState.put('x', i);
                     this.fillState.put('y', j);
                     this.fillState.put('z', k);
+                    if (quantity == output.size()) {
+                        return output;
+                    }
+
+                    output.add(this.store[i][j][k]);
+                    this.store[i][j][k] = null;
+                    isFull = false;
                     if (i == this.store.length - 1 && j == this.store[0].length - 1 && k == this.store[0][0].length - 1) {
                         isEmpty = true;
                         if (quantity > 1) throw new RuntimeException("Medium already empty");
