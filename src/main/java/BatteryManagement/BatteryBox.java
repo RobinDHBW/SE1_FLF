@@ -40,6 +40,12 @@ public class BatteryBox {
                 .orElse(0);
     }
 
+    public Integer getAbsoluteFillState(){
+        return batteryStore.stream()
+                .mapToInt(x -> x.getAbsoluteFillState())
+                .sum();
+    }
+
     public Integer getCapacity() {
         return batteryStore.stream()
                 .mapToInt(x -> x.getCapacity())

@@ -28,7 +28,7 @@ public abstract class StoreMedium implements IStoreMedium {
                 .flatMap(Arrays::stream)
                 .collect(Collectors.toList())
                 .stream()
-                .filter(x->Objects.nonNull(x))
+                .filter(Objects::nonNull)
                 //.filter(x->x.getClass().equals(subject.getClass()))
                 .collect(Collectors.toList())).size();
     }
