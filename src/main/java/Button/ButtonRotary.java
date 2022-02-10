@@ -1,7 +1,7 @@
 package Button;
 
 public abstract class ButtonRotary extends Button implements IButtonRotary {
-    protected Integer amountPerIteration;
+    protected Integer amountPerIteration=0;
 
     public ButtonRotary(Object o) {
         super(o);

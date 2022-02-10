@@ -59,17 +59,22 @@ public class Operator extends ActivePassenger {
 
     public void leftRotaryButtonFrontCannon() {
         this.rotaryWaterCannonFront.rotateLeft();
+        this.rotaryWaterCannonFront.operateDevice();
+
     }
 
     public void rightRotaryButtonFrontCannon() {
         this.rotaryWaterCannonFront.rotateRight();
+        this.rotaryWaterCannonFront.operateDevice();
     }
 
     public void leftRotaryButtonRoofCannon() {
         this.rotaryWaterCannonRoof.rotateLeft();
+        this.rotaryWaterCannonRoof.operateDevice();
     }
 
     public void rightRotaryButtonRoofCannon() {
         this.rotaryWaterCannonRoof.rotateRight();
+        this.rotaryWaterCannonRoof.operateDevice();
     }
 }

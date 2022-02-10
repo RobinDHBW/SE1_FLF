@@ -9,7 +9,7 @@ public class WaterCannonFront extends WaterCannon {
 
     @Override
     public void toggle() {
-        for (int i = 0; i < (this.state ? this.position / this.rotationStepSize : 1); ) {
+        for (int i = 0; i < (this.state ? this.position / this.rotationStepSize : 1); i++) {
             if (this.state) {
                 rotateLeft();
             } else {

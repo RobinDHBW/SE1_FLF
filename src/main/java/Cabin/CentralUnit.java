@@ -84,6 +84,8 @@ public class CentralUnit {
 
     public void switchSelfprotection() {
         this.mixingProcessor.toggle(CannonIdentifier.CANNON_SELFPROTECTION);
+        this.mixingProcessor.spray(CannonIdentifier.CANNON_SELFPROTECTION);
+        this.mixingProcessor.toggle(CannonIdentifier.CANNON_SELFPROTECTION);
     }
 
     public void steer(Integer degree) {
