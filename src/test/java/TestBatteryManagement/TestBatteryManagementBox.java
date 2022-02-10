@@ -27,7 +27,6 @@ public class TestBatteryManagementBox {
     @Test
     public void testFillComplete() {
         Drive drive = new Drive();
-        Double fillState = drive.getRelativeFillState();
         drive.fillComplete();
 
         assertEquals(1.0, drive.getRelativeFillState());

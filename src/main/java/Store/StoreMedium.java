@@ -22,6 +22,17 @@ public abstract class StoreMedium implements IStoreMedium {
         fillState.put('z', width-1);
     }
 
+    protected Integer countSlots(){
+        return (Arrays.stream(this.store)
+                .flatMap(Arrays::stream)
+                .flatMap(Arrays::stream)
+                .collect(Collectors.toList())
+                .stream()
+                .filter(x->Objects.nonNull(x))
+                //.filter(x->x.getClass().equals(subject.getClass()))
+                .collect(Collectors.toList())).size();
+    }
+
     protected void fillLoop(Object input, Integer quantity) {
         int x = fillState.get('x');
         int y = fillState.get('y');
@@ -87,8 +98,8 @@ public abstract class StoreMedium implements IStoreMedium {
      * @return
      */
     public List<Object> remove(Integer quantity) {
-        if (isEmpty || quantity > (capacity * getRelativeFillState()))
-            throw new RuntimeException("Not enough stored in medium - Needed: " + quantity + " stored: " + (capacity * getRelativeFillState()));
+        if (isEmpty || quantity > (capacity - getAbsoluteFillState()))
+            throw new RuntimeException("Not enough stored in medium - Needed: " + quantity + " stored: " + (capacity - getAbsoluteFillState()));
         return removeLoop(quantity);
     }
 
@@ -96,16 +107,14 @@ public abstract class StoreMedium implements IStoreMedium {
         Integer xLength = store.length;
         Integer yLength = store[0].length;
         Integer zLength = store[0][0].length;
-        Long count = Arrays.stream(store)
-                .flatMap(Arrays::stream)
-                .flatMap(Arrays::stream)
-                .collect(Collectors.toList())
-                .stream()
-                .filter(Objects::nonNull)
-                .count();
+        Integer count = this.countSlots();
 
+        if(count == 0) return 0.0;
+        return 1.0 / ((xLength * yLength * zLength) / count);
+    }
 
-        return 1 / ((xLength * yLength * zLength) / count.doubleValue());
+    public Integer getAbsoluteFillState(){
+        return countSlots();
     }
 
     public Object getSubject() {

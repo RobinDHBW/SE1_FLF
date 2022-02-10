@@ -65,13 +65,13 @@ public class MixingProcessor {
 
     public void fillComplete(Enum input) {
         Integer toFill = 0;
-        Double actualFillState;
+        Integer actualFillState;
 
         if (input.equals(FOAM)) {
-            actualFillState = foamTank.getCapacity() * foamTank.getRelativeFillState();
+            actualFillState = foamTank.getCapacity() - foamTank.getAbsoluteFillState();
             toFill = foamTank.getCapacity() - actualFillState.intValue();
         } else {
-            actualFillState = waterTank.getCapacity() * waterTank.getRelativeFillState();
+            actualFillState = waterTank.getCapacity() - waterTank.getAbsoluteFillState();
             toFill = waterTank.getCapacity() - actualFillState.intValue();
         }
 
