@@ -197,44 +197,62 @@ public class TestSzenarios {
         return tests.stream();
     }
 
-    public void emergencyRide(){
-        if(!this.flf.getCabin().getBusDoorRight().getOpen()) this.flf.toggleRightDoor(true);
-        if(!this.flf.getCabin().getBusDoorLeft().getOpen()) this.flf.toggleLeftDoor(true);
-
-        this.driver = new Driver();
-        this.operator = new Operator();
-
-        this.flf.enterFLF(driver, true);
-        this.flf.enterFLF(operator, false);
-
-        this.flf.toggleRightDoor(false);
-        this.flf.toggleLeftDoor(true);
+    @TestFactory
+    Stream<DynamicTest> emergencyRide(){
+        ArrayList<DynamicTest> tests = new ArrayList<>();
 
         if(!this.flf.getDrive().getEngineState()) this.operator.toggleEngines();
-
-        if(this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_FRONT)) this.driver.toggleCannon();
-        if(this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_ROOF)) this.operator.toggleCannon();
-
         if(!this.flf.getSearchLightFrontState()) this.operator.toggleFrontLights();
         if(!this.flf.getSearchLightRoofState()) this.operator.toggleRoofLights();
         if(this.flf.getSearchLightSideState()) this.operator.toggleSideLights();
         if(!this.flf.getWarnLightsState()) this.operator.toggleWarnlights();
         if(!this.flf.getBlueLightState()) this.operator.toggleBlueLights();
 
-        while(this.flf.getCabin().getBtnRotaryWaterCannonFront().getMode() > 1 && this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode() != RoofCannonMode.A){
-            this.operator.leftRotaryButtonFrontCannon();
-            this.operator.leftRotaryButtonRoofCannon();
+        for(Seat s : this.flf.getCabin().getSeatList()){
+            if(s.getSeatRow() == 0) {
+                tests.add(DynamicTest.dynamicTest("check SeatFront", () -> assertTrue(s.getOccupied())));
+            }else {
+                tests.add(DynamicTest.dynamicTest("check SeatBack", () -> assertFalse(s.getOccupied())));
+            }
         }
 
+        Double battFull = this.flf.getDrive().getRelativeFillState();
+        Collections.addAll(tests,
+                DynamicTest.dynamicTest("check Engines", () -> assertTrue(this.flf.getDrive().getEngineState())),
+                DynamicTest.dynamicTest("check FrontLights", () -> assertTrue(this.flf.getSearchLightFrontState())),
+                DynamicTest.dynamicTest("check RoofLights", () -> assertTrue(this.flf.getSearchLightRoofState())),
+                DynamicTest.dynamicTest("check SideLights", () -> assertFalse(this.flf.getSearchLightSideState())),
+                DynamicTest.dynamicTest("check WarnLights", () -> assertTrue(this.flf.getWarnLightsState())),
+                DynamicTest.dynamicTest("check BlueLights", () -> assertTrue(this.flf.getBlueLightState())),
+                DynamicTest.dynamicTest("check RotaryButtonFrontCannon", () -> assertTrue(this.flf.getCabin().getBtnRotaryWaterCannonFront().getMode() == 1)),
+                DynamicTest.dynamicTest("check RotaryButtonRoofCannon", () -> assertTrue(this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode() == RoofCannonMode.A)),
+                DynamicTest.dynamicTest("check LeftDoor", () -> assertFalse(this.flf.getCabin().getBusDoorLeft().getOpen())),
+                DynamicTest.dynamicTest("check RightDoor", () -> assertFalse(this.flf.getCabin().getBusDoorRight().getOpen())),
+                DynamicTest.dynamicTest("check FrontCannon", () -> assertFalse(this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_FRONT))),
+                DynamicTest.dynamicTest("check RoofCannon", () -> assertFalse(this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_ROOF))),
+                DynamicTest.dynamicTest("check WaterTank", () -> assertEquals(1, this.flf.getMixingProcessor().getTankFillState(TankSubject.WATER))),
+                DynamicTest.dynamicTest("check FoamTank", () -> assertEquals(1, this.flf.getMixingProcessor().getTankFillState(TankSubject.FOAM))),
+                DynamicTest.dynamicTest("check Batteries", () -> assertEquals(1, battFull))
+        );
+
+        Integer setpointConsumption = 0;
         for(int i =0; i<20; i++){
             this.driver.accelerate();
             this.flf.drive();
+            setpointConsumption += this.flf.getDrive().getSpeed() * 25;
         }
 
         for(int i =0; i<10;i++){
             this.flf.drive();
+            setpointConsumption += this.flf.getDrive().getSpeed() * 25;
         }
 
+        Integer finalSetpointConsumption = setpointConsumption;
+        Collections.addAll(tests,
+                DynamicTest.dynamicTest("check consumption", ()->assertEquals(finalSetpointConsumption, this.flf.getDrive().getCapacity()-this.flf.getDrive().getAbsoluteFillState()))
+        );
+
+        return tests.stream();
     }
 
     public void tankerBurns(){
