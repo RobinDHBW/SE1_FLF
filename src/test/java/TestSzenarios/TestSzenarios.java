@@ -1,6 +1,5 @@
 package TestSzenarios;
 
-import Button.ButtonSwitch;
 import Button.RoofCannonMode;
 import FLF.FLF;
 import Firefighting.CannonIdentifier;
@@ -16,7 +15,6 @@ import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Stream;
 
@@ -290,7 +288,13 @@ public class TestSzenarios {
         );
 
         this.operator.toggleSelfProtection();
-        
+
+        Integer calculatedWaterConsumption = this.flf.getMixingProcessor().getAbsoluteFillState(TankSubject.WATER) - (7*this.flf.getMixingProcessor().getSprayCapacity(CannonIdentifier.CANNON_SELFPROTECTION));
+        Integer calculatedFoamConsumption = this.flf.getMixingProcessor().getAbsoluteFillState(TankSubject.FOAM);
+
+        Integer cannonConsumption1 = this.flf.getMixingProcessor().getAbsoluteFillState(TankSubject.WATER);
+        Integer calcConsumption1 = calculatedWaterConsumption;
+
 
         this.driver.toggleCannon();
         while (this.flf.getCabin().getBtnRotaryWaterCannonFront().getMode() <6){
@@ -309,7 +313,18 @@ public class TestSzenarios {
 
         for(int i =0; i<3;i++){
             this.driver.spray();
+            Integer sprayCap = this.flf.getMixingProcessor().getSprayCapacity(CannonIdentifier.CANNON_FRONT);
+            calculatedFoamConsumption -= sprayCap * this.flf.getMixingProcessor().getMixingRateValue();
+            calculatedWaterConsumption -= (sprayCap - calculatedFoamConsumption);
         }
+        Integer cannonConsumption2 = this.flf.getMixingProcessor().getAbsoluteFillState(TankSubject.WATER);
+        Integer cannonConsumption3 = this.flf.getMixingProcessor().getAbsoluteFillState(TankSubject.FOAM);
+        Integer calcConsumption2 = calculatedWaterConsumption;
+        Integer calcConsumption3 = calculatedFoamConsumption;
+
+
+
+
 
         while(this.flf.getMixingProcessor().getMixingRate() != MixingRate.THREE){
             this.operator.switchMix();
@@ -317,10 +332,27 @@ public class TestSzenarios {
 
         for(int i =0; i<3;i++){
             this.operator.spray();
+            Integer sprayCap = this.flf.getMixingProcessor().getSprayCapacity(CannonIdentifier.CANNON_ROOF);
+            calculatedFoamConsumption -= sprayCap * this.flf.getMixingProcessor().getMixingRateValue();
+            calculatedWaterConsumption -= (sprayCap - calculatedFoamConsumption);
         }
+        Integer cannonConsumption4 = this.flf.getMixingProcessor().getAbsoluteFillState(TankSubject.WATER);
+        Integer cannonConsumption5 = this.flf.getMixingProcessor().getAbsoluteFillState(TankSubject.FOAM);
+        Integer calcConsumption4 = calculatedWaterConsumption;
+        Integer calcConsumption5 = calculatedFoamConsumption;
 
         this.driver.toggleCannon();
         this.operator.toggleCannon();
+
+
+        Collections.addAll(tests,
+                DynamicTest.dynamicTest("check WaterConsumptionSelfProtection", () -> assertEquals(calcConsumption1, cannonConsumption1)),
+                DynamicTest.dynamicTest("check WaterConsumptionFrontCannon", () -> assertEquals(calcConsumption2, cannonConsumption2)),
+                DynamicTest.dynamicTest("check FoamConsumptionFrontCannon", () -> assertEquals(calcConsumption3, cannonConsumption3)),
+                DynamicTest.dynamicTest("check WaterConsumptionRoofCannon", () -> assertEquals(calcConsumption4, cannonConsumption4)),
+                DynamicTest.dynamicTest("check FoamConsumptionRoofCannon", () -> assertEquals(calcConsumption5, cannonConsumption5))
+
+        );
 
         return tests.stream();
     }

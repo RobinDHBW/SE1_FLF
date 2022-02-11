@@ -28,14 +28,17 @@ public class MixingProcessor {
         }
     }
 
-    private List<TankSubject> mix(Integer quantity) {
-
-        Integer foamPortion = switch (this.mixingRate) {
+    private Integer calcFoamPortion(Integer quantity){
+        return switch (this.mixingRate) {
             case NULL -> 0;
             case THREE -> (quantity / 100) * 3;
             case FIVE -> (quantity / 100) * 5;
             case TEN -> (quantity / 100) * 10;
         };
+    }
+
+    private List<TankSubject> mix(Integer quantity) {
+        Integer foamPortion = calcFoamPortion(quantity);
 
         return Stream.concat(
                 foamTank.remove(foamPortion).stream().map(e -> (TankSubject) e).collect(Collectors.toList()).stream(),
@@ -121,11 +124,36 @@ public class MixingProcessor {
     public MixingRate getMixingRate() {
         return mixingRate;
     }
+    public Integer getMixingRateValue() {
+        return calcFoamPortion(1);
+    }
 
     public Double getTankFillState(TankSubject ts){
        return switch (ts){
-            case FOAM -> this.foamTank.getFillState();
-            case WATER -> this.waterTank.getFillState();
+            case FOAM -> this.foamTank.getRelativeFillState();
+            case WATER -> this.waterTank.getRelativeFillState();
+        };
+    }
+
+    public Integer getAbsoluteFillState(TankSubject ts){
+        return switch (ts){
+            case FOAM -> this.foamTank.getAbsoluteFillState();
+            case WATER -> this.waterTank.getAbsoluteFillState();
+        };
+    }
+
+    public Integer getCapacity(TankSubject ts){
+        return switch (ts){
+            case FOAM -> this.foamTank.getCapacity();
+            case WATER -> this.waterTank.getCapacity();
+        };
+    }
+
+    public Integer getSprayCapacity(CannonIdentifier ci){
+        return switch (ci){
+            case CANNON_FRONT -> this.waterCannonFront.getSprayCapacityPerlIteration();
+            case CANNON_ROOF -> this.waterCannonRoof.getSprayCapacityPerlIteration();
+            case CANNON_SELFPROTECTION -> this.waterDiesSelfprotection.get(0).getSprayCapacityPerlIteration();
         };
     }
 }

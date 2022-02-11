@@ -23,9 +23,4 @@ public class Tank extends StoreMedium {
         return super.remove(quantity);
     }
 
-    public Double getFillState() {
-        return getRelativeFillState();
-    }
-
-
 }
