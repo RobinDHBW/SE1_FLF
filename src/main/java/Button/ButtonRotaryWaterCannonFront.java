@@ -8,7 +8,7 @@ public class ButtonRotaryWaterCannonFront extends ButtonRotary {
     private Integer mode = 1;
 
     public ButtonRotaryWaterCannonFront(MixingProcessor o) {
-        super(o);
+        super(o, 500);
     }
 
     @Override

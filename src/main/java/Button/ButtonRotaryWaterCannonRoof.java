@@ -7,7 +7,7 @@ public class ButtonRotaryWaterCannonRoof extends ButtonRotary {
     private RoofCannonMode mode = RoofCannonMode.A;
 
     public ButtonRotaryWaterCannonRoof(MixingProcessor o) {
-        super(o);
+        super(o, 500);
 
     }
 
