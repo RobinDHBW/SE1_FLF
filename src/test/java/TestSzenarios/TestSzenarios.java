@@ -301,16 +301,21 @@ public class TestSzenarios {
         while (this.flf.getCabin().getBtnRotaryWaterCannonFront().getMode() < 7) {
             this.operator.rightRotaryButtonFrontCannon();
         }
+        Boolean joystickOp1 = this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_FRONT);
+
 
         this.operator.toggleCannon();
         while (this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode() != RoofCannonMode.C) {
             this.operator.rightRotaryButtonRoofCannon();
         }
+        Boolean joystickOp2 = this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_FRONT);
 
 
         while (this.flf.getMixingProcessor().getMixingRate() != MixingRate.FIVE) {
             this.driver.switchMix();
         }
+
+        MixingRate joystickOp3 = this.flf.getMixingProcessor().getMixingRate();
 
         for (int i = 0; i < 3; i++) {
             this.driver.spray();
@@ -328,6 +333,7 @@ public class TestSzenarios {
         while (this.flf.getMixingProcessor().getMixingRate() != MixingRate.THREE) {
             this.operator.switchMix();
         }
+        MixingRate joystickOp4 = this.flf.getMixingProcessor().getMixingRate();
 
         for (int i = 0; i < 3; i++) {
             this.operator.spray();
@@ -346,11 +352,15 @@ public class TestSzenarios {
 
 
         Collections.addAll(tests,
+                DynamicTest.dynamicTest("check Joystick1-Fkt1", () -> assertTrue(joystickOp1)),
+                DynamicTest.dynamicTest("check Joystick2-Fkt1", () -> assertTrue(joystickOp2)),
+                DynamicTest.dynamicTest("check joystick1-Fkt2", () -> assertEquals(MixingRate.FIVE, joystickOp3)),
+                DynamicTest.dynamicTest("check joystick2-Fkt2", () -> assertEquals(MixingRate.THREE, joystickOp4)),
                 DynamicTest.dynamicTest("check WaterConsumptionSelfProtection", () -> assertEquals(calcConsumption1, cannonConsumption1)),
-                DynamicTest.dynamicTest("check WaterConsumptionFrontCannon", () -> assertEquals(calcConsumption2, cannonConsumption2)),
-                DynamicTest.dynamicTest("check FoamConsumptionFrontCannon", () -> assertEquals(calcConsumption3, cannonConsumption3)),
-                DynamicTest.dynamicTest("check WaterConsumptionRoofCannon", () -> assertEquals(calcConsumption4, cannonConsumption4)),
-                DynamicTest.dynamicTest("check FoamConsumptionRoofCannon", () -> assertEquals(calcConsumption5, cannonConsumption5))
+                DynamicTest.dynamicTest("check WaterConsumptionFrontCannon && joystick1-Fkt3", () -> assertEquals(calcConsumption2, cannonConsumption2)),
+                DynamicTest.dynamicTest("check FoamConsumptionFrontCannon && joystick1-Fkt3", () -> assertEquals(calcConsumption3, cannonConsumption3)),
+                DynamicTest.dynamicTest("check WaterConsumptionRoofCannon && joystick2-Fkt3", () -> assertEquals(calcConsumption4, cannonConsumption4)),
+                DynamicTest.dynamicTest("check FoamConsumptionRoofCannon && joystick2-Fkt3", () -> assertEquals(calcConsumption5, cannonConsumption5))
 
         );
 
