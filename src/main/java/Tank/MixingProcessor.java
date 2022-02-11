@@ -125,7 +125,7 @@ public class MixingProcessor {
         return mixingRate;
     }
     public Integer getMixingRateValue() {
-        return calcFoamPortion(1);
+        return calcFoamPortion(100);
     }
 
     public Double getTankFillState(TankSubject ts){

@@ -287,17 +287,17 @@ public class TestSzenarios {
                 DynamicTest.dynamicTest("check Batteries", () -> assertEquals(1, battFull))
         );
 
-        this.operator.toggleSelfProtection();
-
-        Integer calculatedWaterConsumption = this.flf.getMixingProcessor().getAbsoluteFillState(TankSubject.WATER) - (7*this.flf.getMixingProcessor().getSprayCapacity(CannonIdentifier.CANNON_SELFPROTECTION));
+        Integer calculatedWaterConsumption = this.flf.getMixingProcessor().getAbsoluteFillState(TankSubject.WATER);
         Integer calculatedFoamConsumption = this.flf.getMixingProcessor().getAbsoluteFillState(TankSubject.FOAM);
 
+        this.operator.toggleSelfProtection();
+
         Integer cannonConsumption1 = this.flf.getMixingProcessor().getAbsoluteFillState(TankSubject.WATER);
-        Integer calcConsumption1 = calculatedWaterConsumption;
+        Integer calcConsumption1 = calculatedWaterConsumption - 7 * this.flf.getMixingProcessor().getSprayCapacity(CannonIdentifier.CANNON_SELFPROTECTION);
 
 
         this.driver.toggleCannon();
-        while (this.flf.getCabin().getBtnRotaryWaterCannonFront().getMode() <6){
+        while (this.flf.getCabin().getBtnRotaryWaterCannonFront().getMode() <7){
             this.operator.rightRotaryButtonFrontCannon();
         }
 
@@ -314,7 +314,7 @@ public class TestSzenarios {
         for(int i =0; i<3;i++){
             this.driver.spray();
             Integer sprayCap = this.flf.getMixingProcessor().getSprayCapacity(CannonIdentifier.CANNON_FRONT);
-            calculatedFoamConsumption -= sprayCap * this.flf.getMixingProcessor().getMixingRateValue();
+            calculatedFoamConsumption -= (sprayCap / 100) * this.flf.getMixingProcessor().getMixingRateValue();
             calculatedWaterConsumption -= (sprayCap - calculatedFoamConsumption);
         }
         Integer cannonConsumption2 = this.flf.getMixingProcessor().getAbsoluteFillState(TankSubject.WATER);
@@ -333,7 +333,7 @@ public class TestSzenarios {
         for(int i =0; i<3;i++){
             this.operator.spray();
             Integer sprayCap = this.flf.getMixingProcessor().getSprayCapacity(CannonIdentifier.CANNON_ROOF);
-            calculatedFoamConsumption -= sprayCap * this.flf.getMixingProcessor().getMixingRateValue();
+            calculatedFoamConsumption -= (sprayCap / 100) * this.flf.getMixingProcessor().getMixingRateValue();
             calculatedWaterConsumption -= (sprayCap - calculatedFoamConsumption);
         }
         Integer cannonConsumption4 = this.flf.getMixingProcessor().getAbsoluteFillState(TankSubject.WATER);
