@@ -408,10 +408,14 @@ public class TestSzenarios {
         while (this.flf.getCabin().getBtnRotaryWaterCannonFront().getMode() < 6) {
             this.operator.rightRotaryButtonFrontCannon();
         }
+        Boolean joystickOp1 = this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_FRONT);
 
         while (this.flf.getMixingProcessor().getMixingRate() != MixingRate.TEN) {
             this.driver.switchMix();
         }
+
+        MixingRate joystickOp2 = this.flf.getMixingProcessor().getMixingRate();
+
         for (int i = 0; i < 3; i++) {
             this.driver.spray();
             Integer sprayCap = this.flf.getMixingProcessor().getSprayCapacity(CannonIdentifier.CANNON_FRONT);
@@ -430,10 +434,12 @@ public class TestSzenarios {
         while (this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode() != RoofCannonMode.C) {
             this.operator.rightRotaryButtonRoofCannon();
         }
+        Boolean joystickOp3 = this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_ROOF);
 
         while (this.flf.getMixingProcessor().getMixingRate() != MixingRate.FIVE) {
             this.operator.switchMix();
         }
+        MixingRate joystickOp4 = this.flf.getMixingProcessor().getMixingRate();
 
         for (int i = 0; i < 5; i++) {
             this.operator.spray();
@@ -456,6 +462,9 @@ public class TestSzenarios {
         while (this.flf.getMixingProcessor().getMixingRate() != MixingRate.THREE) {
             this.driver.switchMix();
         }
+        Boolean joystickOp5 = this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_FRONT);
+        MixingRate joystickOp6 = this.flf.getMixingProcessor().getMixingRate();
+
         for (int i = 0; i < 3; i++) {
             this.driver.spray();
             Integer sprayCap = this.flf.getMixingProcessor().getSprayCapacity(CannonIdentifier.CANNON_FRONT);
@@ -471,6 +480,12 @@ public class TestSzenarios {
         Integer calcConsumption6 = calculatedFoamConsumption;
 
         Collections.addAll(tests,
+                DynamicTest.dynamicTest("check Joystick1-Fkt1", () -> assertTrue(joystickOp1)),
+                DynamicTest.dynamicTest("check joystick1-Fkt2", () -> assertEquals(MixingRate.TEN, joystickOp2)),
+                DynamicTest.dynamicTest("check Joystick2-Fkt1", () -> assertTrue(joystickOp3)),
+                DynamicTest.dynamicTest("check joystick2-Fkt2", () -> assertEquals(MixingRate.FIVE, joystickOp4)),
+                DynamicTest.dynamicTest("check Joystick1-Fkt1", () -> assertTrue(joystickOp5)),
+                DynamicTest.dynamicTest("check joystick1-Fkt2", () -> assertEquals(MixingRate.THREE, joystickOp6)),
                 DynamicTest.dynamicTest("check WaterConsumptionFrontCannon", () -> assertEquals(calcConsumption1, cannonConsumption1)),
                 DynamicTest.dynamicTest("check FoamConsumptionFrontCannon", () -> assertEquals(calcConsumption2, cannonConsumption2)),
                 DynamicTest.dynamicTest("check WaterConsumptionRoofCannon", () -> assertEquals(calcConsumption3, cannonConsumption3)),
@@ -527,6 +542,10 @@ public class TestSzenarios {
         while (this.flf.getMixingProcessor().getMixingRate() != MixingRate.TEN) {
             this.driver.switchMix();
         }
+
+        Boolean joystickOp1 = this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_FRONT);
+        MixingRate joystickOp2 = this.flf.getMixingProcessor().getMixingRate();
+
         for (int i = 0; i < 5; i++) {
             this.driver.spray();
             Integer sprayCap = this.flf.getMixingProcessor().getSprayCapacity(CannonIdentifier.CANNON_FRONT);
@@ -549,6 +568,8 @@ public class TestSzenarios {
         while (this.flf.getMixingProcessor().getMixingRate() != MixingRate.TEN) {
             this.operator.switchMix();
         }
+        Boolean joystickOp3 = this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_ROOF);
+        MixingRate joystickOp4 = this.flf.getMixingProcessor().getMixingRate();
 
         for (int i = 0; i < 5; i++) {
             this.operator.spray();
@@ -599,6 +620,10 @@ public class TestSzenarios {
         Integer calcConsumption8 = calculatedFoamConsumption;
 
         Collections.addAll(tests,
+                DynamicTest.dynamicTest("check Joystick1-Fkt1", () -> assertTrue(joystickOp1)),
+                DynamicTest.dynamicTest("check joystick1-Fkt2", () -> assertEquals(MixingRate.TEN, joystickOp2)),
+                DynamicTest.dynamicTest("check Joystick2-Fkt1", () -> assertTrue(joystickOp3)),
+                DynamicTest.dynamicTest("check joystick2-Fkt2", () -> assertEquals(MixingRate.TEN, joystickOp4)),
                 DynamicTest.dynamicTest("check WaterConsumptionFrontCannon", () -> assertEquals(calcConsumption1, cannonConsumption1)),
                 DynamicTest.dynamicTest("check FoamConsumptionFrontCannon", () -> assertEquals(calcConsumption2, cannonConsumption2)),
                 DynamicTest.dynamicTest("check WaterConsumptionRoofCannon", () -> assertEquals(calcConsumption3, cannonConsumption3)),
