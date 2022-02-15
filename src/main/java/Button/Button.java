@@ -14,8 +14,4 @@ public abstract class Button {
     public void operateDevice() {
 
     }
-
-    public Object getOperatingDevice() {
-        return operatingDevice;
-    }
 }

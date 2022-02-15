@@ -1,6 +1,6 @@
 package Button;
 
-public class ButtonPress extends Button{
+public class ButtonPress extends ButtonTap{
     private boolean isActivated;
 
     public boolean isHeld5seconds() {
