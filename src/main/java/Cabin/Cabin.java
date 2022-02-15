@@ -221,8 +221,8 @@ public class Cabin {
                 Boolean leftSide = (i == 0);
                 seatList.add(new Seat(1, leftSide));
             }
-            seatList.add(new SeatFirefighting(new Driver(), true));
-            seatList.add(new SeatFirefighting(new Operator(), false));
+            seatList.add(new SeatFirefighting(new Driver("abc"), true));
+            seatList.add(new SeatFirefighting(new Operator("abc"), false));
 
             this.ctrlPanel = controlPanel;
 

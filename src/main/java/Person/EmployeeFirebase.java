@@ -8,8 +8,8 @@ public class EmployeeFirebase extends Person {
 
     MixingProcessor mixingProcessor;
     Drive drive;
-    public EmployeeFirebase() {
-    
+    public EmployeeFirebase(String name) {
+        super(name);
     }
 
     public void equip(MixingProcessor mixer, Drive drive){

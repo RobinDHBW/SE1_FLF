@@ -1,7 +1,7 @@
 package Person;
 
 public class Infantry  extends Person{
-    public Infantry(){
-
+    public Infantry(String name){
+        super(name);
     }
 }

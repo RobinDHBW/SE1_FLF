@@ -6,6 +6,10 @@ public abstract class ActivePassenger extends Person{
 
     Joystick joystick;
 
+    public ActivePassenger(String name){
+        super(name);
+    }
+
     public void equip(Joystick stick){
         this.joystick = stick;
     }

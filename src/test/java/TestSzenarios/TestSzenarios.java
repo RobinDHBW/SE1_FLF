@@ -36,9 +36,9 @@ public class TestSzenarios {
         this.flf = new FLF.Builder().build();
         if (!this.flf.getCabin().getBusDoorRight().getOpen()) this.flf.toggleRightDoor(true);
         if (!this.flf.getCabin().getBusDoorLeft().getOpen()) this.flf.toggleLeftDoor(true);
-        this.driver = new Driver();
-        this.operator = new Operator();
-        this.employee = new EmployeeFirebase();
+        this.driver = new Driver("Sam");
+        this.operator = new Operator("Red Adair");
+        this.employee = new EmployeeFirebase("Karl-Heinz");
 
         this.flf.toggleMaintenance(employee);
         employee.loadBatteries();
