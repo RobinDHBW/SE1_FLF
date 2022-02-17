@@ -3,6 +3,7 @@ package Cabin;
 import Drive.Drive;
 
 import Firefighting.CannonIdentifier;
+import Instruments.BatteryIndicator;
 import Instruments.Speedometer;
 import Lights.*;
 import Tank.MixingProcessor;
@@ -22,6 +23,7 @@ public class CentralUnit {
     private final MixingProcessor mixingProcessor;
     private final Drive drive;
     private final Speedometer speedometer;
+    private final BatteryIndicator batteryIndicator;
 
     public CentralUnit(
             List<WarningLight> warningLights,
@@ -33,7 +35,8 @@ public class CentralUnit {
             List<DirectionIndicator> indicatorsRight,
             MixingProcessor mixingProcessor,
             Drive drive,
-            Speedometer speedometer
+            Speedometer speedometer,
+            BatteryIndicator batteryIndicator
     ) {
         this.warningLights = warningLights;
         this.flashingBlueLights = flashingBlueLights;
@@ -45,6 +48,7 @@ public class CentralUnit {
         this.mixingProcessor = mixingProcessor;
         this.drive = drive;
         this.speedometer = speedometer;
+        this.batteryIndicator = batteryIndicator;
     }
 
 
@@ -119,5 +123,6 @@ public class CentralUnit {
 
     public void drive() {
         this.speedometer.setSpeed(this.drive.drive());
+        this.batteryIndicator.setIndicator(this.drive.getRelativeFillState());
     }
 }

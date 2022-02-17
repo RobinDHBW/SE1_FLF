@@ -183,7 +183,7 @@ public class Cabin {
     public static class Builder {
         private final CentralUnit centralUnit;
 
-        private final BatteryIndicator batteryIndicator = new BatteryIndicator();
+        private final BatteryIndicator batteryIndicator;// = new BatteryIndicator();
         private final Speedometer speedometer;// = new Speedometer();
 
         private final Pedal gasPedal;
@@ -215,7 +215,8 @@ public class Cabin {
                 Joystick joystickOperator,
                 SteeringWheel steeringWheel,
                 Speedometer speedometer,
-                CentralUnit centralUnit
+                CentralUnit centralUnit,
+                BatteryIndicator batteryIndicator
         ) {
             for (int i = 0; i < 2; i++) {
                 Boolean leftSide = (i == 0);
@@ -238,6 +239,7 @@ public class Cabin {
             this.brakePedal = brakePedal;
             this.centralUnit = centralUnit;
             this.speedometer = speedometer;
+            this.batteryIndicator = batteryIndicator;
         }
 
         public Cabin build() {
