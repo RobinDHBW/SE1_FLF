@@ -17,11 +17,11 @@ public class Operator extends ActivePassenger {
         super(name, card);
     }
 
-    public void equip(ControlPanel panel, Joystick opJoystick, ButtonRotaryWaterCannonFront rotaryWaterCannonFront, ButtonRotaryWaterCannonRoof rotaryWaterCannonRoof, ButtonPush doorToggle, IDCardReader idCardReader) {
+    public void equip(ControlPanel panel, Joystick opJoystick, ButtonRotaryWaterCannonFront rotaryWaterCannonFront, ButtonRotaryWaterCannonRoof rotaryWaterCannonRoof, ButtonPush doorToggleInside,ButtonPush doorToggleOutside, IDCardReader idCardReader) {
         this.panel = panel;
         this.rotaryWaterCannonRoof = rotaryWaterCannonRoof;
         this.rotaryWaterCannonFront = rotaryWaterCannonFront;
-        super.equip(opJoystick, doorToggle, idCardReader);
+        super.equip(opJoystick, doorToggleInside, doorToggleOutside, idCardReader);
     }
 
     public void uneqip(){

@@ -12,6 +12,7 @@ import Firefighting.CannonIdentifier;
 import Firefighting.WaterCannonFront;
 import Firefighting.WaterCannonRoof;
 import Firefighting.WaterDieSelfprotection;
+import IDCard.IDCard;
 import Instruments.BatteryIndicator;
 import Instruments.Speedometer;
 import Instruments.SteeringWheel;
@@ -150,15 +151,6 @@ public class FLF {
         return this.warningLights.get(0).getState();
     }
 
-
-    public void toggleLeftDoor() {
-        this.cabin.toggleLeftDoor(true);
-    }
-
-    public void toggleRightDoor() {
-        this.cabin.toggleRightDoor(true);
-    }
-
     public void enterFLF(Person enterer, Boolean isLeft) {
         this.cabin.enterCabin(enterer, isLeft);
     }
@@ -224,11 +216,38 @@ public class FLF {
 
             Speedometer speedometer = new Speedometer();
             BatteryIndicator batteryIndicator = new BatteryIndicator();
+            Busdoor busdoorLeft = new Busdoor(VehicleSide.LEFT);
+            Busdoor busdoorRight = new Busdoor(VehicleSide.RIGHT);
 
             CentralUnit centralUnit = new CentralUnit(warningLights, flashingBlueLights, searchLightsFront, searchLightsRoof, searchLightsSide, directionIndicatorsLeft, directionIndicatorsRight, mixingProcessor, drive, speedometer, batteryIndicator, authorizedPersons, busdoorLeft, busdoorRight);
 
-            Busdoor busdoorLeft = new Busdoor(VehicleSide.LEFT, new IDCardReader(centralUnit));
-            Busdoor busdoorRight = new Busdoor(VehicleSide.RIGHT, new IDCardReader(centralUnit));
+
+
+            ButtonPush doorToggleLeftInside = new ButtonPush(centralUnit) {
+                @Override
+                public void operateDevice() {
+                    ((CentralUnit) this.operatingDevice).toggleDoor(VehicleSide.LEFT);
+                }
+            };
+            ButtonPush doorToggleLeftOutside = new ButtonPush(centralUnit) {
+                @Override
+                public void operateDevice() {
+                    ((CentralUnit) this.operatingDevice).toggleDoor(VehicleSide.LEFT);
+                }
+            };
+
+            ButtonPush doorToggleRightInside = new ButtonPush(centralUnit) {
+                @Override
+                public void operateDevice() {
+                    ((CentralUnit) this.operatingDevice).toggleDoor(VehicleSide.RIGHT);
+                }
+            };
+            ButtonPush doorToggleRightOutside = new ButtonPush(centralUnit) {
+                @Override
+                public void operateDevice() {
+                    ((CentralUnit) this.operatingDevice).toggleDoor(VehicleSide.RIGHT);
+                }
+            };
 
             Pedal pedalAcc = new Pedal(centralUnit) {
                 @Override
@@ -279,7 +298,13 @@ public class FLF {
                     centralUnit,
                     batteryIndicator,
                     busdoorLeft,
-                    busdoorRight
+                    doorToggleLeftInside,
+                    doorToggleLeftOutside,
+                    new IDCardReader(centralUnit),
+                    busdoorRight,
+                    doorToggleLeftInside,
+                    doorToggleLeftOutside,
+                    new IDCardReader(centralUnit)
             ).build();
 
 

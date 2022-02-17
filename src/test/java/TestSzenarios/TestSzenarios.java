@@ -38,8 +38,8 @@ public class TestSzenarios {
         authorizedPersons.add(this.driver);
         authorizedPersons.add(this.operator);
         this.flf = new FLF.Builder(authorizedPersons).build();
-        if (!this.flf.getCabin().getBusDoorRight().getOpen()) this.flf.toggleRightDoor(true);
-        if (!this.flf.getCabin().getBusDoorLeft().getOpen()) this.flf.toggleLeftDoor(true);
+        if (!this.flf.getCabin().getBusDoorRight().getOpen()) this.operator.toggleDoor();
+        if (!this.flf.getCabin().getBusDoorLeft().getOpen()) this.driver.toggleDoor();
         EmployeeFirebase employee = new EmployeeFirebase("Karl-Heinz", new IDCard("abc"));
 
         this.flf.toggleMaintenance(employee);
@@ -50,8 +50,8 @@ public class TestSzenarios {
 
         this.flf.enterFLF(driver, true);
         this.flf.enterFLF(operator, false);
-        this.flf.toggleRightDoor(false);
-        this.flf.toggleLeftDoor(false);
+        this.driver.toggleDoor();
+        this.operator.toggleDoor();
 
         if (this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_FRONT)) this.driver.toggleCannon();
         if (this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_ROOF)) this.operator.toggleCannon();
@@ -73,8 +73,8 @@ public class TestSzenarios {
         if (this.flf.getWarnLightsState()) this.operator.toggleWarnlights();
         if (this.flf.getBlueLightState()) this.operator.toggleBlueLights();
 
-        this.flf.toggleRightDoor(false);
-        this.flf.toggleLeftDoor(false);
+        this.driver.toggleDoor();
+        this.operator.toggleDoor();
 
         for (int i = 0; i < 2; i++) {
             this.flf.leaveFLF(i, true);

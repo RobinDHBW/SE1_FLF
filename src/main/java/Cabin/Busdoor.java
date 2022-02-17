@@ -9,50 +9,22 @@ import java.util.Arrays;
 public class Busdoor {
     private Boolean isOpen = false;
     private VehicleSide vehicleSide;
-    private final ButtonPush btnPushOutside = new ButtonPush(this) {
-        @Override
-        public void operateDevice() {
-            ((Busdoor) this.operatingDevice).operateDoor();
-        }
-    };
-    private final ButtonPush btnPushInside = new ButtonPush(this) {
-        @Override
-        public void operateDevice() {
-            ((Busdoor) this.operatingDevice).operateDoor();
-        }
-    };
-
-    private final IDCardReader idCardReader;
-
     private Boolean isLocked = false;
 
-    public Busdoor(VehicleSide side, IDCardReader reader) {
+    public Busdoor(VehicleSide side) {
         this.vehicleSide = side;
-        this.idCardReader = reader;
     }
 
     private void operateDoor() {
-        this.isOpen = !this.isOpen;
+
     }
 
     public Boolean getOpen() {
         return isOpen;
     }
 
-    public ButtonPush getBtnPushInside() {
-        return btnPushInside;
-    }
-
-    public IDCardReader getIdCardReader() {
-        return idCardReader;
-    }
-
-    public void toggleDoor(Boolean fromOutside) {
-        if (fromOutside) {
-            btnPushOutside.operateDevice();
-        } else {
-            btnPushInside.operateDevice();
-        }
+    public void toggleDoor() {
+        this.isOpen = !this.isOpen;
     }
 
     public Boolean toggleDoorLock() {

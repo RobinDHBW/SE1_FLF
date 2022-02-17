@@ -9,16 +9,18 @@ import Joystick.JoystickType;
 public abstract class ActivePassenger extends Person{
 
     private Joystick joystick;
-    private ButtonPush doorToggle;
+    private ButtonPush doorToggleInside            ;
+    private ButtonPush doorToggleOutside;
     private IDCardReader idCardReader;
 
     public ActivePassenger(String name, IDCard card){
         super(name, card);
     }
 
-    public void equip(Joystick stick, ButtonPush doorToggle, IDCardReader idCardReader){
+    public void equip(Joystick stick, ButtonPush doorToggleInside,ButtonPush doorToggleOutside, IDCardReader idCardReader){
         this.joystick = stick;
-        this.doorToggle = doorToggle;
+        this.doorToggleInside = doorToggleInside;
+        this.doorToggleOutside = doorToggleOutside;
         this.idCardReader = idCardReader;
     }
 
@@ -49,7 +51,7 @@ public abstract class ActivePassenger extends Person{
         this.joystick.pushBtn();
     }
     public void toggleDoor(){
-        this.doorToggle.operateDevice();
+        (isInVehicle ? doorToggleInside : doorToggleOutside).operateDevice();
     }
 
     public void toggleDoorLock(){

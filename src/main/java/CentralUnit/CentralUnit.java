@@ -1,6 +1,7 @@
 package CentralUnit;
 
 import Cabin.Busdoor;
+import Cabin.VehicleSide;
 import Configuration.Configuration;
 import Drive.Drive;
 import Firefighting.CannonIdentifier;
@@ -151,11 +152,18 @@ public class CentralUnit {
         this.batteryIndicator.setIndicator(this.drive.getRelativeFillState());
     }
 
+    public void toggleDoor(VehicleSide side){
+        switch (side){
+            case LEFT -> this.busdoorLeft.toggleDoor();
+            case RIGHT -> this.busdoorRight.toggleDoor();
+        }
+    }
+
     public void toggleDoorLock(String cipher) {
         try {
             if (validateAuth(this.cryptoUnit.decrypt(cipher))) {
-                if(busdoorLeft.getOpen()) busdoorLeft.toggleDoor(false);
-                if(busdoorRight.getOpen()) busdoorRight.toggleDoor(false);
+                if(busdoorLeft.getOpen()) busdoorLeft.toggleDoor();
+                if(busdoorRight.getOpen()) busdoorRight.toggleDoor();
                 busdoorLeft.toggleDoorLock();
                 busdoorRight.toggleDoorLock();
             }

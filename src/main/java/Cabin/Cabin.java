@@ -1,8 +1,6 @@
 package Cabin;
 
-import Button.ButtonRotaryWaterCannonFront;
-import Button.ButtonRotaryWaterCannonRoof;
-import Button.Pedal;
+import Button.*;
 import CentralUnit.CentralUnit;
 import IDCard.IDCard;
 import Instruments.BatteryIndicator;
@@ -39,7 +37,14 @@ public class Cabin {
     private final Joystick joystickOperator;
 
     private final Busdoor busdoorLeft;
+    private final ButtonPush doorToggleLeftInside;
+    private final ButtonPush doorToggleLeftOutside;
+    private final IDCardReader cardReaderLeft;
+
     private final Busdoor busdoorRight;
+    private final ButtonPush doorToggleRightInside;
+    private final ButtonPush doorToggleRightOutside;
+    private final IDCardReader cardReaderRight;
 
     private Cabin(Builder builder) {
         //Cabin built = builder.build();
@@ -63,7 +68,14 @@ public class Cabin {
         this.joystickOperator = builder.joystickOperator;
 
         this.busdoorLeft = builder.busdoorLeft;
+        this.doorToggleLeftInside = builder.doorToggleLeftInside;
+        this.doorToggleLeftOutside = builder.doorToggleLeftOutside;
+        this.cardReaderLeft = builder.cardReaderLeft;
+
         this.busdoorRight = builder.busdoorRight;
+        this.doorToggleRightInside = builder.doorToggleRightInside;
+        this.doorToggleRightOutside = builder.doorToggleRightOutside;
+        this.cardReaderRight = builder.cardReaderRight;
 
     }
 
@@ -127,14 +139,6 @@ public class Cabin {
         return busdoorRight;
     }
 
-    public void toggleLeftDoor(Boolean fromOutside) {
-        this.getBusDoorLeft().toggleDoor(fromOutside);
-    }
-
-    public void toggleRightDoor(Boolean fromOutside) {
-        this.getBusDoorRight().toggleDoor(fromOutside);
-    }
-
     public void enterCabin(Person enterer, Boolean isLeft) {
         try {
             if (!(isLeft ? this.getBusDoorLeft() : this.getBusDoorRight()).getOpen())
@@ -147,9 +151,9 @@ public class Cabin {
                         seat.sitDown(enterer);
                         enterer.setIsInVehicle(true);
                         if (enterer instanceof Driver) {
-                            ((Driver) enterer).equip(this.steeringWheel, this.gasPedal, this.brakePedal, this.joystickDriver, this.busdoorLeft.getBtnPushInside(), this.busdoorLeft.getIdCardReader());
+                            ((Driver) enterer).equip(this.steeringWheel, this.gasPedal, this.brakePedal, this.joystickDriver, this.doorToggleLeftInside, this.doorToggleLeftOutside, this.cardReaderLeft);
                         } else {
-                            ((Operator) enterer).equip(this.ctrlPanel, this.joystickOperator, this.btnRotaryWaterCannonFront, this.btnRotaryWaterCannonRoof, this.busdoorRight.getBtnPushInside(), this.busdoorRight.getIdCardReader());
+                            ((Operator) enterer).equip(this.ctrlPanel, this.joystickOperator, this.btnRotaryWaterCannonFront, this.btnRotaryWaterCannonRoof, this.doorToggleRightInside, this.doorToggleRightOutside, this.cardReaderRight);
                         }
                     }
                 }else{
@@ -204,8 +208,14 @@ public class Cabin {
         private final Joystick joystickOperator;
 
         private final Busdoor busdoorLeft;
-        private final Busdoor busdoorRight;
+        private final ButtonPush doorToggleLeftInside;
+        private final ButtonPush doorToggleLeftOutside;
+        private final IDCardReader cardReaderLeft;
 
+        private final Busdoor busdoorRight;
+        private final ButtonPush doorToggleRightInside;
+        private final ButtonPush doorToggleRightOutside;
+        private final IDCardReader cardReaderRight;
 
         public Builder(
                 ControlPanel controlPanel,
@@ -220,10 +230,25 @@ public class Cabin {
                 CentralUnit centralUnit,
                 BatteryIndicator batteryIndicator,
                 Busdoor busdoorLeft,
-                Busdoor busdoorRight
+                ButtonPush doorToggleLeftInside,
+                ButtonPush doorToggleLeftOutside,
+                IDCardReader cardReaderLeft,
+                Busdoor busdoorRight,
+                ButtonPush doorToggleRightInside,
+                ButtonPush doorToggleRightOutside,
+                IDCardReader cardReaderRight
         ) {
             this.busdoorLeft = busdoorLeft;
+            this.doorToggleLeftInside = doorToggleLeftInside;
+            this.doorToggleLeftOutside = doorToggleLeftOutside;
+            this.cardReaderLeft = cardReaderLeft;
+
             this.busdoorRight = busdoorRight;
+            this.doorToggleRightInside = doorToggleRightInside;
+            this.doorToggleRightOutside = doorToggleRightOutside;
+            this.cardReaderRight = cardReaderRight;
+
+
             for (int i = 0; i < 2; i++) {
                 Boolean leftSide = (i == 0);
                 seatList.add(new Seat(1, leftSide));

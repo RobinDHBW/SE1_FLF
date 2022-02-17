@@ -4,9 +4,9 @@ import IDCard.IDCard;
 
 public abstract class Person {
 
-    private Boolean isInVehicle = false;
-    private final String name;
-    private final IDCard idCard;
+    protected Boolean isInVehicle = false;
+    protected final String name;
+    protected final IDCard idCard;
     public Person(String name, IDCard idCard) {
         this.name = name;
         this.idCard = idCard;
