@@ -17,10 +17,17 @@ public abstract class ActivePassenger extends Person{
         super(name, card);
     }
 
-    public void equip(Joystick stick, ButtonPush doorToggleInside,ButtonPush doorToggleOutside, IDCardReader idCardReader){
+    public void equip(Joystick stick, ButtonPush doorToggleInside){
         this.joystick = stick;
         this.doorToggleInside = doorToggleInside;
+
+    }
+
+    public void setDoorToggleOutside(ButtonPush doorToggleOutside) {
         this.doorToggleOutside = doorToggleOutside;
+    }
+
+    public void setIdCardReader(IDCardReader idCardReader) {
         this.idCardReader = idCardReader;
     }
 

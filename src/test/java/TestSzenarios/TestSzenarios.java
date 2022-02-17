@@ -38,6 +38,12 @@ public class TestSzenarios {
         authorizedPersons.add(this.driver);
         authorizedPersons.add(this.operator);
         this.flf = new FLF.Builder(authorizedPersons).build();
+
+        driver.setDoorToggleOutside(this.flf.getCabin().getDoorToggleLeftOutside());
+        driver.setIdCardReader(this.flf.getCabin().getCardReaderLeft());
+        operator.setDoorToggleOutside(this.flf.getCabin().getDoorToggleRightOutside());
+        operator.setIdCardReader(this.flf.getCabin().getCardReaderRight());
+
         if (!this.flf.getCabin().getBusDoorRight().getOpen()) this.operator.toggleDoor();
         if (!this.flf.getCabin().getBusDoorLeft().getOpen()) this.driver.toggleDoor();
         EmployeeFirebase employee = new EmployeeFirebase("Karl-Heinz", new IDCard("abc"));

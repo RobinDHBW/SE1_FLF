@@ -17,11 +17,11 @@ public class Driver extends ActivePassenger {
         super(name, card);
     }
 
-    public void equip(SteeringWheel wheel, Pedal gas, Pedal brake, Joystick stick, ButtonPush doorToggleInside,ButtonPush doorToggleOutside, IDCardReader idCardReader){
+    public void equip(SteeringWheel wheel, Pedal gas, Pedal brake, Joystick stick, ButtonPush doorToggleInside){
         this.steeringWheel = wheel;
         this.gasPedal = gas;
         this.brakePedal = brake;
-        super.equip(stick, doorToggleInside, doorToggleOutside, idCardReader);
+        super.equip(stick, doorToggleInside);
     }
 
     public void uneqip(){

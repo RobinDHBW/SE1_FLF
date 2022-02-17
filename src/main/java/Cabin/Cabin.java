@@ -2,7 +2,6 @@ package Cabin;
 
 import Button.*;
 import CentralUnit.CentralUnit;
-import IDCard.IDCard;
 import Instruments.BatteryIndicator;
 import Instruments.Speedometer;
 import Instruments.SteeringWheel;
@@ -139,6 +138,22 @@ public class Cabin {
         return busdoorRight;
     }
 
+    public ButtonPush getDoorToggleLeftOutside() {
+        return doorToggleLeftOutside;
+    }
+
+    public IDCardReader getCardReaderLeft() {
+        return cardReaderLeft;
+    }
+
+    public ButtonPush getDoorToggleRightOutside() {
+        return doorToggleRightOutside;
+    }
+
+    public IDCardReader getCardReaderRight() {
+        return cardReaderRight;
+    }
+
     public void enterCabin(Person enterer, Boolean isLeft) {
         try {
             if (!(isLeft ? this.getBusDoorLeft() : this.getBusDoorRight()).getOpen())
@@ -151,9 +166,9 @@ public class Cabin {
                         seat.sitDown(enterer);
                         enterer.setIsInVehicle(true);
                         if (enterer instanceof Driver) {
-                            ((Driver) enterer).equip(this.steeringWheel, this.gasPedal, this.brakePedal, this.joystickDriver, this.doorToggleLeftInside, this.doorToggleLeftOutside, this.cardReaderLeft);
+                            ((Driver) enterer).equip(this.steeringWheel, this.gasPedal, this.brakePedal, this.joystickDriver, this.doorToggleLeftInside);
                         } else {
-                            ((Operator) enterer).equip(this.ctrlPanel, this.joystickOperator, this.btnRotaryWaterCannonFront, this.btnRotaryWaterCannonRoof, this.doorToggleRightInside, this.doorToggleRightOutside, this.cardReaderRight);
+                            ((Operator) enterer).equip(this.ctrlPanel, this.joystickOperator, this.btnRotaryWaterCannonFront, this.btnRotaryWaterCannonRoof, this.doorToggleRightInside);
                         }
                     }
                 }else{
