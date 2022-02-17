@@ -6,6 +6,9 @@ import Cabin.CentralUnit;
 import Cabin.ControlPanel;
 import Drive.Drive;
 import Firefighting.CannonIdentifier;
+import Firefighting.WaterCannonFront;
+import Firefighting.WaterCannonRoof;
+import Firefighting.WaterDieSelfprotection;
 import Instruments.BatteryIndicator;
 import Instruments.Speedometer;
 import Instruments.SteeringWheel;
@@ -14,6 +17,8 @@ import Lights.*;
 import Person.EmployeeFirebase;
 import Person.Person;
 import Tank.MixingProcessor;
+import Tank.Tank;
+import Tank.TankSubject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,6 +43,11 @@ public class FLF {
     private final Drive drive;
 
     private final MixingProcessor mixingProcessor;
+    private final WaterCannonFront waterCannonFront;
+    private final WaterCannonRoof waterCannonRoof;
+    private final ArrayList<WaterDieSelfprotection> waterDieSelfprotection;
+    private final Tank foamTank;
+    private final Tank waterTank;
 
     private Boolean maintenanceState = false;
 
@@ -59,6 +69,11 @@ public class FLF {
         this.drive = builder.drive;
 
         this.mixingProcessor = builder.mixingProcessor;
+        this.waterCannonFront = builder.waterCannonFront;
+        this.waterCannonRoof = builder.waterCannonRoof;
+        this.waterDieSelfprotection = builder.waterDieSelfprotection;
+        this.foamTank = builder.foamTank;
+        this.waterTank = builder.waterTank;
     }
 
     /**********
@@ -187,11 +202,18 @@ public class FLF {
 
         private final Drive drive = new Drive();
 
-        private final MixingProcessor mixingProcessor = new MixingProcessor();
+        private MixingProcessor mixingProcessor;
+        private WaterCannonFront waterCannonFront;
+        private WaterCannonRoof waterCannonRoof;
+        private ArrayList<WaterDieSelfprotection> waterDieSelfprotection;
+        private Tank foamTank;
+        private Tank waterTank;
 
         public Builder() {
 
             buildLights();
+            buildFirefighting();
+
             Speedometer speedometer = new Speedometer();
             BatteryIndicator batteryIndicator = new BatteryIndicator();
             CentralUnit centralUnit = new CentralUnit(warningLights, flashingBlueLights, searchLightsFront, searchLightsRoof, searchLightsSide, directionIndicatorsLeft, directionIndicatorsRight, mixingProcessor, drive, speedometer, batteryIndicator);
@@ -309,6 +331,19 @@ public class FLF {
             for (int i = 0; i < 2; i++) {
                 this.warningLights.add(new WarningLight(i < 1 ? LightPosition.ROOF_FRONT_LEFT : LightPosition.ROOF_BACK_RIGHT));
             }
+        }
+
+        private void buildFirefighting(){
+            this.waterCannonFront = new WaterCannonFront(90);
+            this.waterCannonRoof = new WaterCannonRoof();
+            this.foamTank = new Tank(TankSubject.FOAM, 75, 45, 10);
+            this.waterTank =new Tank(TankSubject.WATER, 75, 45, 30);
+
+            //add Waterdies
+            for (int i = 0; i < 7; i++) {
+                this.waterDieSelfprotection.add(new WaterDieSelfprotection(100));
+            }
+            this.mixingProcessor = new MixingProcessor(this.waterCannonRoof, this.waterCannonFront, this.waterDieSelfprotection, this.foamTank, this.waterTank);
         }
 
         private Joystick buildJoystick(Boolean isDriver) {

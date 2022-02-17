@@ -14,18 +14,19 @@ import java.util.stream.Stream;
 import static Tank.TankSubject.FOAM;
 
 public class MixingProcessor {
-    private final WaterCannonRoof waterCannonRoof = new WaterCannonRoof();
-    private final WaterCannonFront waterCannonFront = new WaterCannonFront(90);
-    private final List<WaterDieSelfprotection> waterDiesSelfprotection = new ArrayList<>();
+    private final WaterCannonRoof waterCannonRoof;// = new WaterCannonRoof();
+    private final WaterCannonFront waterCannonFront;// = new WaterCannonFront(90);
+    private final ArrayList<WaterDieSelfprotection> waterDiesSelfprotection; // = new ArrayList<>();
     private MixingRate mixingRate = MixingRate.NULL;
-    private final Tank foamTank = new Tank(FOAM, 75, 45, 10);
-    private final Tank waterTank = new Tank(TankSubject.WATER, 75, 45, 30);
+    private final Tank foamTank;// = new Tank(FOAM, 75, 45, 10);
+    private final Tank waterTank;// = new Tank(TankSubject.WATER, 75, 45, 30);
 
-    public MixingProcessor() {
-        //add Waterdies
-        for (int i = 0; i < 7; i++) {
-            this.waterDiesSelfprotection.add(new WaterDieSelfprotection(100));
-        }
+    public MixingProcessor(WaterCannonRoof waterCannonRoof, WaterCannonFront waterCannonFront, ArrayList<WaterDieSelfprotection> waterDiesSelfprotection, Tank foamTank, Tank waterTank) {
+        this.waterCannonFront = waterCannonFront;
+        this.waterCannonRoof = waterCannonRoof;
+        this.waterDiesSelfprotection = waterDiesSelfprotection;
+        this.foamTank = foamTank;
+        this.waterTank = waterTank;
     }
 
     private Integer calcFoamPortion(Integer quantity){
