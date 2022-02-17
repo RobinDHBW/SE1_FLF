@@ -205,7 +205,7 @@ public class FLF {
         private MixingProcessor mixingProcessor;
         private WaterCannonFront waterCannonFront;
         private WaterCannonRoof waterCannonRoof;
-        private ArrayList<WaterDieSelfprotection> waterDieSelfprotection;
+        private ArrayList<WaterDieSelfprotection> waterDieSelfprotection = new ArrayList<>();
         private Tank foamTank;
         private Tank waterTank;
 
