@@ -1,11 +1,14 @@
 package Cabin;
 
 import Button.ButtonPush;
+import Button.IDCardReader;
+import IDCard.IDCard;
 
 import java.util.Arrays;
 
 public class Busdoor {
     private Boolean isOpen = false;
+    private VehicleSide vehicleSide;
     private final ButtonPush btnPushOutside = new ButtonPush(this) {
         @Override
         public void operateDevice() {
@@ -18,9 +21,14 @@ public class Busdoor {
             ((Busdoor) this.operatingDevice).operateDoor();
         }
     };
+
+    private final IDCardReader idCardReader;
+
     private Boolean isLocked = false;
 
-    public Busdoor(VehicleSide side) {
+    public Busdoor(VehicleSide side, IDCardReader reader) {
+        this.vehicleSide = side;
+        this.idCardReader = reader;
     }
 
     private void operateDoor() {
@@ -29,6 +37,14 @@ public class Busdoor {
 
     public Boolean getOpen() {
         return isOpen;
+    }
+
+    public ButtonPush getBtnPushInside() {
+        return btnPushInside;
+    }
+
+    public IDCardReader getIdCardReader() {
+        return idCardReader;
     }
 
     public void toggleDoor(Boolean fromOutside) {

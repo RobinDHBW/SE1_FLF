@@ -1,19 +1,25 @@
 package Person;
 
+import Button.ButtonPush;
+import Button.IDCardReader;
 import IDCard.IDCard;
 import Joystick.Joystick;
 import Joystick.JoystickType;
 
 public abstract class ActivePassenger extends Person{
 
-    Joystick joystick;
+    private Joystick joystick;
+    private ButtonPush doorToggle;
+    private IDCardReader idCardReader;
 
     public ActivePassenger(String name, IDCard card){
         super(name, card);
     }
 
-    public void equip(Joystick stick){
+    public void equip(Joystick stick, ButtonPush doorToggle, IDCardReader idCardReader){
         this.joystick = stick;
+        this.doorToggle = doorToggle;
+        this.idCardReader = idCardReader;
     }
 
     public void uneqip(){
@@ -42,4 +48,12 @@ public abstract class ActivePassenger extends Person{
     public void spray(){
         this.joystick.pushBtn();
     }
+    public void toggleDoor(){
+        this.doorToggle.operateDevice();
+    }
+
+    public void toggleDoorLock(){
+        this.idCardReader.operateDevice();
+    }
+
 }

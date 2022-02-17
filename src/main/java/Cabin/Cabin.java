@@ -147,9 +147,9 @@ public class Cabin {
                         seat.sitDown(enterer);
                         enterer.setIsInVehicle(true);
                         if (enterer instanceof Driver) {
-                            ((Driver) enterer).equip(this.steeringWheel, this.gasPedal, this.brakePedal, this.joystickDriver);
+                            ((Driver) enterer).equip(this.steeringWheel, this.gasPedal, this.brakePedal, this.joystickDriver, this.busdoorLeft.getBtnPushInside(), this.busdoorLeft.getIdCardReader());
                         } else {
-                            ((Operator) enterer).equip(this.ctrlPanel, this.joystickOperator, this.btnRotaryWaterCannonFront, this.btnRotaryWaterCannonRoof);
+                            ((Operator) enterer).equip(this.ctrlPanel, this.joystickOperator, this.btnRotaryWaterCannonFront, this.btnRotaryWaterCannonRoof, this.busdoorRight.getBtnPushInside(), this.busdoorRight.getIdCardReader());
                         }
                     }
                 }else{

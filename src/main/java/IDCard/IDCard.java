@@ -9,4 +9,8 @@ public class IDCard {
         this.rfidChip = new RFIDChip(code);
     }
 
+    public String getAuthCode(){
+        return this.rfidChip.getAuthCode();
+    }
+
 }

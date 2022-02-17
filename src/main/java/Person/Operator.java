@@ -1,7 +1,9 @@
 package Person;
 
+import Button.ButtonPush;
 import Button.ButtonRotaryWaterCannonFront;
 import Button.ButtonRotaryWaterCannonRoof;
+import Button.IDCardReader;
 import Cabin.ControlPanel;
 import IDCard.IDCard;
 import Joystick.Joystick;
@@ -15,11 +17,11 @@ public class Operator extends ActivePassenger {
         super(name, card);
     }
 
-    public void equip(ControlPanel panel, Joystick opJoystick, ButtonRotaryWaterCannonFront rotaryWaterCannonFront, ButtonRotaryWaterCannonRoof rotaryWaterCannonRoof) {
+    public void equip(ControlPanel panel, Joystick opJoystick, ButtonRotaryWaterCannonFront rotaryWaterCannonFront, ButtonRotaryWaterCannonRoof rotaryWaterCannonRoof, ButtonPush doorToggle, IDCardReader idCardReader) {
         this.panel = panel;
         this.rotaryWaterCannonRoof = rotaryWaterCannonRoof;
         this.rotaryWaterCannonFront = rotaryWaterCannonFront;
-        super.equip(opJoystick);
+        super.equip(opJoystick, doorToggle, idCardReader);
     }
 
     public void uneqip(){

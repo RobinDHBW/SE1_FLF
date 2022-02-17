@@ -151,12 +151,12 @@ public class FLF {
     }
 
 
-    public void toggleLeftDoor(Boolean fromOutside) {
-        this.cabin.toggleLeftDoor(fromOutside);
+    public void toggleLeftDoor() {
+        this.cabin.toggleLeftDoor(true);
     }
 
-    public void toggleRightDoor(Boolean fromOutside) {
-        this.cabin.toggleRightDoor(fromOutside);
+    public void toggleRightDoor() {
+        this.cabin.toggleRightDoor(true);
     }
 
     public void enterFLF(Person enterer, Boolean isLeft) {

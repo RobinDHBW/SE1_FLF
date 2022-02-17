@@ -1,5 +1,8 @@
 package Person;
 
+import Button.ButtonPush;
+import Button.ButtonRotary;
+import Button.IDCardReader;
 import Button.Pedal;
 import IDCard.IDCard;
 import Instruments.SteeringWheel;
@@ -14,11 +17,11 @@ public class Driver extends ActivePassenger {
         super(name, card);
     }
 
-    public void equip(SteeringWheel wheel, Pedal gas, Pedal brake, Joystick stick){
+    public void equip(SteeringWheel wheel, Pedal gas, Pedal brake, Joystick stick, ButtonPush doorToggle, IDCardReader idCardReader){
         this.steeringWheel = wheel;
         this.gasPedal = gas;
         this.brakePedal = brake;
-        super.equip(stick);
+        super.equip(stick, doorToggle, idCardReader);
     }
 
     public void uneqip(){
@@ -40,6 +43,4 @@ public class Driver extends ActivePassenger {
     public void steer(Boolean isLeft, Integer degree){
         this.steeringWheel.steer(isLeft, degree);
     }
-
-
 }

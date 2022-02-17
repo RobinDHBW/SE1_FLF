@@ -8,9 +8,8 @@ public class IDCardReader extends Button {
         super(centralUnit);
     }
 
-    @Override
-    public void operateDevice() {
-        ((CentralUnit) this.operatingDevice).accelerate();
+    public void operateDevice(IDCard card) {
+        ((CentralUnit) this.operatingDevice).toggleDoorLock(card.getAuthCode());
     }
 
 
