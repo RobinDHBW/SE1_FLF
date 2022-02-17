@@ -2,7 +2,6 @@ package CentralUnit;
 
 import Configuration.Configuration;
 import Drive.Drive;
-
 import Firefighting.CannonIdentifier;
 import Instruments.BatteryIndicator;
 import Instruments.Speedometer;
@@ -58,6 +57,17 @@ public class CentralUnit {
         this.authorizedPersons = authorizedPersons;
     }
 
+    private Boolean validateAuth(String input) {
+        String inputCode = input.substring(input.lastIndexOf("-") + 1, input.length() + 1);
+        if (inputCode != cryptoCode) return false;
+
+        input = input.substring(0, input.lastIndexOf("-"));
+        String inputPerson = input.substring(input.lastIndexOf("-") + 1, input.length() + 1);
+        for (Person p : authorizedPersons) {
+            if (inputPerson == p.getName()) return true;
+        }
+        return false;
+    }
 
     public void switchEngines() {
         this.drive.toggleEngine();
@@ -131,5 +141,9 @@ public class CentralUnit {
     public void drive() {
         this.speedometer.setSpeed(this.drive.drive());
         this.batteryIndicator.setIndicator(this.drive.getRelativeFillState());
+    }
+
+    public void toggleDoorLock(String cipher) {
+        String plain = this.cryptoUnit.decrypt(cipher);
     }
 }
