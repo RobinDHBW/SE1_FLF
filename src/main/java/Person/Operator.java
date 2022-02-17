@@ -7,7 +7,6 @@ import Joystick.Joystick;
 
 public class Operator extends ActivePassenger {
     private ControlPanel panel;
-    private Joystick opJoystick;
     private ButtonRotaryWaterCannonRoof rotaryWaterCannonRoof;
     private ButtonRotaryWaterCannonFront rotaryWaterCannonFront;
 

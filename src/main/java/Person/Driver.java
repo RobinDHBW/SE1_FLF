@@ -9,7 +9,6 @@ public class Driver extends ActivePassenger {
     private SteeringWheel steeringWheel;
     private Pedal gasPedal;
     private Pedal brakePedal;
-    private Joystick drJoystick;
 
     public Driver(String name) {
         super(name);
