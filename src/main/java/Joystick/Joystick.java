@@ -1,9 +1,7 @@
 package Joystick;
 
-import Button.Button;
 import Button.ButtonPress;
 import Button.ButtonPush;
-import Button.IButtonListener;
 
 public class Joystick {
     private final ButtonPush btnPush;
