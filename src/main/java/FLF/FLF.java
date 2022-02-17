@@ -224,10 +224,11 @@ public class FLF {
 
             Speedometer speedometer = new Speedometer();
             BatteryIndicator batteryIndicator = new BatteryIndicator();
-            Busdoor busdoorLeft = new Busdoor(VehicleSide.LEFT);
-            Busdoor busdoorRight = new Busdoor(VehicleSide.RIGHT);
 
             CentralUnit centralUnit = new CentralUnit(warningLights, flashingBlueLights, searchLightsFront, searchLightsRoof, searchLightsSide, directionIndicatorsLeft, directionIndicatorsRight, mixingProcessor, drive, speedometer, batteryIndicator, authorizedPersons, busdoorLeft, busdoorRight);
+
+            Busdoor busdoorLeft = new Busdoor(VehicleSide.LEFT, new IDCardReader(centralUnit));
+            Busdoor busdoorRight = new Busdoor(VehicleSide.RIGHT, new IDCardReader(centralUnit));
 
             Pedal pedalAcc = new Pedal(centralUnit) {
                 @Override
