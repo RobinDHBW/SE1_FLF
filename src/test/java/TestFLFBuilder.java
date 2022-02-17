@@ -1,6 +1,7 @@
 
 import Cabin.*;
 import FLF.FLF;
+import IDCard.IDCard;
 import Person.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DynamicTest;
@@ -18,8 +19,8 @@ private FLF proto;
     @BeforeEach
     void buildProto(){
         ArrayList<Person> authorizedPersons = new ArrayList<>();
-        authorizedPersons.add(new Driver("Red Adair"));
-        authorizedPersons.add(new Operator("Sam"));
+        authorizedPersons.add(new Driver("Red Adair", new IDCard("abc")));
+        authorizedPersons.add(new Operator("Sam", new IDCard("abc")));
         this.proto=new FLF.Builder(authorizedPersons).build();
     }
 

@@ -1,6 +1,7 @@
 package Person;
 
 import Drive.Drive;
+import IDCard.IDCard;
 import Tank.MixingProcessor;
 import Tank.TankSubject;
 
@@ -8,8 +9,8 @@ public class EmployeeFirebase extends Person {
 
     MixingProcessor mixingProcessor;
     Drive drive;
-    public EmployeeFirebase(String name) {
-        super(name);
+    public EmployeeFirebase(String name, IDCard card) {
+        super(name, card);
     }
 
     public void equip(MixingProcessor mixer, Drive drive){

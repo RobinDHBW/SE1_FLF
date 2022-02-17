@@ -5,9 +5,9 @@ import Person.Person;
 import java.util.Arrays;
 
 public class SeatFirefighting extends Seat {
-    protected Person personAllowed;
+    protected Class personAllowed;
 
-    public SeatFirefighting(Person personAllowed, Boolean leftSide) {
+    public SeatFirefighting(Class personAllowed, Boolean leftSide) {
         super(0, leftSide);
         this.personAllowed = personAllowed;
     }
@@ -15,7 +15,7 @@ public class SeatFirefighting extends Seat {
     @Override
     public void sitDown(Person person) {
         try {
-            if (!person.getClass().equals(personAllowed.getClass()))
+            if (!person.getClass().equals(personAllowed))
                 throw new Exception("This Seat is reserved for: " + personAllowed);
             super.sitDown(person);
         } catch (Exception e) {
@@ -24,7 +24,7 @@ public class SeatFirefighting extends Seat {
         }
     }
 
-    public Person getPersonAllowed() {
+    public Class getPersonAllowed() {
         return personAllowed;
     }
 }

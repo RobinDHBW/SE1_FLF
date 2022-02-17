@@ -4,6 +4,7 @@ import Button.ButtonRotaryWaterCannonFront;
 import Button.ButtonRotaryWaterCannonRoof;
 import Button.Pedal;
 import CentralUnit.CentralUnit;
+import IDCard.IDCard;
 import Instruments.BatteryIndicator;
 import Instruments.Speedometer;
 import Instruments.SteeringWheel;
@@ -142,7 +143,7 @@ public class Cabin {
                 if (seat.getOccupied()) continue;
 
                 if(enterer instanceof ActivePassenger){
-                    if (seat instanceof SeatFirefighting && enterer.getClass().equals(((SeatFirefighting) seat).getPersonAllowed().getClass())) {
+                    if (seat instanceof SeatFirefighting && enterer.getClass().equals(((SeatFirefighting) seat).getPersonAllowed())) {
                         seat.sitDown(enterer);
                         enterer.setIsInVehicle(true);
                         if (enterer instanceof Driver) {
@@ -227,8 +228,8 @@ public class Cabin {
                 Boolean leftSide = (i == 0);
                 seatList.add(new Seat(1, leftSide));
             }
-            seatList.add(new SeatFirefighting(new Driver("abc"), true));
-            seatList.add(new SeatFirefighting(new Operator("abc"), false));
+            seatList.add(new SeatFirefighting(Driver.class, true));
+            seatList.add(new SeatFirefighting(Operator.class, false));
 
             this.ctrlPanel = controlPanel;
 

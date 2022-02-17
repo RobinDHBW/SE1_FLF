@@ -3,6 +3,7 @@ package Person;
 import Button.ButtonRotaryWaterCannonFront;
 import Button.ButtonRotaryWaterCannonRoof;
 import Cabin.ControlPanel;
+import IDCard.IDCard;
 import Joystick.Joystick;
 
 public class Operator extends ActivePassenger {
@@ -10,8 +11,8 @@ public class Operator extends ActivePassenger {
     private ButtonRotaryWaterCannonRoof rotaryWaterCannonRoof;
     private ButtonRotaryWaterCannonFront rotaryWaterCannonFront;
 
-    public Operator(String name) {
-        super(name);
+    public Operator(String name, IDCard card) {
+        super(name, card);
     }
 
     public void equip(ControlPanel panel, Joystick opJoystick, ButtonRotaryWaterCannonFront rotaryWaterCannonFront, ButtonRotaryWaterCannonRoof rotaryWaterCannonRoof) {

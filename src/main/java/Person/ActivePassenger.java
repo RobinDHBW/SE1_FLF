@@ -1,5 +1,6 @@
 package Person;
 
+import IDCard.IDCard;
 import Joystick.Joystick;
 import Joystick.JoystickType;
 
@@ -7,8 +8,8 @@ public abstract class ActivePassenger extends Person{
 
     Joystick joystick;
 
-    public ActivePassenger(String name){
-        super(name);
+    public ActivePassenger(String name, IDCard card){
+        super(name, card);
     }
 
     public void equip(Joystick stick){

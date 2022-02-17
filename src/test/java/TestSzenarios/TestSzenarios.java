@@ -3,6 +3,7 @@ package TestSzenarios;
 import Button.RoofCannonMode;
 import FLF.FLF;
 import Firefighting.CannonIdentifier;
+import IDCard.IDCard;
 import Person.Driver;
 import Person.EmployeeFirebase;
 import Person.Operator;
@@ -31,17 +32,15 @@ public class TestSzenarios {
 
     @BeforeEach
     void initRoutine() {
-        this.driver = new Driver("Sam");
-        this.operator = new Operator("Red Adair");
+        this.driver = new Driver("Sam", new IDCard("abc"));
+        this.operator = new Operator("Red Adair", new IDCard("abc"));
         ArrayList<Person> authorizedPersons = new ArrayList<>();
         authorizedPersons.add(this.driver);
         authorizedPersons.add(this.operator);
         this.flf = new FLF.Builder(authorizedPersons).build();
         if (!this.flf.getCabin().getBusDoorRight().getOpen()) this.flf.toggleRightDoor(true);
         if (!this.flf.getCabin().getBusDoorLeft().getOpen()) this.flf.toggleLeftDoor(true);
-        this.driver = new Driver("Sam");
-        this.operator = new Operator("Red Adair");
-        EmployeeFirebase employee = new EmployeeFirebase("Karl-Heinz");
+        EmployeeFirebase employee = new EmployeeFirebase("Karl-Heinz", new IDCard("abc"));
 
         this.flf.toggleMaintenance(employee);
         employee.loadBatteries();
