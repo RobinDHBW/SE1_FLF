@@ -5,7 +5,6 @@ import FLF.FLF;
 import Firefighting.CannonIdentifier;
 import Person.Driver;
 import Person.EmployeeFirebase;
-import Person.Infantry;
 import Person.Operator;
 import Seating.Seat;
 import Tank.MixingRate;

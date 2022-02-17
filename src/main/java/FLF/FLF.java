@@ -357,8 +357,8 @@ public class FLF {
             ButtonPress btnPress;
             CannonIdentifier ident = isDriver ? CannonIdentifier.CANNON_FRONT : CannonIdentifier.CANNON_ROOF;
 
-            switch(joystickType) {
-                case CLASSIC:
+            switch (joystickType) {
+                case CLASSIC -> {
                     btnPressLeft = new ButtonPress(this.mixingProcessor) {
                         @Override
                         public void operateDevice() {
@@ -382,12 +382,12 @@ public class FLF {
                         }
                     };
                     joystick = new Joystick(JoystickType.CLASSIC, btnPush, btnPressLeft, btnPressRight);
-                    break;
-                case INTELLIGENT:
+                }
+                case INTELLIGENT -> {
                     btnPress = new ButtonPress(this.mixingProcessor) {
                         @Override
                         public void operateDevice() {
-                            if(isHeld5seconds()) {
+                            if (isHeld5seconds()) {
                                 ((MixingProcessor) this.operatingDevice).toggle(ident);
                             } else if (hold5sec()) {
                                 ((MixingProcessor) this.operatingDevice).toggle(ident);
@@ -406,7 +406,7 @@ public class FLF {
                         }
                     };
                     joystick = new Joystick(JoystickType.INTELLIGENT, btnPush, btnPress);
-                    break;
+                }
             }
             return joystick;
         }
