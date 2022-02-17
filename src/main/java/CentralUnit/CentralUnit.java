@@ -1,13 +1,16 @@
-package Cabin;
+package CentralUnit;
 
+import Configuration.Configuration;
 import Drive.Drive;
 
 import Firefighting.CannonIdentifier;
 import Instruments.BatteryIndicator;
 import Instruments.Speedometer;
 import Lights.*;
+import Person.Person;
 import Tank.MixingProcessor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -23,6 +26,9 @@ public class CentralUnit {
     private final Drive drive;
     private final Speedometer speedometer;
     private final BatteryIndicator batteryIndicator;
+    private final CryptoUnit cryptoUnit = new CryptoUnit();
+    private final String cryptoCode = Configuration.instance.cuCode;
+    private final ArrayList<Person> authorizedPersons;
 
     public CentralUnit(
             List<WarningLight> warningLights,
@@ -35,7 +41,8 @@ public class CentralUnit {
             MixingProcessor mixingProcessor,
             Drive drive,
             Speedometer speedometer,
-            BatteryIndicator batteryIndicator
+            BatteryIndicator batteryIndicator,
+            ArrayList<Person> authorizedPersons
     ) {
         this.warningLights = warningLights;
         this.flashingBlueLights = flashingBlueLights;
@@ -48,6 +55,7 @@ public class CentralUnit {
         this.drive = drive;
         this.speedometer = speedometer;
         this.batteryIndicator = batteryIndicator;
+        this.authorizedPersons = authorizedPersons;
     }
 
 

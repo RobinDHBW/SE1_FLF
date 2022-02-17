@@ -1,10 +1,12 @@
 
 import Cabin.*;
 import FLF.FLF;
+import Person.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
@@ -15,7 +17,10 @@ private FLF proto;
 
     @BeforeEach
     void buildProto(){
-        this.proto=new FLF.Builder().build();
+        ArrayList<Person> authorizedPersons = new ArrayList<>();
+        authorizedPersons.add(new Driver("Red Adair"));
+        authorizedPersons.add(new Operator("Sam"));
+        this.proto=new FLF.Builder(authorizedPersons).build();
     }
 
     @TestFactory

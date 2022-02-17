@@ -2,7 +2,7 @@ package FLF;
 
 import Button.*;
 import Cabin.Cabin;
-import Cabin.CentralUnit;
+import CentralUnit.CentralUnit;
 import Cabin.ControlPanel;
 import Drive.Drive;
 import Firefighting.CannonIdentifier;
@@ -20,6 +20,7 @@ import Person.Person;
 import Tank.MixingProcessor;
 import Tank.Tank;
 import Tank.TankSubject;
+import Configuration.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,6 +50,7 @@ public class FLF {
     private final ArrayList<WaterDieSelfprotection> waterDieSelfprotection;
     private final Tank foamTank;
     private final Tank waterTank;
+    private final String identifier;
 
     private Boolean maintenanceState = false;
 
@@ -75,6 +77,7 @@ public class FLF {
         this.waterDieSelfprotection = builder.waterDieSelfprotection;
         this.foamTank = builder.foamTank;
         this.waterTank = builder.waterTank;
+        this.identifier = builder.identifier;
     }
 
     /**********
@@ -190,7 +193,7 @@ public class FLF {
      *
      */
     public static class Builder {
-
+        private final String identifier = Configuration.instance.flfIdentifier;
         private final List<WarningLight> warningLights = new ArrayList<>();
         private final List<DirectionIndicator> directionIndicatorsLeft = new ArrayList<>();
         private final List<DirectionIndicator> directionIndicatorsRight = new ArrayList<>();
@@ -212,14 +215,14 @@ public class FLF {
         private Tank foamTank;
         private Tank waterTank;
 
-        public Builder() {
+        public Builder(ArrayList<Person> authorizedPersons) {
 
             buildLights();
             buildFirefighting();
 
             Speedometer speedometer = new Speedometer();
             BatteryIndicator batteryIndicator = new BatteryIndicator();
-            CentralUnit centralUnit = new CentralUnit(warningLights, flashingBlueLights, searchLightsFront, searchLightsRoof, searchLightsSide, directionIndicatorsLeft, directionIndicatorsRight, mixingProcessor, drive, speedometer, batteryIndicator);
+            CentralUnit centralUnit = new CentralUnit(warningLights, flashingBlueLights, searchLightsFront, searchLightsRoof, searchLightsSide, directionIndicatorsLeft, directionIndicatorsRight, mixingProcessor, drive, speedometer, batteryIndicator, authorizedPersons);
 
             Pedal pedalAcc = new Pedal(centralUnit) {
                 @Override

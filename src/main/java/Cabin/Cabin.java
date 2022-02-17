@@ -3,6 +3,7 @@ package Cabin;
 import Button.ButtonRotaryWaterCannonFront;
 import Button.ButtonRotaryWaterCannonRoof;
 import Button.Pedal;
+import CentralUnit.CentralUnit;
 import Instruments.BatteryIndicator;
 import Instruments.Speedometer;
 import Instruments.SteeringWheel;
