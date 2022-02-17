@@ -1,7 +1,7 @@
 package Firefighting;
 
 public class WaterCannonFront extends WaterCannon {
-    Integer rotationStepSize, position = 0;
+    private Integer rotationStepSize, position = 0;
 
     public WaterCannonFront(Integer rotationStepSize) {
         this.rotationStepSize = rotationStepSize;

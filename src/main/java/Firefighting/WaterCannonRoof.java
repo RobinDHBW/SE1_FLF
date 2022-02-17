@@ -15,8 +15,4 @@ public class WaterCannonRoof extends WaterCannon {
         super.toggle();
         this.segmentMovable.move(this.state);
     }
-
-    public void move(Boolean moveUp) {
-        this.segmentMovable.move(moveUp);
-    }
 }
