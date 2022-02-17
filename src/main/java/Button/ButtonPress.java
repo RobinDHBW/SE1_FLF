@@ -12,7 +12,8 @@ public class ButtonPress extends ButtonTap{
         this.isActivated = false;
     }
 
-    public void hold5sec() {
+    public boolean hold5sec() {
         this.isActivated = !isHeld5seconds();
+        return this.isActivated;
     }
 }

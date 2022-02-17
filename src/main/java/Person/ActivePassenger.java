@@ -1,6 +1,7 @@
 package Person;
 
 import Joystick.Joystick;
+import Joystick.JoystickType;
 
 public abstract class ActivePassenger extends Person{
 
@@ -20,11 +21,21 @@ public abstract class ActivePassenger extends Person{
 
 
     public void toggleCannon(){
-        this.joystick.pressBtnLeft();
+        if(this.joystick.getJoystickType() == JoystickType.CLASSIC) {
+            this.joystick.pressBtnLeft();
+        } else {
+            this.joystick.pressBtn();
+        }
+
     }
 
     public void switchMix(){
-        this.joystick.pressBtnRight();
+        if(this.joystick.getJoystickType() == JoystickType.CLASSIC) {
+            this.joystick.pressBtnRight();
+        } else {
+            this.joystick.pressBtn();
+        }
+
     }
 
     public void spray(){

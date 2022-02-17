@@ -13,6 +13,7 @@ import Instruments.BatteryIndicator;
 import Instruments.Speedometer;
 import Instruments.SteeringWheel;
 import Joystick.Joystick;
+import Joystick.JoystickType;
 import Lights.*;
 import Person.EmployeeFirebase;
 import Person.Person;
@@ -200,6 +201,8 @@ public class FLF {
         private final List<FlashingBlueLight> flashingBlueLights = new ArrayList<>();
         private final Cabin cabin;
 
+        private final JoystickType joystickType = JoystickType.INTELLIGENT;
+
         private final Drive drive = new Drive();
 
         private MixingProcessor mixingProcessor;
@@ -244,8 +247,8 @@ public class FLF {
                 }
             };
 
-            Joystick joystickDriver = buildJoystick(true);
-            Joystick joystickOperator = buildJoystick(false);
+            Joystick joystickDriver = buildJoystick(true, joystickType);
+            Joystick joystickOperator = buildJoystick(false, joystickType);
 
             SteeringWheel steeringWheel = new SteeringWheel(centralUnit) {
                 @Override
@@ -346,36 +349,66 @@ public class FLF {
             this.mixingProcessor = new MixingProcessor(this.waterCannonRoof, this.waterCannonFront, this.waterDieSelfprotection, this.foamTank, this.waterTank);
         }
 
-        private Joystick buildJoystick(Boolean isDriver) {
+        private Joystick buildJoystick(Boolean isDriver, JoystickType joystickType) {
+            Joystick joystick = null;
             ButtonPress btnPressLeft;
             ButtonPress btnPressRight;
             ButtonPush btnPush;
+            ButtonPress btnPress;
             CannonIdentifier ident = isDriver ? CannonIdentifier.CANNON_FRONT : CannonIdentifier.CANNON_ROOF;
 
-            btnPressLeft = new ButtonPress(this.mixingProcessor) {
-                @Override
-                public void operateDevice() {
-                    ((MixingProcessor) this.operatingDevice).toggle(ident);
-                }
-            };
-            btnPressRight = new ButtonPress(this.mixingProcessor) {
-                @Override
-                public void operateDevice() {
-                    if (((MixingProcessor) this.operatingDevice).getCannonState(ident)) {
-                        ((MixingProcessor) this.operatingDevice).changeMixingRate();
-                    }
-                }
-            };
-            btnPush = new ButtonPush(this.mixingProcessor) {
-                @Override
-                public void operateDevice() {
-                    if (((MixingProcessor) this.operatingDevice).getCannonState(ident)) {
-                        ((MixingProcessor) this.operatingDevice).spray(ident);
-                    }
-                }
-            };
-
-            return new Joystick(btnPush, btnPressLeft, btnPressRight);
+            switch(joystickType) {
+                case CLASSIC:
+                    btnPressLeft = new ButtonPress(this.mixingProcessor) {
+                        @Override
+                        public void operateDevice() {
+                            ((MixingProcessor) this.operatingDevice).toggle(ident);
+                        }
+                    };
+                    btnPressRight = new ButtonPress(this.mixingProcessor) {
+                        @Override
+                        public void operateDevice() {
+                            if (((MixingProcessor) this.operatingDevice).getCannonState(ident)) {
+                                ((MixingProcessor) this.operatingDevice).changeMixingRate();
+                            }
+                        }
+                    };
+                    btnPush = new ButtonPush(this.mixingProcessor) {
+                        @Override
+                        public void operateDevice() {
+                            if (((MixingProcessor) this.operatingDevice).getCannonState(ident)) {
+                                ((MixingProcessor) this.operatingDevice).spray(ident);
+                            }
+                        }
+                    };
+                    joystick = new Joystick(JoystickType.CLASSIC, btnPush, btnPressLeft, btnPressRight);
+                    break;
+                case INTELLIGENT:
+                    btnPress = new ButtonPress(this.mixingProcessor) {
+                        @Override
+                        public void operateDevice() {
+                            if(isHeld5seconds()) {
+                                ((MixingProcessor) this.operatingDevice).toggle(ident);
+                            } else if (hold5sec()) {
+                                ((MixingProcessor) this.operatingDevice).toggle(ident);
+                            }
+                            if (((MixingProcessor) this.operatingDevice).getCannonState(ident)) {
+                                ((MixingProcessor) this.operatingDevice).changeMixingRate();
+                            }
+                        }
+                    };
+                    btnPush = new ButtonPush(this.mixingProcessor) {
+                        @Override
+                        public void operateDevice() {
+                            if (((MixingProcessor) this.operatingDevice).getCannonState(ident)) {
+                                ((MixingProcessor) this.operatingDevice).spray(ident);
+                            }
+                        }
+                    };
+                    joystick = new Joystick(JoystickType.INTELLIGENT, btnPush, btnPress);
+                    break;
+            }
+            return joystick;
         }
 
         private ControlPanel buildControlPanel(CentralUnit cu) {
