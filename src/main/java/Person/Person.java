@@ -8,10 +8,5 @@ public abstract class Person {
         this.name = name;
     }
 
-    public Boolean getIsInVehicle(){return isInVehicle;}
     public void setIsInVehicle(Boolean isIn){this.isInVehicle = isIn;}
-
-    public String getName() {
-        return name;
-    }
 }

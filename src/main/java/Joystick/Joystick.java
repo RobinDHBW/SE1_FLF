@@ -4,8 +4,8 @@ import Button.ButtonPress;
 import Button.ButtonPush;
 
 public class Joystick {
-    private JoystickType joystickType;
-    private ButtonPush btnPush = null; // Taster
+    private final JoystickType joystickType;
+    private final ButtonPush btnPush; // Taster
     private ButtonPress btnPressLeft = null; // Druckknopf
     private ButtonPress btnPressRight = null;
     private ButtonPress btnPress = null;

@@ -9,7 +9,6 @@ import Lights.*;
 import Tank.MixingProcessor;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class CentralUnit {
@@ -97,7 +96,7 @@ public class CentralUnit {
         Integer angle = this.drive.getSteeringAngle();
 
         //First switch off all Indicators
-        for (DirectionIndicator di : Stream.concat(indicatorsLeft.stream(), indicatorsRight.stream()).collect(Collectors.toList())) {
+        for (DirectionIndicator di : Stream.concat(indicatorsLeft.stream(), indicatorsRight.stream()).toList()) {
             if (di.getState()) di.toggle();
         }
 

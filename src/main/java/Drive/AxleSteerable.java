@@ -8,8 +8,8 @@ public class AxleSteerable extends Axle implements IAxleSteerable {
     }
 
     @Override
-    public Integer steer(Integer degree) {
-        return this.steeringAngle = degree;
+    public void steer(Integer degree) {
+        this.steeringAngle = degree;
     }
 
     public Integer getSteeringAngle() {

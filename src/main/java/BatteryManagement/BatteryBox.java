@@ -1,17 +1,14 @@
 package BatteryManagement;
 
+import Store.StoreMedium;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class BatteryBox {
     private final ArrayList<Battery> batteryStore = new ArrayList<>();
-    private final Integer width, height;
 
     public BatteryBox(Integer width, Integer height) {
-        this.width = width;
-        this.height = height;
 
         for (int i = 0; i < width * height; i++) {
             batteryStore.add(new Battery(new Coulomb(), 100, 10, 100));
@@ -32,7 +29,7 @@ public class BatteryBox {
             Integer toRemove = quantity;
             if (quantity > fillState) toRemove = fillState;
 
-            output.addAll(b.remove(toRemove).stream().map(x -> (Coulomb) x).collect(Collectors.toList()));
+            output.addAll(b.remove(toRemove).stream().map(x -> (Coulomb) x).toList());
             quantity -= toRemove;
         }
         return output;
@@ -40,20 +37,20 @@ public class BatteryBox {
 
     public Double getRelativeFillState() {
         return batteryStore.stream()
-                .mapToDouble(x -> x.getRelativeFillState())
+                .mapToDouble(StoreMedium::getRelativeFillState)
                 .average()
                 .orElse(0);
     }
 
     public Integer getAbsoluteFillState() {
         return batteryStore.stream()
-                .mapToInt(x -> x.getAbsoluteFillState())
+                .mapToInt(StoreMedium::getAbsoluteFillState)
                 .sum();
     }
 
     public Integer getCapacity() {
         return batteryStore.stream()
-                .mapToInt(x -> x.getCapacity())
+                .mapToInt(StoreMedium::getCapacity)
                 .sum();
     }
 }

@@ -4,7 +4,6 @@ import BatteryManagement.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Drive {
@@ -30,7 +29,7 @@ public class Drive {
     public Integer brake() {
         if(this.speed == 0) return this.speed;
         Double calc = Double.valueOf(this.speed);
-        for (Axle a : Stream.concat(steerables.stream(), axles.stream()).collect(Collectors.toList())) {
+        for (Axle a : Stream.concat(steerables.stream(), axles.stream()).toList()) {
             calc += a.brake();
         }
         this.speed = calc.intValue();

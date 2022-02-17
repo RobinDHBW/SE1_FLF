@@ -3,7 +3,6 @@ package Cabin;
 import Button.ButtonPush;
 
 public class Busdoor {
-    private final VehicleSide side;
     private Boolean isOpen = false;
     private final ButtonPush btnPushOutside = new ButtonPush(this) {
         @Override
@@ -23,7 +22,6 @@ public class Busdoor {
     }
 
     public Busdoor(VehicleSide side) {
-        this.side = side;
     }
 
     public Boolean getOpen() {

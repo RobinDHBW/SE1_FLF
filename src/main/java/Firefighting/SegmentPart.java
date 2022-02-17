@@ -6,8 +6,4 @@ public class SegmentPart {
     public SegmentPart(Integer size){
         this.size = size;
     }
-
-    public Integer getSize() {
-        return size;
-    }
 }

@@ -1,7 +1,6 @@
 package Store;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public abstract class StoreMedium implements IStoreMedium {
     protected Object[][][] store;
@@ -25,12 +24,9 @@ public abstract class StoreMedium implements IStoreMedium {
     protected Integer countSlots(){
         return (Arrays.stream(this.store)
                 .flatMap(Arrays::stream)
-                .flatMap(Arrays::stream)
-                .collect(Collectors.toList())
+                .flatMap(Arrays::stream).toList()
                 .stream()
-                .filter(Objects::nonNull)
-                //.filter(x->x.getClass().equals(subject.getClass()))
-                .collect(Collectors.toList())).size();
+                .filter(Objects::nonNull).toList()).size();
     }
 
     protected void fillLoop(Object input, Integer quantity) {
@@ -61,8 +57,7 @@ public abstract class StoreMedium implements IStoreMedium {
 
         List<Object> output = new ArrayList<>();
 
-        for (int i = x; i < this.store.length; i++) {            ;
-            x=0;
+        for (int i = x; i < this.store.length; i++) {
             for (int j = y; j < this.store[0].length; j++) {
                 y = 0;
                 for (int k = z; k < this.store[0][0].length; k++) {
@@ -88,8 +83,8 @@ public abstract class StoreMedium implements IStoreMedium {
     }
 
     /**
-     * @param input
-     * @param quantity
+     * @param input - input of the tank
+     * @param quantity - amount to fill
      */
     public void fill(Object input, Integer quantity) {
         if (!isFull) {
@@ -98,8 +93,8 @@ public abstract class StoreMedium implements IStoreMedium {
     }
 
     /**
-     * @param quantity
-     * @return
+     * @param quantity - amount
+     * @return - list
      */
     public List<Object> remove(Integer quantity) {
         if (isEmpty || quantity > getAbsoluteFillState())
@@ -119,10 +114,6 @@ public abstract class StoreMedium implements IStoreMedium {
 
     public Integer getAbsoluteFillState(){
         return countSlots();
-    }
-
-    public Object getSubject() {
-        return subject;
     }
 
     public Integer getCapacity() {

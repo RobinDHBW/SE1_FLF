@@ -4,19 +4,17 @@ import BatteryManagement.BatteryBox;
 import BatteryManagement.BatteryManagement;
 import BatteryManagement.Coulomb;
 import Drive.Drive;
-import FLF.FLF;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestBatteryManagementBox {
 
     @Test
     public void testFill() {
-        Integer width = 2, height = 2, quantity = 1000;
+        int width = 2, height = 2, quantity = 1000;
         BatteryBox batteryBox = new BatteryBox(width, height);
         batteryBox.fill(quantity);
 
@@ -48,7 +46,7 @@ public class TestBatteryManagementBox {
         batteryBox.fill(quantity);
         List<Coulomb> output  = batteryBox.remove(remove);
 
-        assertTrue(output.get(0).getClass().equals(new Coulomb().getClass()));
+        assertEquals(output.get(0).getClass(), Coulomb.class);
         assertEquals(1 / ((100 * 10 * 100) / ((quantity.doubleValue() - remove) / (width * height))), batteryBox.getRelativeFillState());
     }
 }

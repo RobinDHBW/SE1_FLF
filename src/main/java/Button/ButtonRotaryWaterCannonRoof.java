@@ -1,6 +1,5 @@
 package Button;
 
-import Firefighting.WaterCannonRoof;
 import Tank.MixingProcessor;
 
 public class ButtonRotaryWaterCannonRoof extends ButtonRotary {

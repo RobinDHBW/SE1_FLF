@@ -4,7 +4,7 @@ import Person.Person;
 
 public class Seat {
     private final Respirator respirator = new Respirator();
-    protected Integer seatRow = 0;
+    protected Integer seatRow;
     protected boolean leftSide;
     protected boolean occupied = false;
     protected Person seatWarmer;
@@ -27,9 +27,6 @@ public class Seat {
         return p;
     }
 
-    public Respirator getRespirator() {
-        return this.respirator;
-    }
     public Integer getSeatRow() {
         return this.seatRow;
     }

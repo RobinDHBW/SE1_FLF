@@ -1,12 +1,9 @@
 package Tank;
 
-import BatteryManagement.Coulomb;
 import Firefighting.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -42,9 +39,8 @@ public class MixingProcessor {
         Integer foamPortion = calcFoamPortion(quantity);
 
         return Stream.concat(
-                foamTank.remove(foamPortion).stream().map(e -> (TankSubject) e).collect(Collectors.toList()).stream(),
-                waterTank.remove(quantity - foamPortion).stream().map(e -> (TankSubject) e)
-                        .collect(Collectors.toList()).stream()).collect(Collectors.toList());
+                foamTank.remove(foamPortion).stream().map(e -> (TankSubject) e).toList().stream(),
+                waterTank.remove(quantity - foamPortion).stream().map(e -> (TankSubject) e).toList().stream()).collect(Collectors.toList());
 
     }
 
@@ -58,7 +54,7 @@ public class MixingProcessor {
 
     }
 
-    public void fill(Enum input, Integer quantity) {
+    public void fill(Enum<?> input, Integer quantity) {
 
         if (input.equals(FOAM)) {
             foamTank.fill(input, quantity);
@@ -67,8 +63,8 @@ public class MixingProcessor {
         }
     }
 
-    public void fillComplete(Enum input) {
-        Integer toFill = 0;
+    public void fillComplete(Enum<?> input) {
+        int toFill;
         Integer actualFillState = input.equals(FOAM) ? foamTank.getAbsoluteFillState() :  waterTank.getAbsoluteFillState();
 
         if (input.equals(FOAM)) {
@@ -100,7 +96,7 @@ public class MixingProcessor {
     }
 
     /**
-     * @param identifier
+     * @param identifier - id of the Person
      */
     public void spray(CannonIdentifier identifier) {
         switch (identifier) {
@@ -140,13 +136,6 @@ public class MixingProcessor {
         return switch (ts){
             case FOAM -> this.foamTank.getAbsoluteFillState();
             case WATER -> this.waterTank.getAbsoluteFillState();
-        };
-    }
-
-    public Integer getCapacity(TankSubject ts){
-        return switch (ts){
-            case FOAM -> this.foamTank.getCapacity();
-            case WATER -> this.waterTank.getCapacity();
         };
     }
 

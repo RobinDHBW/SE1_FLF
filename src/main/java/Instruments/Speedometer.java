@@ -10,7 +10,4 @@ public class Speedometer {
         this.speed = speed;
     }
 
-    public Integer getSpeed() {
-        return speed;
-    }
 }

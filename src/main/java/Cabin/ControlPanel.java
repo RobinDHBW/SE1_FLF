@@ -2,8 +2,6 @@ package Cabin;
 
 import Button.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class ControlPanel {
     private final ButtonSwitch btnSwitchEngines;

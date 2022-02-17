@@ -4,11 +4,9 @@ import BatteryManagement.Battery;
 import BatteryManagement.Coulomb;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StoreTestingBattery {
     @Test
@@ -29,6 +27,6 @@ public class StoreTestingBattery {
         battery.fill(new Coulomb(), quantity);
         List<Object> output = battery.remove(remove);
         assertEquals(battery.getRelativeFillState(), 1 / ((length * height * width) / (quantity.doubleValue() - remove)));
-        assertTrue(output.get(0).getClass().equals(new Coulomb().getClass()));
+        assertEquals(output.get(0).getClass(), Coulomb.class);
     }
 }

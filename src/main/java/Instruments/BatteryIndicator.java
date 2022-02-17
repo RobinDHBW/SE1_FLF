@@ -6,10 +6,6 @@ public class BatteryIndicator {
 
     }
 
-    public Double getIndicator() {
-        return indicator;
-    }
-
     public void setIndicator(Double indicator) {
         this.indicator = indicator;
     }

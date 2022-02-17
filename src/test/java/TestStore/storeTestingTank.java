@@ -5,13 +5,12 @@ import Tank.Tank;
 import Tank.TankSubject;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class StoreTestingTank {
+public class storeTestingTank {
     @Test
     public void testFill() {
         Integer length = 10, height = 10, width = 10, quantity = 25;

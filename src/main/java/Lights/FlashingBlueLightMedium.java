@@ -1,6 +1,5 @@
 package Lights;
 
-import java.util.ArrayList;
 
 public class FlashingBlueLightMedium extends FlashingBlueLight {
 

@@ -5,11 +5,11 @@ import java.util.List;
 
 public class Axle {
 
-    private final List<Tire> tires = new ArrayList<>();
     private final List<DiscBrake> brakes = new ArrayList<>();
 
     public Axle() {
         for (int i = 0; i < 2; i++) {
+            List<Tire> tires = new ArrayList<>();
             tires.add(new Tire());
         }
         for (int i = 0; i < 6; i++) {

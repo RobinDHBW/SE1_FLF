@@ -1,7 +1,6 @@
 package Person;
 
 import Button.Pedal;
-import Cabin.ControlPanel;
 import Instruments.SteeringWheel;
 import Joystick.Joystick;
 
