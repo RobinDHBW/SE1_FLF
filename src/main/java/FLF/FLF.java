@@ -1,21 +1,19 @@
 package FLF;
 
 import Button.*;
-import Cabin.*;
+import Cabin.Cabin;
+import Cabin.CentralUnit;
+import Cabin.ControlPanel;
 import Drive.Drive;
 import Firefighting.CannonIdentifier;
-import Firefighting.WaterCannonFront;
-import Firefighting.WaterCannonRoof;
-import Firefighting.WaterDieSelfprotection;
 import Instruments.BatteryIndicator;
 import Instruments.Speedometer;
 import Instruments.SteeringWheel;
 import Joystick.Joystick;
 import Lights.*;
-import Person.*;
-import Seating.Seat;
+import Person.EmployeeFirebase;
+import Person.Person;
 import Tank.MixingProcessor;
-import Tank.TankSubject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,6 +41,25 @@ public class FLF {
 
     private Boolean maintenanceState = false;
 
+    private FLF(Builder builder) {
+
+        //FLF built = builder.build();
+        this.brakingLights = builder.brakingLights;
+        this.searchLightsFront = builder.searchLightsFront;
+        this.searchLightsRoof = builder.searchLightsRoof;
+        this.searchLightsSide = builder.searchLightsSide;
+        this.directionIndicatorsLeft = builder.directionIndicatorsLeft;
+        this.directionIndicatorsRight = builder.directionIndicatorsRight;
+
+        this.flashingBlueLights = builder.flashingBlueLights;
+        this.warningLights = builder.warningLights;
+
+        this.cabin = builder.cabin;
+
+        this.drive = builder.drive;
+
+        this.mixingProcessor = builder.mixingProcessor;
+    }
 
     /**********
      * Getter
@@ -92,71 +109,65 @@ public class FLF {
         return mixingProcessor;
     }
 
-    private FLF(Builder builder) {
-
-        //FLF built = builder.build();
-        this.brakingLights = builder.brakingLights;
-        this.searchLightsFront = builder.searchLightsFront;
-        this.searchLightsRoof = builder.searchLightsRoof;
-        this.searchLightsSide = builder.searchLightsSide;
-        this.directionIndicatorsLeft = builder.directionIndicatorsLeft;
-        this.directionIndicatorsRight = builder.directionIndicatorsRight;
-
-        this.flashingBlueLights = builder.flashingBlueLights;
-        this.warningLights = builder.warningLights;
-
-        this.cabin = builder.cabin;
-
-        this.drive = builder.drive;
-
-        this.mixingProcessor = builder.mixingProcessor;
-    }
-
-    public void toggleLeftDoor(Boolean fromOutside){this.cabin.toggleLeftDoor(fromOutside);}
-    public void toggleRightDoor(Boolean fromOutside){this.cabin.toggleRightDoor(fromOutside);}
-
-    public void enterFLF(Person enterer, Boolean isLeft) {
-        this.cabin.enterCabin(enterer, isLeft);}
-
-    public Person leaveFLF(Integer row, Boolean isLeft){
-        return this.cabin.leaveCabin(row, isLeft);
-    }
-
-    public Boolean getSearchLightFrontState(){
+    public Boolean getSearchLightFrontState() {
         return this.searchLightsFront.get(0).getState();
     }
 
-    public Boolean getSearchLightRoofState(){
+    public Boolean getSearchLightRoofState() {
         return this.searchLightsRoof.get(0).getState();
     }
 
-    public Boolean getSearchLightSideState(){
+    public Boolean getSearchLightSideState() {
         return this.searchLightsSide.get(0).getState();
     }
 
-    public Boolean getBlueLightState(){
+    public Boolean getBlueLightState() {
         return this.flashingBlueLights.get(0).getState();
     }
 
-    public Boolean getWarnLightsState(){
+    public Boolean getWarnLightsState() {
         return this.warningLights.get(0).getState();
     }
 
-    public void toggleMaintenance(EmployeeFirebase eFB){
-        if(this.maintenanceState){
+
+    public void toggleLeftDoor(Boolean fromOutside) {
+        this.cabin.toggleLeftDoor(fromOutside);
+    }
+
+    public void toggleRightDoor(Boolean fromOutside) {
+        this.cabin.toggleRightDoor(fromOutside);
+    }
+
+    public void enterFLF(Person enterer, Boolean isLeft) {
+        this.cabin.enterCabin(enterer, isLeft);
+    }
+
+    public Person leaveFLF(Integer row, Boolean isLeft) {
+        return this.cabin.leaveCabin(row, isLeft);
+    }
+
+    public void toggleMaintenance(EmployeeFirebase eFB) {
+        if (this.maintenanceState) {
             eFB.uneqip();
-        }else{
+        } else {
             eFB.equip(this.mixingProcessor, this.drive);
         }
         this.maintenanceState = !this.maintenanceState;
     }
 
-    public Integer drive(){
-        return this.drive.drive();
+    public Integer drive() {
+        try {
+            if (this.maintenanceState) throw new Exception("Cannot drive, while in maintenance mode");
+            return this.drive.drive();
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+            System.err.println(Arrays.toString(ex.getStackTrace()));
+            return null;
+        }
     }
 
     //public void spray(CannonIdentifier ident){
-      //  this.mixingProcessor.spray(ident);
+    //  this.mixingProcessor.spray(ident);
     //}
 
     /**
@@ -295,8 +306,8 @@ public class FLF {
             }
 
             // add WarningLights
-            for(int i = 0; i < 2; i++){
-                this.warningLights.add(new WarningLight(i<1?LightPosition.ROOF_FRONT_LEFT:LightPosition.ROOF_BACK_RIGHT));
+            for (int i = 0; i < 2; i++) {
+                this.warningLights.add(new WarningLight(i < 1 ? LightPosition.ROOF_FRONT_LEFT : LightPosition.ROOF_BACK_RIGHT));
             }
         }
 
