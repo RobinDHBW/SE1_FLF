@@ -1,9 +1,12 @@
 package FLF;
 
 import Button.*;
+import Cabin.Busdoor;
 import Cabin.Cabin;
-import CentralUnit.CentralUnit;
 import Cabin.ControlPanel;
+import Cabin.VehicleSide;
+import CentralUnit.CentralUnit;
+import Configuration.Configuration;
 import Drive.Drive;
 import Firefighting.CannonIdentifier;
 import Firefighting.WaterCannonFront;
@@ -20,7 +23,6 @@ import Person.Person;
 import Tank.MixingProcessor;
 import Tank.Tank;
 import Tank.TankSubject;
-import Configuration.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -222,7 +224,10 @@ public class FLF {
 
             Speedometer speedometer = new Speedometer();
             BatteryIndicator batteryIndicator = new BatteryIndicator();
-            CentralUnit centralUnit = new CentralUnit(warningLights, flashingBlueLights, searchLightsFront, searchLightsRoof, searchLightsSide, directionIndicatorsLeft, directionIndicatorsRight, mixingProcessor, drive, speedometer, batteryIndicator, authorizedPersons);
+            Busdoor busdoorLeft = new Busdoor(VehicleSide.LEFT);
+            Busdoor busdoorRight = new Busdoor(VehicleSide.RIGHT);
+
+            CentralUnit centralUnit = new CentralUnit(warningLights, flashingBlueLights, searchLightsFront, searchLightsRoof, searchLightsSide, directionIndicatorsLeft, directionIndicatorsRight, mixingProcessor, drive, speedometer, batteryIndicator, authorizedPersons, busdoorLeft, busdoorRight);
 
             Pedal pedalAcc = new Pedal(centralUnit) {
                 @Override
@@ -271,7 +276,9 @@ public class FLF {
                     steeringWheel,
                     speedometer,
                     centralUnit,
-                    batteryIndicator
+                    batteryIndicator,
+                    busdoorLeft,
+                    busdoorRight
             ).build();
 
 
@@ -339,11 +346,11 @@ public class FLF {
             }
         }
 
-        private void buildFirefighting(){
+        private void buildFirefighting() {
             this.waterCannonFront = new WaterCannonFront(90);
             this.waterCannonRoof = new WaterCannonRoof();
             this.foamTank = new Tank(TankSubject.FOAM, 75, 45, 10);
-            this.waterTank =new Tank(TankSubject.WATER, 75, 45, 30);
+            this.waterTank = new Tank(TankSubject.WATER, 75, 45, 30);
 
             //add Waterdies
             for (int i = 0; i < 7; i++) {

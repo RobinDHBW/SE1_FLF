@@ -1,5 +1,6 @@
 package CentralUnit;
 
+import Cabin.Busdoor;
 import Configuration.Configuration;
 import Drive.Drive;
 import Firefighting.CannonIdentifier;
@@ -10,6 +11,7 @@ import Person.Person;
 import Tank.MixingProcessor;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -28,6 +30,8 @@ public class CentralUnit {
     private final CryptoUnit cryptoUnit = new CryptoUnit();
     private final String cryptoCode = Configuration.instance.cuCode;
     private final ArrayList<Person> authorizedPersons;
+    private final  Busdoor busdoorLeft;
+    private final Busdoor busdoorRight;
 
     public CentralUnit(
             List<WarningLight> warningLights,
@@ -41,7 +45,9 @@ public class CentralUnit {
             Drive drive,
             Speedometer speedometer,
             BatteryIndicator batteryIndicator,
-            ArrayList<Person> authorizedPersons
+            ArrayList<Person> authorizedPersons,
+            Busdoor busdoorLeft,
+            Busdoor busdoorRight
     ) {
         this.warningLights = warningLights;
         this.flashingBlueLights = flashingBlueLights;
@@ -55,6 +61,8 @@ public class CentralUnit {
         this.speedometer = speedometer;
         this.batteryIndicator = batteryIndicator;
         this.authorizedPersons = authorizedPersons;
+        this.busdoorLeft = busdoorLeft;
+        this.busdoorRight = busdoorRight;
     }
 
     private Boolean validateAuth(String input) {
@@ -144,6 +152,16 @@ public class CentralUnit {
     }
 
     public void toggleDoorLock(String cipher) {
-        String plain = this.cryptoUnit.decrypt(cipher);
+        try {
+            if (validateAuth(this.cryptoUnit.decrypt(cipher))) {
+                if(busdoorLeft.getOpen()) busdoorLeft.toggleDoor(false);
+                if(busdoorRight.getOpen()) busdoorRight.toggleDoor(false);
+                busdoorLeft.toggleDoorLock();
+                busdoorRight.toggleDoorLock();
+            }
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+            System.err.println(Arrays.toString(ex.getStackTrace()));
+        }
     }
 }

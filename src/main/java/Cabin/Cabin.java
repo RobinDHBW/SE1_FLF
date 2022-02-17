@@ -202,8 +202,8 @@ public class Cabin {
         private final Joystick joystickDriver;
         private final Joystick joystickOperator;
 
-        private final Busdoor busdoorLeft = new Busdoor(VehicleSide.LEFT);
-        private final Busdoor busdoorRight = new Busdoor(VehicleSide.RIGHT);
+        private final Busdoor busdoorLeft;
+        private final Busdoor busdoorRight;
 
 
         public Builder(
@@ -217,8 +217,12 @@ public class Cabin {
                 SteeringWheel steeringWheel,
                 Speedometer speedometer,
                 CentralUnit centralUnit,
-                BatteryIndicator batteryIndicator
+                BatteryIndicator batteryIndicator,
+                Busdoor busdoorLeft,
+                Busdoor busdoorRight
         ) {
+            this.busdoorLeft = busdoorLeft;
+            this.busdoorRight = busdoorRight;
             for (int i = 0; i < 2; i++) {
                 Boolean leftSide = (i == 0);
                 seatList.add(new Seat(1, leftSide));
