@@ -16,7 +16,7 @@ public class CryptoUnit {
     private String bitToString(String input){
         return new String(new BigInteger(input, 2).toByteArray());
     }
-    
+
     public String decrypt(String cipher, String key){
         return this.ipInverse.permute(this.feistelNetwork.iterate(this.initialPermutation.permute(stringToBit(cipher)),this.keySchedule.schedule(key, false)));
     }

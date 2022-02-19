@@ -44,8 +44,12 @@ public class TestSzenarios {
         operator.setDoorToggleOutside(this.flf.getCabin().getDoorToggleRightOutside());
         operator.setIdCardReader(this.flf.getCabin().getCardReaderRight());
 
+        if(this.flf.getCabin().getBusDoorLeft().getLocked()) this.driver.toggleDoorLock();
+        if(this.flf.getCabin().getBusDoorRight().getLocked()) this.operator.toggleDoorLock();
+
+            if (!this.flf.getCabin().getBusDoorLeft().getOpen()) this.driver.toggleDoor();
         if (!this.flf.getCabin().getBusDoorRight().getOpen()) this.operator.toggleDoor();
-        if (!this.flf.getCabin().getBusDoorLeft().getOpen()) this.driver.toggleDoor();
+
         EmployeeFirebase employee = new EmployeeFirebase("Karl-Heinz", new IDCard("abc"));
 
         this.flf.toggleMaintenance(employee);
@@ -79,13 +83,13 @@ public class TestSzenarios {
         if (this.flf.getWarnLightsState()) this.operator.toggleWarnlights();
         if (this.flf.getBlueLightState()) this.operator.toggleBlueLights();
 
-        this.driver.toggleDoor();
         this.operator.toggleDoor();
+        this.flf.leaveFLF(0, false);
 
-        for (int i = 0; i < 2; i++) {
-            this.flf.leaveFLF(i, true);
-            this.flf.leaveFLF(i, false);
-        }
+        this.driver.toggleDoor();
+        this.flf.leaveFLF(0, true);
+
+        this.driver.toggleDoorLock();
 
         for (Seat s : this.flf.getCabin().getSeatList()) {
             tests.add(DynamicTest.dynamicTest("check Seat", () -> assertFalse(s.getOccupied())));

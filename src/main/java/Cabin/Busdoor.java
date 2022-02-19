@@ -1,26 +1,21 @@
 package Cabin;
-
-import Button.ButtonPush;
-import Button.IDCardReader;
-import IDCard.IDCard;
-
 import java.util.Arrays;
 
 public class Busdoor {
     private Boolean isOpen = false;
     private VehicleSide vehicleSide;
-    private Boolean isLocked = false;
+    private Boolean isLocked = true;
 
     public Busdoor(VehicleSide side) {
         this.vehicleSide = side;
     }
 
-    private void operateDoor() {
-
-    }
-
     public Boolean getOpen() {
         return isOpen;
+    }
+
+    public Boolean getLocked() {
+        return isLocked;
     }
 
     public void toggleDoor() {
