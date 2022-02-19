@@ -28,10 +28,10 @@ public class CentralUnit {
     private final Drive drive;
     private final Speedometer speedometer;
     private final BatteryIndicator batteryIndicator;
-    private final CryptoUnit cryptoUnit = new CryptoUnit();
+    private final CryptoUnit cryptoUnit = new CryptoUnit();;
     private final String cryptoCode = Configuration.instance.cuCode;
     private final ArrayList<Person> authorizedPersons;
-    private final  Busdoor busdoorLeft;
+    private final Busdoor busdoorLeft;
     private final Busdoor busdoorRight;
 
     public CentralUnit(
@@ -152,8 +152,8 @@ public class CentralUnit {
         this.batteryIndicator.setIndicator(this.drive.getRelativeFillState());
     }
 
-    public void toggleDoor(VehicleSide side){
-        switch (side){
+    public void toggleDoor(VehicleSide side) {
+        switch (side) {
             case LEFT -> this.busdoorLeft.toggleDoor();
             case RIGHT -> this.busdoorRight.toggleDoor();
         }
@@ -161,9 +161,9 @@ public class CentralUnit {
 
     public void toggleDoorLock(String cipher) {
         try {
-            if (validateAuth(this.cryptoUnit.decrypt(cipher))) {
-                if(busdoorLeft.getOpen()) busdoorLeft.toggleDoor();
-                if(busdoorRight.getOpen()) busdoorRight.toggleDoor();
+            if (validateAuth(this.cryptoUnit.decrypt(cipher, this.cryptoCode))) {
+                if (busdoorLeft.getOpen()) busdoorLeft.toggleDoor();
+                if (busdoorRight.getOpen()) busdoorRight.toggleDoor();
                 busdoorLeft.toggleDoorLock();
                 busdoorRight.toggleDoorLock();
             }
