@@ -13,8 +13,8 @@ public class Operator extends ActivePassenger {
     private ButtonRotaryWaterCannonRoof rotaryWaterCannonRoof;
     private ButtonRotaryWaterCannonFront rotaryWaterCannonFront;
 
-    public Operator(String name, IDCard card) {
-        super(name, card);
+    public Operator(String name) {
+        super(name);
     }
 
     public void equip(ControlPanel panel, Joystick opJoystick, ButtonRotaryWaterCannonFront rotaryWaterCannonFront, ButtonRotaryWaterCannonRoof rotaryWaterCannonRoof, ButtonPush doorToggleInside) {

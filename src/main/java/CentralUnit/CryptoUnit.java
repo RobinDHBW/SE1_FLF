@@ -21,7 +21,7 @@ public class CryptoUnit {
         return this.ipInverse.permute(this.feistelNetwork.iterate(this.initialPermutation.permute(stringToBit(cipher)),this.keySchedule.schedule(key, false)));
     }
 
-    public String encrpyt(String plain, String key){
+    public String encrypt(String plain, String key){
         return this.ipInverse.permute(this.feistelNetwork.iterate(this.initialPermutation.permute(stringToBit(plain)),this.keySchedule.schedule(key, true)));
     }
 

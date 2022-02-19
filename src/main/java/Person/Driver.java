@@ -13,8 +13,8 @@ public class Driver extends ActivePassenger {
     private Pedal gasPedal;
     private Pedal brakePedal;
 
-    public Driver(String name, IDCard card) {
-        super(name, card);
+    public Driver(String name) {
+        super(name);
     }
 
     public void equip(SteeringWheel wheel, Pedal gas, Pedal brake, Joystick stick, ButtonPush doorToggleInside){

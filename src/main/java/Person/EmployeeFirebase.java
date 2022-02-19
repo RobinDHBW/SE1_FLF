@@ -9,8 +9,8 @@ public class EmployeeFirebase extends Person {
 
     MixingProcessor mixingProcessor;
     Drive drive;
-    public EmployeeFirebase(String name, IDCard card) {
-        super(name, card);
+    public EmployeeFirebase(String name) {
+        super(name);
     }
 
     public void equip(MixingProcessor mixer, Drive drive){

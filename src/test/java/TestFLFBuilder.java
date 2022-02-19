@@ -19,8 +19,8 @@ private FLF proto;
     @BeforeEach
     void buildProto(){
         ArrayList<Person> authorizedPersons = new ArrayList<>();
-        authorizedPersons.add(new Driver("Red Adair", new IDCard("abc")));
-        authorizedPersons.add(new Operator("Sam", new IDCard("abc")));
+        authorizedPersons.add(new Driver("Red Adair"));
+        authorizedPersons.add(new Operator("Sam"));
         this.proto=new FLF.Builder(authorizedPersons).build();
     }
 

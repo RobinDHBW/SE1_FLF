@@ -13,8 +13,8 @@ public abstract class ActivePassenger extends Person{
     private ButtonPush doorToggleOutside;
     private IDCardReader idCardReader;
 
-    public ActivePassenger(String name, IDCard card){
-        super(name, card);
+    public ActivePassenger(String name){
+        super(name);
     }
 
     public void equip(Joystick stick, ButtonPush doorToggleInside){
@@ -62,7 +62,7 @@ public abstract class ActivePassenger extends Person{
     }
 
     public void toggleDoorLock(){
-        this.idCardReader.operateDevice();
+        this.idCardReader.operateDevice(this.idCard);
     }
 
 }
