@@ -302,8 +302,8 @@ public class FLF {
                     doorToggleLeftOutside,
                     new IDCardReader(centralUnit),
                     busdoorRight,
-                    doorToggleLeftInside,
-                    doorToggleLeftOutside,
+                    doorToggleRightInside,
+                    doorToggleRightOutside,
                     new IDCardReader(centralUnit)
             ).build();
 
