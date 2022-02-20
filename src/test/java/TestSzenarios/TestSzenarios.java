@@ -44,11 +44,6 @@ public class TestSzenarios {
         operator.setDoorToggleOutside(this.flf.getCabin().getDoorToggleRightOutside());
         operator.setIdCardReader(this.flf.getCabin().getCardReaderRight());
 
-        if (this.flf.getCabin().getBusDoorLeft().getLocked()) this.driver.toggleDoorLock();
-
-        if (!this.flf.getCabin().getBusDoorLeft().getOpen()) this.driver.toggleDoor();
-        if (!this.flf.getCabin().getBusDoorRight().getOpen()) this.operator.toggleDoor();
-
         EmployeeFirebase employee = new EmployeeFirebase("Karl-Heinz");
 
         this.flf.toggleMaintenance(employee);
@@ -57,10 +52,15 @@ public class TestSzenarios {
         employee.fillFoamTank();
         this.flf.toggleMaintenance(employee);
 
-        this.flf.enterFLF(driver, true);
+        if (this.flf.getCabin().getBusDoorLeft().getLocked()) this.driver.toggleDoorLock();
+
+        if (!this.flf.getCabin().getBusDoorLeft().getOpen()) this.driver.toggleDoor();
+        if (!this.flf.getCabin().getBusDoorRight().getOpen()) this.operator.toggleDoor();
+
         this.flf.enterFLF(operator, false);
-        this.driver.toggleDoor();
         this.operator.toggleDoor();
+        this.flf.enterFLF(driver, true);
+        this.driver.toggleDoor();
 
         if (this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_FRONT)) this.driver.toggleCannon();
         if (this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_ROOF)) this.operator.toggleCannon();

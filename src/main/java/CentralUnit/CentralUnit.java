@@ -162,10 +162,16 @@ public class CentralUnit {
     public void toggleDoorLock(String cipher) {
         try {
             if (validateAuth(this.cryptoUnit.decrypt(cipher, this.cryptoCode))) {
-                if (busdoorLeft.getOpen()) busdoorLeft.toggleDoor();
-                if (busdoorRight.getOpen()) busdoorRight.toggleDoor();
+                //Abschließen --> Türen noch offen?
+                if (!busdoorLeft.getLocked() && busdoorLeft.getOpen()) busdoorLeft.toggleDoor();
+                if (!busdoorRight.getLocked() && busdoorRight.getOpen()) busdoorRight.toggleDoor();
+
                 busdoorLeft.toggleDoorLock();
                 busdoorRight.toggleDoorLock();
+
+                //Aufschließen --> Türe öffnen
+                if (!busdoorLeft.getLocked() && !busdoorLeft.getOpen()) busdoorLeft.toggleDoor();
+                if (!busdoorRight.getLocked() && !busdoorRight.getOpen()) busdoorRight.toggleDoor();
             }else {
                 throw new Exception("Can't validate authentication");
             }
