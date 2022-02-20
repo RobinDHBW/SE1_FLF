@@ -9,15 +9,15 @@ public class CryptoUnit {
     private final FeistelNetwork feistelNetwork = new FeistelNetwork();
     private final IPInverse ipInverse = new IPInverse();
 
-    private String stringToBit(String input){
-       return new BigInteger(input.getBytes(StandardCharsets.UTF_8)).toString(2);
+    public String stringToBit(String input){
+       return this.prepareBitString(new BigInteger(input.getBytes(StandardCharsets.UTF_8)).toString(2));
     }
 
-    private String bitToString(String input){
+    public String bitToString(String input){
         return new String(new BigInteger(input, 2).toByteArray());
     }
 
-    private String prepareKey(String input){
+    private String prepareBitString(String input){
         while (input.length()<64){
             input = "0"+input;
         }
@@ -25,11 +25,11 @@ public class CryptoUnit {
     }
 
     public String decrypt(String cipher, String key){
-        return this.bitToString(this.ipInverse.permute(this.feistelNetwork.iterate(this.initialPermutation.permute(stringToBit(cipher)),this.keySchedule.schedule(this.prepareKey(this.stringToBit(key)), false))));
+        return this.bitToString(this.ipInverse.permute(this.feistelNetwork.iterate(this.initialPermutation.permute(cipher),this.keySchedule.schedule(this.stringToBit(key), false))));
     }
 
     public String encrypt(String plain, String key){
-        return this.bitToString(this.ipInverse.permute(this.feistelNetwork.iterate(this.initialPermutation.permute(stringToBit(plain)),this.keySchedule.schedule(this.prepareKey(this.stringToBit(key)), true))));
+        return this.ipInverse.permute(this.feistelNetwork.iterate(this.initialPermutation.permute(stringToBit(plain)),this.keySchedule.schedule(stringToBit(key), true)));
     }
 
 }
