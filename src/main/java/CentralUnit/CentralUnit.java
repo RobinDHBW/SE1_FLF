@@ -166,6 +166,8 @@ public class CentralUnit {
                 if (busdoorRight.getOpen()) busdoorRight.toggleDoor();
                 busdoorLeft.toggleDoorLock();
                 busdoorRight.toggleDoorLock();
+            }else {
+                throw new Exception("Can't validate authentication");
             }
         } catch (Exception ex) {
             System.err.println(ex.getMessage());

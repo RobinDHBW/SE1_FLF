@@ -2,10 +2,8 @@ package TestSzenarios;
 
 import Button.RoofCannonMode;
 import CentralUnit.CryptoUnit;
-import Configuration.Configuration;
 import FLF.FLF;
 import Firefighting.CannonIdentifier;
-import IDCard.IDCard;
 import Person.Driver;
 import Person.EmployeeFirebase;
 import Person.Operator;
@@ -28,7 +26,7 @@ public class TestSzenarios {
 
     private Driver driver;
     private Operator operator;
-    private CryptoUnit cryptoUnit= new CryptoUnit();
+    private final CryptoUnit cryptoUnit = new CryptoUnit();
 
     public TestSzenarios() {
     }
@@ -48,10 +46,9 @@ public class TestSzenarios {
         operator.setDoorToggleOutside(this.flf.getCabin().getDoorToggleRightOutside());
         operator.setIdCardReader(this.flf.getCabin().getCardReaderRight());
 
-        if(this.flf.getCabin().getBusDoorLeft().getLocked()) this.driver.toggleDoorLock();
-        if(this.flf.getCabin().getBusDoorRight().getLocked()) this.operator.toggleDoorLock();
+        if (this.flf.getCabin().getBusDoorLeft().getLocked()) this.driver.toggleDoorLock();
 
-            if (!this.flf.getCabin().getBusDoorLeft().getOpen()) this.driver.toggleDoor();
+        if (!this.flf.getCabin().getBusDoorLeft().getOpen()) this.driver.toggleDoor();
         if (!this.flf.getCabin().getBusDoorRight().getOpen()) this.operator.toggleDoor();
 
         EmployeeFirebase employee = new EmployeeFirebase("Karl-Heinz");
@@ -650,6 +647,6 @@ public class TestSzenarios {
                 DynamicTest.dynamicTest("check FoamConsumptionFrontCannon", () -> assertEquals(calcConsumption8, cannonConsumption8))
         );
 
-        return  tests.stream();
+        return tests.stream();
     }
 }

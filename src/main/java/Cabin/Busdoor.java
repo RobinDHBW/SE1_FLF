@@ -1,4 +1,5 @@
 package Cabin;
+
 import java.util.Arrays;
 
 public class Busdoor {
@@ -19,18 +20,22 @@ public class Busdoor {
     }
 
     public void toggleDoor() {
-        this.isOpen = !this.isOpen;
-    }
-
-    public Boolean toggleDoorLock() {
         try {
-            if (isOpen) throw new Exception("Door has to be closed before locking");
-            this.isLocked = !this.isLocked;
-            return true;
+            if (this.isLocked) throw new Exception("Unlock door before toggle");
+            this.isOpen = !this.isOpen;
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
             System.err.println(Arrays.toString(ex.getStackTrace()));
-            return false;
+        }
+    }
+
+    public void toggleDoorLock() {
+        try {
+            if (isOpen) throw new Exception("Door has to be closed before locking");
+            this.isLocked = !this.isLocked;
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+            System.err.println(Arrays.toString(ex.getStackTrace()));
         }
     }
 
