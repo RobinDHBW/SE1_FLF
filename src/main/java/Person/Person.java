@@ -12,7 +12,7 @@ public abstract class Person {
     protected final IDCard idCard;
     public Person(String name) {
         this.name = name;
-        this.idCard = new IDCard(cryptoUnit.encrypt(Configuration.instance.flfIdentifier + "-" + this.name + "-" + Configuration.instance.cuCode, Configuration.instance.cuCode));
+        this.idCard = new IDCard(cryptoUnit.encrypt(Configuration.instance.cuIdent + "-" + this.name + "-" + Configuration.instance.cuCode, Configuration.instance.cuCode));
     }
 
     public void setIsInVehicle(Boolean isIn){this.isInVehicle = isIn;}
