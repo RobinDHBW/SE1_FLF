@@ -34,7 +34,7 @@ public class TestCryptUnit {
     Stream<DynamicTest> testCryptoWithProjectData() {
         ArrayList<DynamicTest> tests = new ArrayList<>();
         String plain = "DUS | FLF-5";
-        String key = cryptoUnit.bitToString("0000000000000000000000000000000000000000011111111111111111111111");
+        String key = "6072";
 
         String cipher = cryptoUnit.encrypt(plain, key);
 
