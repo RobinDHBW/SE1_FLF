@@ -108,7 +108,7 @@ public class FeistelNetwork {
             expandedBits[i] = rBits[expansionMatrix[i / 6][i % 6] - 1];
         }
 
-        return expandedBits.toString();
+        return new String(expandedBits);
     }
 
     public String applySBox(String input) {
@@ -131,7 +131,7 @@ public class FeistelNetwork {
             result.append(buffer);
         }
 
-        return result.toString();
+        return new String(result);
     }
 
     private String formatIntToPaddedBinaryString() {

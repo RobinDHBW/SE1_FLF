@@ -67,11 +67,11 @@ public class CentralUnit {
     }
 
     private Boolean validateAuth(String input) {
-        String inputCode = input.substring(input.lastIndexOf("-") + 1, input.length() + 1);
+        String inputCode = input.substring(input.lastIndexOf("-") + 1, input.length());
         if (inputCode != cryptoCode) return false;
 
         input = input.substring(0, input.lastIndexOf("-"));
-        String inputPerson = input.substring(input.lastIndexOf("-") + 1, input.length() + 1);
+        String inputPerson = input.substring(input.lastIndexOf("-") + 1, input.length());
         for (Person p : authorizedPersons) {
             if (inputPerson == p.getName()) return true;
         }

@@ -17,12 +17,19 @@ public class CryptoUnit {
         return new String(new BigInteger(input, 2).toByteArray());
     }
 
+    private String prepareKey(String input){
+        while (input.length()<64){
+            input = "0"+input;
+        }
+        return input;
+    }
+
     public String decrypt(String cipher, String key){
-        return this.ipInverse.permute(this.feistelNetwork.iterate(this.initialPermutation.permute(stringToBit(cipher)),this.keySchedule.schedule(key, false)));
+        return this.bitToString(this.ipInverse.permute(this.feistelNetwork.iterate(this.initialPermutation.permute(stringToBit(cipher)),this.keySchedule.schedule(this.prepareKey(this.stringToBit(key)), false))));
     }
 
     public String encrypt(String plain, String key){
-        return this.ipInverse.permute(this.feistelNetwork.iterate(this.initialPermutation.permute(stringToBit(plain)),this.keySchedule.schedule(key, true)));
+        return this.bitToString(this.ipInverse.permute(this.feistelNetwork.iterate(this.initialPermutation.permute(stringToBit(plain)),this.keySchedule.schedule(this.prepareKey(this.stringToBit(key)), true))));
     }
 
 }
