@@ -20,12 +20,7 @@ public class KeySchedule {
             {34, 53, 46, 42, 50, 36, 29, 32}
     };
 
-    private String pushTo64Bit(String input){
-        while(input.length() < 64){
-            input = "0" + input;
-        }
-        return  input;
-    }
+
 
     public String firstPerm(String input) {
         char[] result = new char[56];
@@ -48,7 +43,6 @@ public class KeySchedule {
     }
 
     public String[] schedule(String input, Boolean isEncryption) {
-        if(input.length() < 64) input = pushTo64Bit(input);
 
         String[] result = new String[16];
         String permuted = firstPerm(input);
