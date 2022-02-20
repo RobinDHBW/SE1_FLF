@@ -28,7 +28,7 @@ public class CentralUnit {
     private final Drive drive;
     private final Speedometer speedometer;
     private final BatteryIndicator batteryIndicator;
-    private final CryptoUnit cryptoUnit = new CryptoUnit();;
+    private final CryptoUnit cryptoUnit = new CryptoUnit();
     private final String cryptoCode = Configuration.instance.cuCode;
     private final ArrayList<Person> authorizedPersons;
     private final Busdoor busdoorLeft;
@@ -67,11 +67,11 @@ public class CentralUnit {
     }
 
     private Boolean validateAuth(String input) {
-        String inputCode = input.substring(input.lastIndexOf("-") + 1, input.length());
+        String inputCode = input.substring(input.lastIndexOf("-") + 1);
         if (!inputCode.equals(cryptoCode)) return false;
 
         input = input.substring(0, input.lastIndexOf("-"));
-        String inputPerson = input.substring(input.lastIndexOf("-") + 1, input.length());
+        String inputPerson = input.substring(input.lastIndexOf("-") + 1);
         for (Person p : authorizedPersons) {
             if (inputPerson.equals(p.getName())) return true;
         }

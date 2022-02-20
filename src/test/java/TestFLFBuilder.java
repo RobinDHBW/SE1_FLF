@@ -60,8 +60,6 @@ private FLF proto;
     }
 
     /**
-     * @TODO check flashingBlueLights for position
-     * @TODO check CabinBuilder
      * @return stream - stream
      */
     @TestFactory

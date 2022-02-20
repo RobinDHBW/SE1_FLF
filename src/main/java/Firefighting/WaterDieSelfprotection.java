@@ -6,9 +6,4 @@ public class WaterDieSelfprotection extends WaterCannon {
         this.setSprayCapacityPerlIteration(sprayCapacityPerlIteration);
     }
 
-    @Override
-    public void toggle() {
-        super.toggle();
-    }
-
 }

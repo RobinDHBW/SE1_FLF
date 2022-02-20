@@ -11,16 +11,20 @@ public class CryptoUnit {
 
     public String pushToNextByte(String input) {
         Integer nextByte = (int) (Math.pow(2, (int) (Math.log(input.length()) / Math.log(2)) + 1));
-        while (input.length() < nextByte) {
-            input = "0" + input;
+        StringBuilder inputBuilder = new StringBuilder(input);
+        while (inputBuilder.length() < nextByte) {
+            inputBuilder.insert(0, "0");
         }
+        input = inputBuilder.toString();
         return input;
     }
 
     public String pushTo64Bit(String input){
-        while(input.length() < 64){
-            input = "0" + input;
+        StringBuilder inputBuilder = new StringBuilder(input);
+        while(inputBuilder.length() < 64){
+            inputBuilder.insert(0, "0");
         }
+        input = inputBuilder.toString();
         return  input;
     }
 
@@ -33,25 +37,25 @@ public class CryptoUnit {
     }
 
     public String decrypt(String cipher, String key) {
-        String res = "";
+        StringBuilder res = new StringBuilder();
         Integer limit = cipher.length() % 64 > 0 ? (cipher.length() / 64) + 1 : cipher.length() / 64;
         for (int i = 0; i < limit; i++) {
             Integer index = i * 64;
-            String toProcess = cipher.substring(index, index + (cipher.length() - index >= 64 ? 64 : cipher.length()-index));
-            res += this.bitToString(this.ipInverse.permute(this.feistelNetwork.iterate(this.initialPermutation.permute(pushTo64Bit(toProcess)), this.keySchedule.schedule(pushTo64Bit(this.stringToBit(key)), false))));
+            String toProcess = cipher.substring(index, index + (Math.min(cipher.length() - index, 64)));
+            res.append(this.bitToString(this.ipInverse.permute(this.feistelNetwork.iterate(this.initialPermutation.permute(pushTo64Bit(toProcess)), this.keySchedule.schedule(pushTo64Bit(this.stringToBit(key)), false)))));
         }
-         return res;
+         return res.toString();
     }
 
     public String encrypt(String plain, String key) {
-        String res = "";
+        StringBuilder res = new StringBuilder();
         Integer limit = plain.length() % 8 > 0 ? (plain.length() / 8) + 1 : plain.length() / 8;
         for (int i = 0; i < limit; i++) {
             Integer index = i * 8;
-            String toProcess = plain.substring(index, index + (plain.length() - index >= 8 ? 8 : plain.length()-index));
-            res += this.ipInverse.permute(this.feistelNetwork.iterate(this.initialPermutation.permute(pushTo64Bit(stringToBit(toProcess))), this.keySchedule.schedule(pushTo64Bit(stringToBit(key)), true)));
+            String toProcess = plain.substring(index, index + (Math.min(plain.length() - index, 8)));
+            res.append(this.ipInverse.permute(this.feistelNetwork.iterate(this.initialPermutation.permute(pushTo64Bit(stringToBit(toProcess))), this.keySchedule.schedule(pushTo64Bit(stringToBit(key)), true))));
         }
-        return res;
+        return res.toString();
     }
 
 }

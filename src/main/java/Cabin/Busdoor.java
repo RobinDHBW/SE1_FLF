@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Busdoor {
     private Boolean isOpen = false;
-    private VehicleSide vehicleSide;
+    private final VehicleSide vehicleSide;
     private Boolean isLocked = true;
 
     public Busdoor(VehicleSide side) {

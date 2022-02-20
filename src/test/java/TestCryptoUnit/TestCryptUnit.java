@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestCryptUnit {
-    private CryptoUnit cryptoUnit = new CryptoUnit();
+    private final CryptoUnit cryptoUnit = new CryptoUnit();
 
     @TestFactory
     Stream<DynamicTest> testCryptoWithMullerExample() {

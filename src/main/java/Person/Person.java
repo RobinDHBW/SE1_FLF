@@ -6,7 +6,7 @@ import IDCard.IDCard;
 
 public abstract class Person {
 
-    private CryptoUnit cryptoUnit = new CryptoUnit();
+    private final CryptoUnit cryptoUnit = new CryptoUnit();
     protected Boolean isInVehicle = false;
     protected final String name;
     protected final IDCard idCard;
