@@ -9,19 +9,19 @@ public class CryptoUnit {
     private final FeistelNetwork feistelNetwork = new FeistelNetwork();
     private final IPInverse ipInverse = new IPInverse();
 
-    public String stringToBit(String input){
-       return this.prepareBitString(new BigInteger(input.getBytes(StandardCharsets.UTF_8)).toString(2));
-    }
-
-    public String bitToString(String input){
-        return new String(new BigInteger(input, 2).toByteArray());
-    }
-
-    private String prepareBitString(String input){
+    private String pushTo64Bit(String input){
         while (input.length()<64){
             input = "0"+input;
         }
         return input;
+    }
+
+    public String stringToBit(String input){
+       return this.pushTo64Bit(new BigInteger(input.getBytes(StandardCharsets.UTF_8)).toString(2));
+    }
+
+    public String bitToString(String input){
+        return new String(new BigInteger(input, 2).toByteArray());
     }
 
     public String decrypt(String cipher, String key){

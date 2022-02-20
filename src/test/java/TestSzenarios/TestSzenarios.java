@@ -24,8 +24,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestSzenarios {
     private FLF flf;
 
-    private Driver driver;
-    private Operator operator;
+    private Driver driver = new Driver("Sam");
+    private Operator operator = new Operator("Red Adair");
     private final CryptoUnit cryptoUnit = new CryptoUnit();
 
     public TestSzenarios() {
@@ -33,9 +33,6 @@ public class TestSzenarios {
 
     @BeforeEach
     void initRoutine() {
-
-        this.driver = new Driver("Sam");
-        this.operator = new Operator("Red Adair");
         ArrayList<Person> authorizedPersons = new ArrayList<>();
         authorizedPersons.add(this.driver);
         authorizedPersons.add(this.operator);
@@ -106,8 +103,10 @@ public class TestSzenarios {
                 DynamicTest.dynamicTest("check BlueLights", () -> assertFalse(this.flf.getBlueLightState())),
                 DynamicTest.dynamicTest("check RotaryButtonFrontCannon", () -> assertEquals(1, (int) this.flf.getCabin().getBtnRotaryWaterCannonFront().getMode())),
                 DynamicTest.dynamicTest("check RotaryButtonRoofCannon", () -> assertSame(this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode(), RoofCannonMode.A)),
-                DynamicTest.dynamicTest("check LeftDoor", () -> assertTrue(this.flf.getCabin().getBusDoorLeft().getOpen())),
-                DynamicTest.dynamicTest("check RightDoor", () -> assertTrue(this.flf.getCabin().getBusDoorRight().getOpen())),
+                DynamicTest.dynamicTest("check LeftDoor", () -> assertFalse(this.flf.getCabin().getBusDoorLeft().getOpen())),
+                DynamicTest.dynamicTest("check RightDoor", () -> assertFalse(this.flf.getCabin().getBusDoorRight().getOpen())),
+                DynamicTest.dynamicTest("check Doorlock Left", () -> assertTrue(this.flf.getCabin().getBusDoorLeft().getLocked())),
+                DynamicTest.dynamicTest("check Doorlock Right", () -> assertTrue(this.flf.getCabin().getBusDoorRight().getLocked())),
                 DynamicTest.dynamicTest("check FrontCannon", () -> assertFalse(this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_FRONT))),
                 DynamicTest.dynamicTest("check RoofCannon", () -> assertFalse(this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_ROOF))),
                 DynamicTest.dynamicTest("check WaterTank", () -> assertEquals(1, this.flf.getMixingProcessor().getTankFillState(TankSubject.WATER))),
