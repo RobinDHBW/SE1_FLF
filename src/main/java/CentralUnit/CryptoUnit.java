@@ -10,7 +10,7 @@ public class CryptoUnit {
     private final IPInverse ipInverse = new IPInverse();
 
     public String pushToNextByte(String input) {
-        Integer nextByte = (int)(Math.pow(2,(int)(Math.log(input.length()) / Math.log(2))+1));
+        Integer nextByte = (int) (Math.pow(2, (int) (Math.log(input.length()) / Math.log(2)) + 1));
         while (input.length() < nextByte) {
             input = "0" + input;
         }
@@ -30,7 +30,14 @@ public class CryptoUnit {
     }
 
     public String encrypt(String plain, String key) {
-        return this.ipInverse.permute(this.feistelNetwork.iterate(this.initialPermutation.permute(stringToBit(plain)), this.keySchedule.schedule(stringToBit(key), true)));
+        String res = "";
+        Integer limit = plain.length() % 8 > 0 ? (plain.length() / 8) + 1 : plain.length() / 8;
+        for (int i = 0; i < limit; i++) {
+            Integer index = i * 8;
+            String toProcess = plain.substring(index, index + (plain.length() - index >= 8 ? 8 : plain.length()-index));
+            res += this.ipInverse.permute(this.feistelNetwork.iterate(this.initialPermutation.permute(stringToBit(toProcess)), this.keySchedule.schedule(stringToBit(key), true)));
+        }
+        return res;
     }
 
 }
