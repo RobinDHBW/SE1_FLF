@@ -24,15 +24,16 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestSzenarios {
     private FLF flf;
 
-    private Driver driver = new Driver("Sam");
-    private Operator operator = new Operator("Red Adair");
-    private final CryptoUnit cryptoUnit = new CryptoUnit();
+    private Driver driver;
+    private Operator operator;
 
     public TestSzenarios() {
     }
 
     @BeforeEach
     void initRoutine() {
+        this.driver = new Driver("Sam");
+        this.operator = new Operator("Red Adair");
         ArrayList<Person> authorizedPersons = new ArrayList<>();
         authorizedPersons.add(this.driver);
         authorizedPersons.add(this.operator);
