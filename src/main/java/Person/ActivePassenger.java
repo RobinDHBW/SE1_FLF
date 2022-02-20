@@ -8,10 +8,10 @@ import Joystick.JoystickType;
 
 public abstract class ActivePassenger extends Person{
 
-    private Joystick joystick;
-    private ButtonPush doorToggleInside            ;
-    private ButtonPush doorToggleOutside;
-    private IDCardReader idCardReader;
+    protected Joystick joystick;
+    protected ButtonPush doorToggleInside            ;
+    protected ButtonPush doorToggleOutside;
+    protected IDCardReader idCardReader;
 
     public ActivePassenger(String name){
         super(name);
