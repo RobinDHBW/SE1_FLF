@@ -1,4 +1,4 @@
-package Button;
+package button;
 
 public class Pedal extends ButtonTap {
 

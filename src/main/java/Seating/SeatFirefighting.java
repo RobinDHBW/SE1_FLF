@@ -1,6 +1,6 @@
-package Seating;
+package seating;
 
-import Person.Person;
+import person.Person;
 
 import java.util.Arrays;
 

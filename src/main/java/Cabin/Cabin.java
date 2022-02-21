@@ -1,14 +1,14 @@
-package Cabin;
+package cabin;
 
-import Button.*;
-import CentralUnit.CentralUnit;
-import Instruments.BatteryIndicator;
-import Instruments.Speedometer;
-import Instruments.SteeringWheel;
-import Joystick.Joystick;
-import Person.*;
-import Seating.Seat;
-import Seating.SeatFirefighting;
+import button.*;
+import centralUnit.CentralUnit;
+import instruments.BatteryIndicator;
+import instruments.Speedometer;
+import instruments.SteeringWheel;
+import joystick.Joystick;
+import person.*;
+import seating.Seat;
+import seating.SeatFirefighting;
 
 import java.util.ArrayList;
 import java.util.Arrays;

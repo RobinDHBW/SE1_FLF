@@ -1,4 +1,4 @@
-package CentralUnit;
+package centralUnit;
 
 public class IPInverse {
     private final int[][] finalPermutation = {

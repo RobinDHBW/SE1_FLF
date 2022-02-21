@@ -1,4 +1,4 @@
-package Lights;
+package lights;
 
 
 public abstract class FlashingBlueLight extends LEDLight {

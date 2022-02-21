@@ -12,7 +12,7 @@ Nachfolgend unsere Fragen zum morgigen Q&A:
  4) Beim Aktivitätsdiagramm haben wir die Zustände aus der Spezifikation in eine neue Reihenfolge gebracht, um das Diagramm besser strukturieren zu können. Ist das in Ordnung, oder muss strikt die Reihenfolge aus der Spezifikation eingehalten werden?
  5) Müssen Operator und Driver im Klassendiagramm modelliert und auch im Programmcode implementiert werden?
     Theoretisch gehören Sie nicht zum bestellten Endprodukt und simulieren den Endkunden.
- 6) Wie ist das BatteryManagement zu verstehen? In der Spezifikation ist es leider nicht näher erläutert.
+ 6) Wie ist das batteryManagement zu verstehen? In der Spezifikation ist es leider nicht näher erläutert.
 
 
 1) Scrum -> OK
@@ -20,6 +20,6 @@ Nachfolgend unsere Fragen zum morgigen Q&A:
 3) Nein
 4) Passt
 5) Ja
-6) BatteryManagement --> siehe vpp
+6) batteryManagement --> siehe vpp
 7) Driver-/Operationsection --> Sitze --> Instrumente --> Was gehört wo dazu?
 8) S10 --> Fußnote 11 --> intelligent machen

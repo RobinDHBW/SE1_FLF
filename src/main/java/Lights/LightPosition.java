@@ -1,4 +1,4 @@
-package Lights;
+package lights;
 
 public enum LightPosition {
     FRONT_LEFT,

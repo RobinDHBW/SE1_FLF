@@ -1,6 +1,4 @@
-package CentralUnit;
-
-import java.util.Arrays;
+package centralUnit;
 
 public class FeistelNetwork {
     private final int[][] expansionMatrix = {

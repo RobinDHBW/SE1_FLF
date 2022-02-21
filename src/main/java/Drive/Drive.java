@@ -1,6 +1,6 @@
-package Drive;
+package drive;
 
-import BatteryManagement.*;
+import batteryManagement.*;
 
 import java.util.ArrayList;
 import java.util.List;

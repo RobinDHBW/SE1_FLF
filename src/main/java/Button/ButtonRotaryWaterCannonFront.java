@@ -1,6 +1,6 @@
-package Button;
+package button;
 
-import Tank.MixingProcessor;
+import tank.MixingProcessor;
 
 public class ButtonRotaryWaterCannonFront extends ButtonRotary {
     private final Integer stepSize = 500;

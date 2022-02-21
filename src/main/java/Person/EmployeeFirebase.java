@@ -1,9 +1,8 @@
-package Person;
+package person;
 
-import Drive.Drive;
-import IDCard.IDCard;
-import Tank.MixingProcessor;
-import Tank.TankSubject;
+import drive.Drive;
+import tank.MixingProcessor;
+import tank.TankSubject;
 
 public class EmployeeFirebase extends Person {
 

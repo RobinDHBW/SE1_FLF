@@ -1,4 +1,4 @@
-package Drive;
+package drive;
 
 public class DiscBrake {
     private final Double stepSize;

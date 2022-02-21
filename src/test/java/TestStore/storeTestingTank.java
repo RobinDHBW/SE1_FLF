@@ -1,8 +1,8 @@
-package TestStore;
+package testStore;
 
 
-import Tank.Tank;
-import Tank.TankSubject;
+import tank.Tank;
+import tank.TankSubject;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

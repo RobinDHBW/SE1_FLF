@@ -1,10 +1,9 @@
-package Person;
+package person;
 
-import Button.ButtonPush;
-import Button.IDCardReader;
-import IDCard.IDCard;
-import Joystick.Joystick;
-import Joystick.JoystickType;
+import button.ButtonPush;
+import button.IDCardReader;
+import joystick.Joystick;
+import joystick.JoystickType;
 
 public abstract class ActivePassenger extends Person{
 

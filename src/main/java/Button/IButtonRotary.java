@@ -1,4 +1,4 @@
-package Button;
+package button;
 
 public interface IButtonRotary {
     void rotateLeft();

@@ -1,4 +1,4 @@
-package IDCard;
+package idCard;
 
 public class RFIDChip {
     private final String authCode;

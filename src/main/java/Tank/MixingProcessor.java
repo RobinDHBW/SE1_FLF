@@ -1,6 +1,6 @@
-package Tank;
+package tank;
 
-import Firefighting.*;
+import firefighting.*;
 
 import java.util.ArrayList;
 
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static Tank.TankSubject.FOAM;
+import static tank.TankSubject.FOAM;
 
 public class MixingProcessor {
     private final WaterCannonRoof waterCannonRoof;// = new WaterCannonRoof();

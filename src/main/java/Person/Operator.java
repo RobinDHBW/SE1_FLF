@@ -1,12 +1,10 @@
-package Person;
+package person;
 
-import Button.ButtonPush;
-import Button.ButtonRotaryWaterCannonFront;
-import Button.ButtonRotaryWaterCannonRoof;
-import Button.IDCardReader;
-import Cabin.ControlPanel;
-import IDCard.IDCard;
-import Joystick.Joystick;
+import button.ButtonPush;
+import button.ButtonRotaryWaterCannonFront;
+import button.ButtonRotaryWaterCannonRoof;
+import cabin.ControlPanel;
+import joystick.Joystick;
 
 public class Operator extends ActivePassenger {
     private ControlPanel panel;

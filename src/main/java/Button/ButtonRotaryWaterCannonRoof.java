@@ -1,6 +1,6 @@
-package Button;
+package button;
 
-import Tank.MixingProcessor;
+import tank.MixingProcessor;
 
 public class ButtonRotaryWaterCannonRoof extends ButtonRotary {
     private RoofCannonMode mode = RoofCannonMode.A;

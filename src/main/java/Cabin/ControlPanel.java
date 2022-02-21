@@ -1,6 +1,6 @@
-package Cabin;
+package cabin;
 
-import Button.*;
+import button.*;
 
 
 public class ControlPanel {

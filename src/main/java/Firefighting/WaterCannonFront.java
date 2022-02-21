@@ -1,4 +1,4 @@
-package Firefighting;
+package firefighting;
 
 public class WaterCannonFront extends WaterCannon {
     private final Integer rotationStepSize;

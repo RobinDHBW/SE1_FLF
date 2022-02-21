@@ -1,4 +1,4 @@
-package Lights;
+package lights;
 
 public class LED {
     private final LEDColor color;

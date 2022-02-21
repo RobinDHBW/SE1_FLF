@@ -1,7 +1,7 @@
-package Joystick;
+package joystick;
 
-import Button.ButtonPress;
-import Button.ButtonPush;
+import button.ButtonPress;
+import button.ButtonPush;
 
 public class Joystick {
     private final JoystickType joystickType;

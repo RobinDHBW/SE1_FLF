@@ -1,6 +1,6 @@
-package Seating;
+package seating;
 
-import Person.Person;
+import person.Person;
 
 public class Seat {
     private final Respirator respirator = new Respirator();

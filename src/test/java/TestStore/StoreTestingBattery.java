@@ -1,7 +1,7 @@
-package TestStore;
+package testStore;
 
-import BatteryManagement.Battery;
-import BatteryManagement.Coulomb;
+import batteryManagement.Battery;
+import batteryManagement.Coulomb;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

@@ -1,6 +1,6 @@
-package Tank;
+package tank;
 
-import Store.StoreMedium;
+import store.StoreMedium;
 
 import java.util.List;
 

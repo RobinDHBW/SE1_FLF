@@ -1,15 +1,15 @@
-package CentralUnit;
+package centralUnit;
 
-import Cabin.Busdoor;
-import Cabin.VehicleSide;
-import Configuration.Configuration;
-import Drive.Drive;
-import Firefighting.CannonIdentifier;
-import Instruments.BatteryIndicator;
-import Instruments.Speedometer;
-import Lights.*;
-import Person.Person;
-import Tank.MixingProcessor;
+import cabin.Busdoor;
+import cabin.VehicleSide;
+import configuration.Configuration;
+import drive.Drive;
+import firefighting.CannonIdentifier;
+import instruments.BatteryIndicator;
+import instruments.Speedometer;
+import lights.*;
+import person.Person;
+import tank.MixingProcessor;
 
 import java.util.ArrayList;
 import java.util.Arrays;

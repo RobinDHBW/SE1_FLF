@@ -1,4 +1,4 @@
-package Lights;
+package lights;
 
 public class FlashingBlueLightSmall extends FlashingBlueLight {
     public FlashingBlueLightSmall(LightPosition position) {

@@ -1,12 +1,9 @@
-package Person;
+package person;
 
-import Button.ButtonPush;
-import Button.ButtonRotary;
-import Button.IDCardReader;
-import Button.Pedal;
-import IDCard.IDCard;
-import Instruments.SteeringWheel;
-import Joystick.Joystick;
+import button.ButtonPush;
+import button.Pedal;
+import instruments.SteeringWheel;
+import joystick.Joystick;
 
 public class Driver extends ActivePassenger {
     private SteeringWheel steeringWheel;

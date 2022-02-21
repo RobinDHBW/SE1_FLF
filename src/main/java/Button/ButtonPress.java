@@ -1,4 +1,4 @@
-package Button;
+package button;
 
 public class ButtonPress extends ButtonTap{
     private boolean isActivated;

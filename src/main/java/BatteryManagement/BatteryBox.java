@@ -1,6 +1,6 @@
-package BatteryManagement;
+package batteryManagement;
 
-import Store.StoreMedium;
+import store.StoreMedium;
 
 import java.util.ArrayList;
 import java.util.List;

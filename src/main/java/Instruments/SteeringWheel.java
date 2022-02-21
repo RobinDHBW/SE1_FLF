@@ -1,6 +1,6 @@
-package Instruments;
+package instruments;
 
-import Button.Button;
+import button.Button;
 
 public class SteeringWheel extends Button {
     private Integer degree = 0;

@@ -1,6 +1,5 @@
-import FLF.*;
-import IDCard.IDCard;
-import Person.*;
+import flf.*;
+import person.*;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package BatteryManagement;
+package batteryManagement;
 
 import java.util.List;
 

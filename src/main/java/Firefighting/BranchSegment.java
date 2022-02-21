@@ -1,4 +1,4 @@
-package Firefighting;
+package firefighting;
 
 import java.util.ArrayList;
 import java.util.List;

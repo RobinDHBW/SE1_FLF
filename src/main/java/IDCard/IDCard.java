@@ -1,6 +1,4 @@
-package IDCard;
-
-import Person.Person;
+package idCard;
 
 public class IDCard {
     private final RFIDChip rfidChip;

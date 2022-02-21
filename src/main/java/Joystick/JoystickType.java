@@ -1,4 +1,4 @@
-package Joystick;
+package joystick;
 
 public enum JoystickType {
     CLASSIC, INTELLIGENT

@@ -1,4 +1,4 @@
-package Button;
+package button;
 
 public abstract class ButtonBoolean extends Button {
 

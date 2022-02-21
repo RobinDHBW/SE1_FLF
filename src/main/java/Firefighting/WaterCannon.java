@@ -1,6 +1,6 @@
-package Firefighting;
+package firefighting;
 
-import Tank.TankSubject;
+import tank.TankSubject;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package CentralUnit;
+package centralUnit;
 
 public class InitialPermutation {
     private final int[][] initialPermutationMatrix = {

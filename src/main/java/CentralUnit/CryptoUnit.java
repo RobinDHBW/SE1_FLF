@@ -1,4 +1,4 @@
-package CentralUnit;
+package centralUnit;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;

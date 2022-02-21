@@ -1,4 +1,4 @@
-package Tank;
+package tank;
 
 public enum TankSubject {
     WATER, FOAM

@@ -1,8 +1,8 @@
-package Person;
+package person;
 
-import CentralUnit.CryptoUnit;
-import Configuration.Configuration;
-import IDCard.IDCard;
+import centralUnit.CryptoUnit;
+import configuration.Configuration;
+import idCard.IDCard;
 
 public abstract class Person {
 

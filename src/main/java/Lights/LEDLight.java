@@ -1,4 +1,4 @@
-package Lights;
+package lights;
 
 import java.util.ArrayList;
 import java.util.List;

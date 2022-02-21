@@ -1,4 +1,4 @@
-package Cabin;
+package cabin;
 
 import java.util.Arrays;
 

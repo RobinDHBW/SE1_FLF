@@ -1,4 +1,4 @@
-package Cabin;
+package cabin;
 
 public enum VehicleSide {
     LEFT, RIGHT

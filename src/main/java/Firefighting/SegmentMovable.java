@@ -1,4 +1,4 @@
-package Firefighting;
+package firefighting;
 
 public class SegmentMovable extends Segment {
     Integer rotationStepSize, position = 0;

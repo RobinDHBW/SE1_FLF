@@ -1,4 +1,4 @@
-package Firefighting;
+package firefighting;
 
 public abstract class Segment {
 

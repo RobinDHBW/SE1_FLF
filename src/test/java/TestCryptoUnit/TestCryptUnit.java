@@ -1,6 +1,6 @@
-package TestCryptoUnit;
+package testCryptoUnit;
 
-import CentralUnit.CryptoUnit;
+import centralUnit.CryptoUnit;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 

@@ -1,4 +1,4 @@
-package BatteryManagement;
+package batteryManagement;
 
 public class Coulomb {
 }

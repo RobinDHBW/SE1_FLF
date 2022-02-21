@@ -1,7 +1,7 @@
-package Button;
+package button;
 
-import CentralUnit.CentralUnit;
-import IDCard.IDCard;
+import centralUnit.CentralUnit;
+import idCard.IDCard;
 
 public class IDCardReader extends Button {
     public IDCardReader(CentralUnit centralUnit){

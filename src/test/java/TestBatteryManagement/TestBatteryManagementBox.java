@@ -1,9 +1,9 @@
-package TestBatteryManagement;
+package testBatteryManagement;
 
-import BatteryManagement.BatteryBox;
-import BatteryManagement.BatteryManagement;
-import BatteryManagement.Coulomb;
-import Drive.Drive;
+import batteryManagement.BatteryBox;
+import batteryManagement.BatteryManagement;
+import batteryManagement.Coulomb;
+import drive.Drive;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package Instruments;
+package instruments;
 
 public class BatteryIndicator {
     private Double indicator = 0.0;
