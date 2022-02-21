@@ -60,8 +60,7 @@ public class KeySchedule {
                     d = d.substring(2) + d.substring(0, 2);
                 }
             } else {
-                if (i == 1) {
-                } else if (i == 2 || i == 9 || i == 16) {
+                if (i == 2 || i == 9 || i == 16) {
                     c = c.charAt(27) + c.substring(0, 27);
                     d = d.charAt(27) + d.substring(0, 27);
                 } else {

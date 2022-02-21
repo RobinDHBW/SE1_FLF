@@ -14,9 +14,9 @@ public class InitialPermutation {
 
     public String permute(String input) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (int row = 0; row < initialPermutationMatrix.length; row++) {
-            for (int col = 0; col < initialPermutationMatrix[row].length; col++) {
-                stringBuilder.append(input.charAt(initialPermutationMatrix[row][col] - 1));
+        for (int[] permutationMatrix : initialPermutationMatrix) {
+            for (int matrix : permutationMatrix) {
+                stringBuilder.append(input.charAt(matrix - 1));
             }
         }
         return stringBuilder.toString();

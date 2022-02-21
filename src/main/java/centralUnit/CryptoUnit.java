@@ -10,7 +10,7 @@ public class CryptoUnit {
     private final IPInverse ipInverse = new IPInverse();
 
     public String pushToNextByte(String input) {
-        Integer nextByte = (int) (Math.pow(2, (int) (Math.log(input.length()) / Math.log(2)) + 1));
+        int nextByte = (int) (Math.pow(2, (int) (Math.log(input.length()) / Math.log(2)) + 1));
         StringBuilder inputBuilder = new StringBuilder(input);
         while (inputBuilder.length() < nextByte) {
             inputBuilder.insert(0, "0");
@@ -38,9 +38,9 @@ public class CryptoUnit {
 
     public String decrypt(String cipher, String key) {
         StringBuilder res = new StringBuilder();
-        Integer limit = cipher.length() % 64 > 0 ? (cipher.length() / 64) + 1 : cipher.length() / 64;
+        int limit = cipher.length() % 64 > 0 ? (cipher.length() / 64) + 1 : cipher.length() / 64;
         for (int i = 0; i < limit; i++) {
-            Integer index = i * 64;
+            int index = i * 64;
             String toProcess = cipher.substring(index, index + (Math.min(cipher.length() - index, 64)));
             res.append(this.bitToString(this.ipInverse.permute(this.feistelNetwork.iterate(this.initialPermutation.permute(pushTo64Bit(toProcess)), this.keySchedule.schedule(pushTo64Bit(this.stringToBit(key)), false)))));
         }
@@ -49,9 +49,9 @@ public class CryptoUnit {
 
     public String encrypt(String plain, String key) {
         StringBuilder res = new StringBuilder();
-        Integer limit = plain.length() % 8 > 0 ? (plain.length() / 8) + 1 : plain.length() / 8;
+        int limit = plain.length() % 8 > 0 ? (plain.length() / 8) + 1 : plain.length() / 8;
         for (int i = 0; i < limit; i++) {
-            Integer index = i * 8;
+            int index = i * 8;
             String toProcess = plain.substring(index, index + (Math.min(plain.length() - index, 8)));
             res.append(this.ipInverse.permute(this.feistelNetwork.iterate(this.initialPermutation.permute(pushTo64Bit(stringToBit(toProcess))), this.keySchedule.schedule(pushTo64Bit(stringToBit(key)), true))));
         }
