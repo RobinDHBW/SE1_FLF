@@ -4,7 +4,7 @@ import centralUnit.CentralUnit;
 import idCard.IDCard;
 
 public class IDCardReader extends Button {
-    public IDCardReader(CentralUnit centralUnit){
+    public IDCardReader(CentralUnit centralUnit) {
         super(centralUnit);
     }
 

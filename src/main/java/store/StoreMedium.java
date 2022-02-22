@@ -16,12 +16,12 @@ public abstract class StoreMedium implements IStoreMedium {
         this.subject = subject;
         this.capacity = length * height * width;
 
-        fillState.put('x', length-1);
-        fillState.put('y', height-1);
-        fillState.put('z', width-1);
+        fillState.put('x', length - 1);
+        fillState.put('y', height - 1);
+        fillState.put('z', width - 1);
     }
 
-    protected Integer countSlots(){
+    protected Integer countSlots() {
         return (Arrays.stream(this.store)
                 .flatMap(Arrays::stream)
                 .flatMap(Arrays::stream).toList()
@@ -61,7 +61,7 @@ public abstract class StoreMedium implements IStoreMedium {
             for (int j = y; j < this.store[0].length; j++) {
                 y = 0;
                 for (int k = z; k < this.store[0][0].length; k++) {
-                    z=0;
+                    z = 0;
                     this.fillState.put('x', i);
                     this.fillState.put('y', j);
                     this.fillState.put('z', k);
@@ -83,7 +83,7 @@ public abstract class StoreMedium implements IStoreMedium {
     }
 
     /**
-     * @param input - input of the tank
+     * @param input    - input of the tank
      * @param quantity - amount to fill
      */
     public void fill(Object input, Integer quantity) {
@@ -108,11 +108,11 @@ public abstract class StoreMedium implements IStoreMedium {
         Integer zLength = store[0][0].length;
         Integer count = this.countSlots();
 
-        if(count == 0) return 0.0;
+        if (count == 0) return 0.0;
         return 1.0 / ((xLength * yLength * zLength) / count);
     }
 
-    public Integer getAbsoluteFillState(){
+    public Integer getAbsoluteFillState() {
         return countSlots();
     }
 

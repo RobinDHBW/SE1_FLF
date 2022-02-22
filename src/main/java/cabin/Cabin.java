@@ -6,7 +6,10 @@ import instruments.BatteryIndicator;
 import instruments.Speedometer;
 import instruments.SteeringWheel;
 import joystick.Joystick;
-import person.*;
+import person.ActivePassenger;
+import person.Driver;
+import person.Operator;
+import person.Person;
 import seating.Seat;
 import seating.SeatFirefighting;
 
@@ -161,7 +164,7 @@ public class Cabin {
             for (Seat seat : seatList) {
                 if (seat.getOccupied()) continue;
 
-                if(enterer instanceof ActivePassenger){
+                if (enterer instanceof ActivePassenger) {
                     if (seat instanceof SeatFirefighting && enterer.getClass().equals(((SeatFirefighting) seat).getPersonAllowed())) {
                         seat.sitDown(enterer);
                         enterer.setIsInVehicle(true);
@@ -171,7 +174,7 @@ public class Cabin {
                             ((Operator) enterer).equip(this.ctrlPanel, this.joystickOperator, this.btnRotaryWaterCannonFront, this.btnRotaryWaterCannonRoof, this.doorToggleRightInside);
                         }
                     }
-                }else{
+                } else {
                     if (!(seat instanceof SeatFirefighting) && seat.getLeftSide() == isLeft) {
                         seat.sitDown(enterer);
                         enterer.setIsInVehicle(true);
@@ -194,7 +197,7 @@ public class Cabin {
                 if (Objects.equals(seat.getSeatRow(), row) && seat.getLeftSide() == isLeft) return seat.leave();
             }
             return null;
-        }catch (Exception ex){
+        } catch (Exception ex) {
             System.err.println(ex.getMessage());
             System.err.println(Arrays.toString(ex.getStackTrace()));
             return null;

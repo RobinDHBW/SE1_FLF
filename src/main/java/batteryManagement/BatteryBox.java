@@ -24,7 +24,7 @@ public class BatteryBox {
     public List<Coulomb> remove(Integer quantity) {
         List<Coulomb> output = new ArrayList<>();
         for (Battery b : batteryStore) {
-            if(quantity == 0) break;
+            if (quantity == 0) break;
             Integer fillState = b.getAbsoluteFillState();
             Integer toRemove = quantity;
             if (quantity > fillState) toRemove = fillState;

@@ -40,5 +40,7 @@ public class Joystick {
         this.btnPush.operateDevice();
     }
 
-    public void pressBtn() { this.btnPress.operateDevice(); }
+    public void pressBtn() {
+        this.btnPress.operateDevice();
+    }
 }

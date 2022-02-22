@@ -1,5 +1,7 @@
-import flf.*;
-import person.*;
+import flf.FLF;
+import person.Driver;
+import person.Operator;
+import person.Person;
 
 import java.util.ArrayList;
 

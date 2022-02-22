@@ -21,7 +21,6 @@ public class KeySchedule {
     };
 
 
-
     public String firstPerm(String input) {
         char[] result = new char[56];
 

@@ -196,11 +196,10 @@ public class FLF {
         private final JoystickType joystickType = JoystickType.INTELLIGENT;
 
         private final Drive drive = new Drive();
-
+        private final ArrayList<WaterDieSelfprotection> waterDieSelfprotection = new ArrayList<>();
         private MixingProcessor mixingProcessor;
         private WaterCannonFront waterCannonFront;
         private WaterCannonRoof waterCannonRoof;
-        private final ArrayList<WaterDieSelfprotection> waterDieSelfprotection = new ArrayList<>();
         private Tank foamTank;
         private Tank waterTank;
 
@@ -215,7 +214,6 @@ public class FLF {
             Busdoor busdoorRight = new Busdoor(VehicleSide.RIGHT);
 
             CentralUnit centralUnit = new CentralUnit(warningLights, flashingBlueLights, searchLightsFront, searchLightsRoof, searchLightsSide, directionIndicatorsLeft, directionIndicatorsRight, mixingProcessor, drive, speedometer, batteryIndicator, authorizedPersons, busdoorLeft, busdoorRight);
-
 
 
             ButtonPush doorToggleLeftInside = new ButtonPush(centralUnit) {

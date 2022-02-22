@@ -172,7 +172,7 @@ public class CentralUnit {
                 //Aufschließen --> Türe öffnen
                 if (!busdoorLeft.getLocked() && !busdoorLeft.getOpen()) busdoorLeft.toggleDoor();
                 if (!busdoorRight.getLocked() && !busdoorRight.getOpen()) busdoorRight.toggleDoor();
-            }else {
+            } else {
                 throw new Exception("Can't validate authentication");
             }
         } catch (Exception ex) {

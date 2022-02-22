@@ -3,8 +3,8 @@ package cabin;
 import java.util.Arrays;
 
 public class Busdoor {
-    private Boolean isOpen = false;
     private final VehicleSide vehicleSide;
+    private Boolean isOpen = false;
     private Boolean isLocked = true;
 
     public Busdoor(VehicleSide side) {

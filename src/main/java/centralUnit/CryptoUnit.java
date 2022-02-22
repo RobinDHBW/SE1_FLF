@@ -19,13 +19,13 @@ public class CryptoUnit {
         return input;
     }
 
-    public String pushTo64Bit(String input){
+    public String pushTo64Bit(String input) {
         StringBuilder inputBuilder = new StringBuilder(input);
-        while(inputBuilder.length() < 64){
+        while (inputBuilder.length() < 64) {
             inputBuilder.insert(0, "0");
         }
         input = inputBuilder.toString();
-        return  input;
+        return input;
     }
 
     public String stringToBit(String input) {
@@ -44,7 +44,7 @@ public class CryptoUnit {
             String toProcess = cipher.substring(index, index + (Math.min(cipher.length() - index, 64)));
             res.append(this.bitToString(this.ipInverse.permute(this.feistelNetwork.iterate(this.initialPermutation.permute(pushTo64Bit(toProcess)), this.keySchedule.schedule(pushTo64Bit(this.stringToBit(key)), false)))));
         }
-         return res.toString();
+        return res.toString();
     }
 
     public String encrypt(String plain, String key) {

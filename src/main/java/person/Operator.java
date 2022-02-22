@@ -22,7 +22,7 @@ public class Operator extends ActivePassenger {
         super.equip(opJoystick, doorToggleInside);
     }
 
-    public void uneqip(){
+    public void uneqip() {
         this.panel = null;
         this.rotaryWaterCannonRoof = null;
         this.rotaryWaterCannonFront = null;

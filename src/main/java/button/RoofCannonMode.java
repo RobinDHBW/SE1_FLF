@@ -1,5 +1,5 @@
 package button;
 
 public enum RoofCannonMode {
-    A,B,C
+    A, B, C
 }

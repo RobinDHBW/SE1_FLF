@@ -21,7 +21,13 @@ public enum BatteryManagement {
     public Double getRelativeFillState() {
         return batteryBox.getRelativeFillState();
     }
-    public Integer getAbsoluteFillState(){return  batteryBox.getAbsoluteFillState();}
-    public Integer getCapacity(){return  batteryBox.getCapacity();}
+
+    public Integer getAbsoluteFillState() {
+        return batteryBox.getAbsoluteFillState();
+    }
+
+    public Integer getCapacity() {
+        return batteryBox.getCapacity();
+    }
 
 }

@@ -6,8 +6,8 @@ import java.util.List;
 
 public class ElectricEngine {
 
-    private Boolean state = false;
     private final Integer stepSize;
+    private Boolean state = false;
 
     public ElectricEngine(Integer stepSize) {
         this.stepSize = stepSize;

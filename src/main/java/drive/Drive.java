@@ -1,6 +1,7 @@
 package drive;
 
-import batteryManagement.*;
+import batteryManagement.BatteryManagement;
+import batteryManagement.Coulomb;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class Drive {
     }
 
     public Integer brake() {
-        if(this.speed == 0) return this.speed;
+        if (this.speed == 0) return this.speed;
         Double calc = Double.valueOf(this.speed);
         for (Axle a : Stream.concat(steerables.stream(), axles.stream()).toList()) {
             calc += a.brake();
@@ -64,21 +65,27 @@ public class Drive {
         }
     }
 
-    public Integer getSteeringAngle(){
+    public Integer getSteeringAngle() {
         return this.steerables.get(0).getSteeringAngle();
     }
 
-    public Boolean getEngineState(){
+    public Boolean getEngineState() {
         return this.engines.get(0).getState();
     }
 
-    public void fillComplete(){
+    public void fillComplete() {
         this.batteryManagement.fillComplete();
     }
 
     public Double getRelativeFillState() {
         return this.batteryManagement.getRelativeFillState();
     }
-    public Integer getAbsoluteFillState(){return  batteryManagement.getAbsoluteFillState();}
-    public Integer getCapacity(){return  batteryManagement.getCapacity();}
+
+    public Integer getAbsoluteFillState() {
+        return batteryManagement.getAbsoluteFillState();
+    }
+
+    public Integer getCapacity() {
+        return batteryManagement.getCapacity();
+    }
 }

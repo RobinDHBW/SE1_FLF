@@ -1,9 +1,11 @@
 package tank;
 
-import firefighting.*;
+import firefighting.CannonIdentifier;
+import firefighting.WaterCannonFront;
+import firefighting.WaterCannonRoof;
+import firefighting.WaterDieSelfprotection;
 
 import java.util.ArrayList;
-
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -14,9 +16,9 @@ public class MixingProcessor {
     private final WaterCannonRoof waterCannonRoof;// = new WaterCannonRoof();
     private final WaterCannonFront waterCannonFront;// = new WaterCannonFront(90);
     private final ArrayList<WaterDieSelfprotection> waterDiesSelfprotection; // = new ArrayList<>();
-    private MixingRate mixingRate = MixingRate.NULL;
     private final Tank foamTank;// = new Tank(FOAM, 75, 45, 10);
     private final Tank waterTank;// = new Tank(TankSubject.WATER, 75, 45, 30);
+    private MixingRate mixingRate = MixingRate.NULL;
 
     public MixingProcessor(WaterCannonRoof waterCannonRoof, WaterCannonFront waterCannonFront, ArrayList<WaterDieSelfprotection> waterDiesSelfprotection, Tank foamTank, Tank waterTank) {
         this.waterCannonFront = waterCannonFront;
@@ -26,7 +28,7 @@ public class MixingProcessor {
         this.waterTank = waterTank;
     }
 
-    private Integer calcFoamPortion(Integer quantity){
+    private Integer calcFoamPortion(Integer quantity) {
         return switch (this.mixingRate) {
             case NULL -> 0;
             case THREE -> (quantity / 100) * 3;
@@ -65,7 +67,7 @@ public class MixingProcessor {
 
     public void fillComplete(Enum<?> input) {
         int toFill;
-        Integer actualFillState = input.equals(FOAM) ? foamTank.getAbsoluteFillState() :  waterTank.getAbsoluteFillState();
+        Integer actualFillState = input.equals(FOAM) ? foamTank.getAbsoluteFillState() : waterTank.getAbsoluteFillState();
 
         if (input.equals(FOAM)) {
             toFill = foamTank.getCapacity() - actualFillState;
@@ -121,26 +123,27 @@ public class MixingProcessor {
     public MixingRate getMixingRate() {
         return mixingRate;
     }
+
     public Integer getMixingRateValue() {
         return calcFoamPortion(100);
     }
 
-    public Double getTankFillState(TankSubject ts){
-       return switch (ts){
+    public Double getTankFillState(TankSubject ts) {
+        return switch (ts) {
             case FOAM -> this.foamTank.getRelativeFillState();
             case WATER -> this.waterTank.getRelativeFillState();
         };
     }
 
-    public Integer getAbsoluteFillState(TankSubject ts){
-        return switch (ts){
+    public Integer getAbsoluteFillState(TankSubject ts) {
+        return switch (ts) {
             case FOAM -> this.foamTank.getAbsoluteFillState();
             case WATER -> this.waterTank.getAbsoluteFillState();
         };
     }
 
-    public Integer getSprayCapacity(CannonIdentifier ci){
-        return switch (ci){
+    public Integer getSprayCapacity(CannonIdentifier ci) {
+        return switch (ci) {
             case CANNON_FRONT -> this.waterCannonFront.getSprayCapacityPerlIteration();
             case CANNON_ROOF -> this.waterCannonRoof.getSprayCapacityPerlIteration();
             case CANNON_SELFPROTECTION -> this.waterDiesSelfprotection.get(0).getSprayCapacityPerlIteration();

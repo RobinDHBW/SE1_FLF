@@ -1,6 +1,6 @@
 package cabin;
 
-import button.*;
+import button.ButtonSwitch;
 
 
 public class ControlPanel {
@@ -10,6 +10,19 @@ public class ControlPanel {
     private final ButtonSwitch btnSwitchFrontlight;
     private final ButtonSwitch btnSwitchRooflight;
     private final ButtonSwitch btnSwitchSidelight;
+    private final ButtonSwitch btnSwitchSelfProtection;
+
+    public ControlPanel(Builder builder) {
+        //ControlPanel built = builder.build();
+        this.btnSwitchEngines = builder.btnSwitchEngines;
+        this.btnSwitchWarnlight = builder.btnSwitchWarnlight;
+        this.btnSwitchBluelight = builder.btnSwitchBluelight;
+        this.btnSwitchFrontlight = builder.btnSwitchFrontlight;
+        this.btnSwitchRooflight = builder.btnSwitchRooflight;
+        this.btnSwitchSidelight = builder.btnSwitchSidelight;
+        this.btnSwitchSelfProtection = builder.btnSwitchSelfProtection;
+
+    }
 
     /**********
      * Getter
@@ -41,22 +54,6 @@ public class ControlPanel {
 
     public ButtonSwitch getBtnSwitchSelfProtection() {
         return btnSwitchSelfProtection;
-    }
-
-    private final ButtonSwitch btnSwitchSelfProtection;
-
-
-
-    public ControlPanel(Builder builder) {
-        //ControlPanel built = builder.build();
-        this.btnSwitchEngines = builder.btnSwitchEngines;
-        this.btnSwitchWarnlight = builder.btnSwitchWarnlight;
-        this.btnSwitchBluelight = builder.btnSwitchBluelight;
-        this.btnSwitchFrontlight = builder.btnSwitchFrontlight;
-        this.btnSwitchRooflight = builder.btnSwitchRooflight;
-        this.btnSwitchSidelight = builder.btnSwitchSidelight;
-        this.btnSwitchSelfProtection = builder.btnSwitchSelfProtection;
-
     }
 
     public static class Builder {

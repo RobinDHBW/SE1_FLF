@@ -14,14 +14,14 @@ public class Driver extends ActivePassenger {
         super(name);
     }
 
-    public void equip(SteeringWheel wheel, Pedal gas, Pedal brake, Joystick stick, ButtonPush doorToggleInside){
+    public void equip(SteeringWheel wheel, Pedal gas, Pedal brake, Joystick stick, ButtonPush doorToggleInside) {
         this.steeringWheel = wheel;
         this.gasPedal = gas;
         this.brakePedal = brake;
         super.equip(stick, doorToggleInside);
     }
 
-    public void uneqip(){
+    public void uneqip() {
         this.steeringWheel = null;
         this.gasPedal = null;
         this.brakePedal = null;
@@ -29,15 +29,15 @@ public class Driver extends ActivePassenger {
     }
 
 
-    public void accelerate(){
+    public void accelerate() {
         this.gasPedal.operateDevice();
     }
 
-    public void brake(){
+    public void brake() {
         this.brakePedal.operateDevice();
     }
 
-    public void steer(Boolean isLeft, Integer degree){
+    public void steer(Boolean isLeft, Integer degree) {
         this.steeringWheel.steer(isLeft, degree);
     }
 }
